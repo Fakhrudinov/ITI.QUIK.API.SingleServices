@@ -1,3 +1,6 @@
+using DataAbstraction.Interfaces;
+using SpotBrlService;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//add QUIK qadmin BRL services
+builder.Services.AddTransient<ISpotBrlService, SpotService>();
 
 var app = builder.Build();
 
