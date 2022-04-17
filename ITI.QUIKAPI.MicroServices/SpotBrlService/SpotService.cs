@@ -11,8 +11,8 @@ namespace SpotBrlService
 
         private int _errCode = -100;
         private const string _spotFIRM = "MC0138200000";
-        private string _login;// = "QDealerAPI"
-        private string _password;// = "1qaZXsw2"
+        private string _login;
+        private string _password;
 
         public SpotService(IConfiguration configuration)
         {

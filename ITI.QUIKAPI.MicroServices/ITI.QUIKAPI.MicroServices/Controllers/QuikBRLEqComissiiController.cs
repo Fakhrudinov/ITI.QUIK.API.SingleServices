@@ -42,20 +42,20 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             } 
         }
 
-        [HttpGet("values/GetSecrets")]
+        //[HttpGet("values/GetSecrets")]
 
-        public ActionResult GetSecrets()
-        {
-            string result;
+        //public ActionResult GetSecrets()
+        //{
+        //    string result;
 
-            string secretKey1 = _configuration["SomeKey"];
-            string secretKey2 = _configuration["NewKey"];
-            string secretKey3 = _configuration["Features:Monitoring:StartTime"];
+        //    string secretKey1 = _configuration["SomeKey"];
+        //    string secretKey2 = _configuration["NewKey"];
+        //    string secretKey3 = _configuration["Features:Monitoring:StartTime"];
 
-            result = secretKey1 + "  /  " + secretKey2 + "  /  " + secretKey3;
+        //    result = secretKey1 + "  /  " + secretKey2 + "  /  " + secretKey3;
 
-            return Ok(result);
-        }
+        //    return Ok(result);
+        //}
 
     }
 }
