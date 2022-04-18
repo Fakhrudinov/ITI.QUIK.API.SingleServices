@@ -7,6 +7,7 @@
     <UserSecretsId>f153a2fd-9adf-4798-b3b1-bf6c208b3048</UserSecretsId>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
     <Platforms>AnyCPU;x64</Platforms>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>

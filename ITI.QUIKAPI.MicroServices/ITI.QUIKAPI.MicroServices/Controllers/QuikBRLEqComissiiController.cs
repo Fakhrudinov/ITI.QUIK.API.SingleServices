@@ -10,13 +10,27 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
     {
         private ISpotBrlService _repository;
         private ILogger<QuikBRLEqComissiiController> _logger;
-        private readonly IConfiguration _configuration;
 
-        public QuikBRLEqComissiiController(ISpotBrlService repository, ILogger<QuikBRLEqComissiiController> logger, IConfiguration configuration)
+        public QuikBRLEqComissiiController(ISpotBrlService repository, ILogger<QuikBRLEqComissiiController> logger)
         {
             _repository = repository;
             _logger = logger;
-            _configuration = configuration;
+        }
+
+        [HttpGet("OK")]
+        public async Task<IActionResult> Ok()
+        {
+            _logger.LogInformation("QuikBRLEqComissiiController HttpGet OK Call");
+            return Ok("Yes");
+        }
+
+        [HttpGet("login")]
+        public async Task<IActionResult> Login()
+        {
+            _logger.LogInformation("QuikBRLEqComissiiController HttpGet login Call");
+            string result = _repository.GetLogin();
+            _logger.LogInformation("QuikBRLEqComissiiController HttpGet login result = " + result);
+            return Ok(result);
         }
 
         [HttpGet("CheckConnections")]
@@ -33,7 +47,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             else if (result.Equals("OK"))
             {
                 _logger.LogInformation("QuikBRLEqComissiiController HttpGet CheckConnections Result = OK");
-                return Ok("Connection to MC0138200000 is OK");
+                return Ok("Connection to BRL MC0138200000 is OK");
             }
             else
             {
@@ -41,21 +55,5 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return Problem(result);
             } 
         }
-
-        //[HttpGet("values/GetSecrets")]
-
-        //public ActionResult GetSecrets()
-        //{
-        //    string result;
-
-        //    string secretKey1 = _configuration["SomeKey"];
-        //    string secretKey2 = _configuration["NewKey"];
-        //    string secretKey3 = _configuration["Features:Monitoring:StartTime"];
-
-        //    result = secretKey1 + "  /  " + secretKey2 + "  /  " + secretKey3;
-
-        //    return Ok(result);
-        //}
-
     }
 }

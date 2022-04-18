@@ -3,5 +3,6 @@
     public interface ISpotBrlService
     {
         Task<string> CheckConnection();
+        string GetLogin();
     }
 }
