@@ -11,18 +11,13 @@ builder.Services.AddSwaggerGen();
 
 //add QUIK qadmin BRL services
 builder.Services.AddTransient<ISpotBrlService, SpotService>();
+builder.Services.AddTransient<IQuikApiConnectionService, QuikApiConnectionService>();
 
 builder.Services.Configure<QadminLogon>(
     builder.Configuration.GetSection("QadminLogon"));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
-//}
 app.UseSwagger();
 app.UseSwaggerUI();
 

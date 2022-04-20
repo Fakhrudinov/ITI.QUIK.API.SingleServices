@@ -2,7 +2,8 @@
 {
     public interface ISpotBrlService
     {
-        Task<string> CheckConnection();
+        string CheckConnection();
         string GetLogin();
+        string AddClientPortfolioToCD_portfolio(string quikportfolio);
     }
 }
