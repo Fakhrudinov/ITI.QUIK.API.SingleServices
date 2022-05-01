@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="WINDOWS-1251"?>
+<UserData xmlns="urn:quik:user-rights-import">
+	<Command Type="UpdateUser" Comment="Block user by UID">
+		<UID>**UID**</UID>
+		<Permission>
+			<ValidTo>**DateNow**</ValidTo>
+		</Permission>
+		<GlobalRights>
+			<Blocked>1</Blocked>
+		</GlobalRights>
+	</Command>
+</UserData>

@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>f153a2fd-9adf-4798-b3b1-bf6c208b3048</UserSecretsId>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
-    <Platforms>AnyCPU;x64</Platforms>
+    <Platforms>AnyCPU;x64;x86</Platforms>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
@@ -20,7 +20,29 @@
     <ProjectReference Include="..\CommonServices\CommonServices.csproj" />
     <ProjectReference Include="..\DataAbstraction\DataAbstraction.csproj" />
     <ProjectReference Include="..\DataValidationService\DataValidationService.csproj" />
+    <ProjectReference Include="..\QuikSftpService\QuikSftpService.csproj" />
     <ProjectReference Include="..\SpotBrlService\SpotBrlService.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TemplatesXML\BlockUserByClientCode.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TemplatesXML\BlockUserByUID.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TemplatesXML\GetAllClients.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TemplatesXML\PutNewClient.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TemplatesXML\PutNewClientOptionWorkshop.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TemplatesXML\ReplacePubringKeyByClientCode.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

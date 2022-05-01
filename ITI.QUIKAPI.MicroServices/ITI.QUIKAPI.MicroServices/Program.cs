@@ -1,5 +1,6 @@
 using DataAbstraction.Interfaces;
-using DataAbstraction.Models;
+using DataAbstraction.Models.Connections;
+using QuikSftpService;
 using SpotBrlService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,9 +13,13 @@ builder.Services.AddSwaggerGen();
 //add QUIK qadmin BRL services
 builder.Services.AddTransient<ISpotBrlService, SpotService>();
 builder.Services.AddTransient<IQuikApiConnectionService, QuikApiConnectionService>();
-
 builder.Services.Configure<QadminLogon>(
     builder.Configuration.GetSection("QadminLogon"));
+
+//add QUIK SFTP Server services
+builder.Services.AddTransient<ISFTPService, SFTPService>();
+builder.Services.Configure<SftpConnectionConfiguration>(
+    builder.Configuration.GetSection("SftpConfig"));
 
 var app = builder.Build();
 

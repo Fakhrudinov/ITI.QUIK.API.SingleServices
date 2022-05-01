@@ -1,0 +1,2189 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<UserData xmlns="urn:quik:user-rights-import">
+	<UserDescription UID="10" Comment="Варвара  Кошкина UID: 10">
+		<UserInfo>
+			<FirstName>Варвара</FirstName>
+			<MiddleName/>
+			<LastName>Кошкина</LastName>
+			<Comment>BP0593/C007000/9860641</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2016-09-20</ValidFrom>
+			<ValidTo>2100-01-01</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>lrs</Rights>
+			<Blocked>1</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>1</SendMessages>
+			<ReceiveMessages>1</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup>clients</MsgGroup>
+		<News/>
+		<MessagesTo>1, 2</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="BCGTbcoptvx" FirmID="MB0138200000" ClientCodes="9860641">CETS_SWAP</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="BP0593">FQBH, SMAL, TQBD, TQBR, TQIF, TQIR, TQPI, TQQI, TQTC, TQTD, TQTF</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="SPBFUT" ClientCodes="C007000">FUTEVN, FUTSPREAD, FUTSPREADEVN, OPTEVN, OPTEXP, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCGTbcoptvx#" FirmID="MB0138200000" ClientCodes="9860641">AETS, AUCB, CETS, CETS_INFO, CNGD, RSKC</Classes>
+		<Classes Rights="CEGJLotvx" FirmID="MC0138200000" ClientCodes="9860641, BP0593, C007000">INSTR_SYSTEM</Classes>
+		<Classes Rights="CEGJLotvx" FirmID="MC0138200000" ClientCodes="BP0593">INSTR</Classes>
+		<Classes Rights="CEGJLotvx" FirmID="SPBFUT" ClientCodes="C007000">INSTR_RF</Classes>
+		<Classes Rights="CGLotvx" FirmID="MB0138200000" ClientCodes="9860641">INSTR_FX</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="">CROSSRATE</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1474376052" KeyID="1773DCDB2F37C875">99001D0457E131740000010080BBB50165453EC20A1773DCDB2F37C875000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="11" Comment="Андрей  Осташов UID: 11">
+		<UserInfo>
+			<FirstName>Андрей</FirstName>
+			<MiddleName/>
+			<LastName>Осташов</LastName>
+			<Comment>BP0694/C0000H0/9860633
+2345148/9860641/C00005F для ЕДП
+</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2016-09-20</ValidFrom>
+			<ValidTo>2022-09-30</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights/>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1, 2</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="2345148">BTQBR, FQBH, SMAL, TQBD, TQBR, TQIF, TQIR, TQPI, TQQI, TQTC, TQTD, TQTF</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="9860641">CETS_SWAP</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="C00005F">FUTEVN, FUTSPREAD, FUTSPREADEVN, OPTEVN, OPTEXP, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCGTbcoptvx#" FirmID="MC0138200000" ClientCodes="9860641">AETS, AUCB, CETS, CETS_INFO, CNGD, RSKC</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="">CROSSRATE</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1474553237" KeyID="81422C27B3B2959B">99001D0457E3E5950000010080C1D1B46B08378BC781422C27B3B2959B000513</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="12" Comment="Богатырев  Client1 UID: 12">
+		<UserInfo>
+			<FirstName>Богатырев</FirstName>
+			<MiddleName/>
+			<LastName>Client1</LastName>
+			<Comment>2345148/C000ASH/9860635</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2016-09-20</ValidFrom>
+			<ValidTo>2020-09-30</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>l</Rights>
+			<Blocked>1</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1, 2</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="23CEGdotvx" FirmID="MB0138200000" ClientCodes="2345148, 9860635, C000ASH">INSTR_FX</Classes>
+		<Classes Rights="23CEGdotvx" FirmID="MC0138200000" ClientCodes="2345148, 9860635, C000ASH">INSTR, INSTR_SYSTEM</Classes>
+		<Classes Rights="23CEGdotvx" FirmID="SPBFUT" ClientCodes="2345148, 9860635, C000ASH">INSTR_RF</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MB0138200000" ClientCodes="9860633">CETS_SWAP</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="BP0694">FQBH, SMAL, TQBD, TQBR, TQIF, TQIR, TQPI, TQQI, TQTC, TQTD, TQTF</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="SPBFUT" ClientCodes="C0000H0">FUTEVN, FUTSPREAD, FUTSPREADEVN, OPTEVN, OPTEXP, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCGTbcoptvx#" FirmID="MB0138200000" ClientCodes="9860633">AETS, AUCB, CETS, CETS_INFO, CNGD, RSKC</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1474627283" KeyID="0B4B033278F5245B">99001D0457E506D30000010080E2326ACA3AD48D9E0B4B033278F5245B000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="13" Comment="тестовый НЕ ЕДП Client2 UID: 13">
+		<UserInfo>
+			<FirstName>тестовый</FirstName>
+			<MiddleName>НЕ ЕДП</MiddleName>
+			<LastName>Client2</LastName>
+			<Comment>2345150/C0000H0/9860645
+BP0694/C000730</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2016-09-20</ValidFrom>
+			<ValidTo>2022-09-30</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>P</Rights>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>1</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1, 2</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="" FirmID="" ClientCodes="2345148, 2345150, BC19783/06, BC19783/08, BP0694, BP0694/01, BP0694/03, BP0694/06">TQDE</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="9860634">AETS_MTL, CNGD_MTL</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="SPBFUT" ClientCodes="C0000H0, C000729, C000730">FUTEVN, FUTSPREAD, FUTSPREADEVN, SPBFUT, USDRUB</Classes>
+		<Classes Rights="BCGTboptvx" FirmID="MC0138200000" ClientCodes="2345148, 2345150, BC19783/06, BC19783/08, BP0694, BP0694/01, BP0694/03, BP0694/06">FQBH, SMAL, TQBD, TQBR, TQIF, TQIR, TQPI, TQQI, TQTC, TQTD, TQTF</Classes>
+		<Classes Rights="BCGTboptvx" FirmID="MC0138200000" ClientCodes="9860633, 9860634, BP0694, BP0694/02, BP0694/03">CETS_SWAP</Classes>
+		<Classes Rights="BCGTboptvx#" FirmID="MC0138200000" ClientCodes="9860633, 9860634, BP0694">AETS, AUCB, CNGD, RSKC</Classes>
+		<Classes Rights="BCGTboptvx#" FirmID="MC0138200000" ClientCodes="9860633, 9860634, BP0694, BP0694/02, BP0694/03">CETS, CETS_INFO</Classes>
+		<Classes Rights="BCNbcoptvx" FirmID="MC0138200000" ClientCodes="9860645">EES_T2_RUB</Classes>
+		<Classes Rights="BCNbcoptvx#" FirmID="MC0138200000" ClientCodes="9860645">EES_CETS</Classes>
+		<Classes Rights="BCTboptvx" FirmID="MC0138200000" ClientCodes="2345148, 2345150, BC19783/06, BC19783/08, BP0694, BP0694/01, BP0694/03, BP0694/06">BTQBR</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="2345148, 2345150, BC19783/06, BC19783/08, BP0694, BP0694/01, BP0694/03, BP0694/06">TQCB, TQOB, TQTE</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="BP0694">SPBXM</Classes>
+		<Classes Rights="BCbcoptvx#" FirmID="MC0138200000" ClientCodes="BP0694/02, BP0694/03">CETS_SU</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="">CETS_CLIENT, CROSSRATE</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="2345148, 2345150, BC19783/06, BC19783/08, BP0694, BP0694/01, BP0694/03, BP0694/06">FQBR</Classes>
+		<Classes Rights="Cbcoptvx#" FirmID="MC0138200000" ClientCodes="9860633, 9860634, BP0694, BP0694/02, BP0694/03">CETS_MTL</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1474627882" KeyID="D0D3E45182D8737F">99001D0457E5092A0000010080CDA6302E2C31EF64D0D3E45182D8737F000513</RSAKey>
+		</UserKey>
+		<Module ID="1004" Type="Public" Description="РМ PocketQUIK" Enabled="1">
+			<Option ID="1" Description="Разрешить &apos;Активные операции&apos; пользователям терминалов Android" Enabled="1"/>
+		</Module>
+		<AuthByLogin>
+			<Login>Client222</Login>
+			<Password Type="hash" NeedChange="0" ValidityTerm="365" ValidityMins="0" Style="Permanent">335E8CEE4BBB4487148D8BC886F50F030FB80C3AC486631EC622879C479AE683</Password>
+		</AuthByLogin>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="14" Comment="Корчагин  Client3 UID: 14">
+		<UserInfo>
+			<FirstName>Корчагин</FirstName>
+			<MiddleName/>
+			<LastName>Client3</LastName>
+			<Comment>2345152/C000AR6/9860637</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2016-09-20</ValidFrom>
+			<ValidTo>2020-09-30</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>l</Rights>
+			<Blocked>1</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1, 2</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="BCGTZboptvx" FirmID="MB0138200000" ClientCodes="9860633">CETS_SWAP</Classes>
+		<Classes Rights="BCGTZboptvx" FirmID="MC0138200000" ClientCodes="BP0694">FQBH, SMAL, TQBD, TQBR, TQIF, TQIR, TQPI, TQQI, TQTC, TQTD, TQTF</Classes>
+		<Classes Rights="BCGTZboptvx" FirmID="SPBFUT" ClientCodes="C0000H0">FUTEVN, FUTSPREAD, FUTSPREADEVN, OPTEVN, OPTEXP, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCGTZboptvx#" FirmID="MB0138200000" ClientCodes="9860633">AETS, AUCB, CETS, CETS_INFO, CNGD, RSKC</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1474628115" KeyID="51C7E901364AC2AF">99001D0457E50A130000010080CC42344549CEF55251C7E901364AC2AF000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="28" Comment="Цыганкова  client4 UID: 28">
+		<UserInfo>
+			<FirstName>Цыганкова</FirstName>
+			<MiddleName/>
+			<LastName>client4</LastName>
+			<Comment>2345156/C0000AC/9860643</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2016-09-20</ValidFrom>
+			<ValidTo>2020-09-30</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>l</Rights>
+			<Blocked>1</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1, 2</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="BCGTbcoptvx" FirmID="MB0138200000" ClientCodes="9860633">CETS_SWAP</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="BP0694">FQBH, SMAL, TQBD, TQBR, TQIF, TQIR, TQPI, TQQI, TQTC, TQTD, TQTF</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="SPBFUT" ClientCodes="C0000H0">FUTEVN, FUTSPREAD, FUTSPREADEVN, OPTEVN, OPTEXP, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCGTbcoptvx#" FirmID="MB0138200000" ClientCodes="9860633">AETS, AUCB, CETS, CETS_INFO, CNGD, RSKC</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1475073288" KeyID="B34D02839097901F">99001D0457EBD5080000010080BA4C246AD966A0E1B34D02839097901F000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="29" Comment="SPB BP5678  client5 UID: 29">
+		<UserInfo>
+			<FirstName>SPB BP5678</FirstName>
+			<MiddleName/>
+			<LastName>client5</LastName>
+			<Comment>2345158/C0000HC/9860647
+BP5678/C000731 едп </Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2016-09-20</ValidFrom>
+			<ValidTo>2100-09-30</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights/>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1, 2</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="" FirmID="" ClientCodes="9860633, 9860641, 9860645, BP0694, BP5678">AETS_MTL, CNGD_MTL</Classes>
+		<Classes Rights="BCGPTbcoptvx#" FirmID="MC0138200000" ClientCodes="9860633, 9860641, 9860645, BP0694, BP5678">CETS_INFO</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="9860633, 9860641, 9860645, BP0694, BP5678">CETS_SWAP</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="C000731, C000732, C000733">FUTEVN, FUTSPREAD, FUTSPREADEVN, OPTEVN, OPTEXP, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCGTbcoptvx#" FirmID="MC0138200000" ClientCodes="9860633, 9860641, 9860645, BP0694, BP5678">AETS, AUCB, CETS, CNGD, RSKC</Classes>
+		<Classes Rights="BCGbcoptvx" FirmID="MC0138200000" ClientCodes="2345150, BP0694, BP0694/01, BP0694/02, BP0694/03, BP5678">FQBH, SMAL, TQBD, TQBR, TQIF, TQIR, TQPI, TQQI, TQTC, TQTD, TQTF</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="2345150, BP0694, BP0694/01, BP0694/02, BP0694/03, BP5678">BTQBR</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="BP0694, BP5678">SPBXM</Classes>
+		<Classes Rights="BCbcoptvx#" FirmID="MC0138200000" ClientCodes="9860633, 9860641, 9860645, BP0694, BP5678">CETS_MTL</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="BP5678">CETS_CLIENT, CROSSRATE</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1475073328" KeyID="6D367A2E2BDE61DD">99001D0457EBD5300000010080ADEF6606BD700DD56D367A2E2BDE61DD000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="30" Comment="ЕДП  клиент UID: 30">
+		<UserInfo>
+			<FirstName>ЕДП</FirstName>
+			<MiddleName/>
+			<LastName>клиент</LastName>
+			<Comment/>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2019-08-05</ValidFrom>
+			<ValidTo>2023-05-24</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights/>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo/>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="" FirmID="" ClientCodes="BP0593, BP5678/01, BP9966, QINVESTOR">AETS_MTL, CNGD_MTL</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="BP5678/01, BP9966">FQBR, TQDE</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="BC9966, BP0593">SPBXM</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="">CROSSRATE</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="BP0593, BP5678/01, BP9966, C000021, C000372, C000833, C000834, QINVESTOR">SPBFUT</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="BP0593, BP5678/01, BP9966, QINVESTOR">BTQBR, CETS_SWAP, FQBH, SMAL, TQBD, TQBR, TQIF, TQIR, TQPI, TQQI, TQTC, TQTD, TQTF</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="C000021, C000372, C000833, C000834">FUTEVN, FUTSPREAD, FUTSPREADEVN, OPTEVN, OPTEXP, SPBOPT, USDRUB</Classes>
+		<Classes Rights="Cbcoptvx#" FirmID="MC0138200000" ClientCodes="BP0593, BP5678/01, BP9966, QINVESTOR">AETS, AUCB, CETS, CETS_INFO, CETS_MTL, CNGD, RSKC</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1621829883" KeyID="43E0EEE127B0FBBB">99001D0460AB28FB0000010080B16381E45D0626D443E0EEE127B0FBBB000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="32" Comment="Иван Тула Макаров UID: 32">
+		<UserInfo>
+			<FirstName>Иван</FirstName>
+			<MiddleName>Тула</MiddleName>
+			<LastName>Макаров</LastName>
+			<Comment>копия осташова</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2016-09-20</ValidFrom>
+			<ValidTo>2020-09-30</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>l</Rights>
+			<Blocked>1</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1, 2</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="" FirmID="" ClientCodes="BP0694, BP17787/01">BTQBR</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="9860633">CETS_SWAP</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="BP0694, BP17787/01">FQBH, SMAL, TQBD, TQBR, TQIF, TQIR, TQPI, TQQI, TQTC, TQTD, TQTF</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="SPBFUT" ClientCodes="C0000H0, SPBFUT0036V">FUTEVN, FUTSPREAD, FUTSPREADEVN, OPTEVN, OPTEXP, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCGTbcoptvx#" FirmID="MC0138200000" ClientCodes="9860633">AETS, AUCB, CETS, CETS_INFO, CNGD, RSKC</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="">CROSSRATE</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1484122903" KeyID="F017598D7A52C77B">99001D045875EB170000010080D7F780C63ED04DCBF017598D7A52C77B000513</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="48" Comment="  Client не едп UID: 48">
+		<UserInfo>
+			<FirstName/>
+			<MiddleName/>
+			<LastName>Client не едп</LastName>
+			<Comment/>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2016-09-20</ValidFrom>
+			<ValidTo>2022-09-30</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>P</Rights>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>1</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1, 2</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="" FirmID="" ClientCodes="2345152, 2345162">BTQBR, SMAL, TQIF, TQQI, TQTC, TQTD, TQTF</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="9860645">AETS, AUCB, CNGD, RSKC</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="C0000H0">FUTEVN, FUTSPREAD, FUTSPREADEVN, OPTEVN, OPTEXP, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="2345148, 2345158, BP0694/06, BP0694/08, CONVBERN">FQBH, TQBD, TQBR, TQIR, TQPI</Classes>
+		<Classes Rights="CGTbcoptv" FirmID="MC0138200000" ClientCodes="9860645">CETS_SWAP</Classes>
+		<Classes Rights="CGTbcoptv#" FirmID="MC0138200000" ClientCodes="9860645">CETS_INFO</Classes>
+		<Classes Rights="CGTbcoptv#" FirmID="MC0138200000" ClientCodes="9860645, CONVBERN">CETS</Classes>
+		<Classes Rights="CNbcoptv" FirmID="MB0138200000" ClientCodes="9860645, CONVBERN">EES_T2_RUB</Classes>
+		<Classes Rights="CNbcoptv#" FirmID="MB0138200000" ClientCodes="9860645, CONVBERN">EES_CETS</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="">CETS_CLIENT, CROSSRATE</Classes>
+		<Classes Rights="EFINPbdfoptv" FirmID="MB0138200000" ClientCodes="">BQUOTE</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1524751723" KeyID="9343FBFDEC9D7FCB">99001D045AE1DD6B0000010080B90B4BD4306213829343FBFDEC9D7FCB000511</RSAKey>
+		</UserKey>
+		<Module ID="1015" Type="Public" Description="Программный интерфейс FIX" Enabled="1"/>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="50" Comment="клиенты  ЕДП  UID: 50">
+		<UserInfo>
+			<FirstName>клиенты</FirstName>
+			<MiddleName/>
+			<LastName>ЕДП </LastName>
+			<Comment>тест ЕДП
+</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2018-08-21</ValidFrom>
+			<ValidTo>2100-01-01</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>r</Rights>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>1</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup>clients</MsgGroup>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="" FirmID="" ClientCodes="2345152">PAEU, PAUS</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="BP0593, BP5678/01, QINVESTOR">AETS_MTL, CNGD_MTL</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="BC9966, BP0593">SPBXM</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="BP0593, BP5678/01, QINVESTOR">BTQBR, CETS_SWAP, FQBH, FQBR, SMAL, TQBD, TQBR, TQIF, TQIR, TQPI, TQQI, TQTC, TQTD, TQTF</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="C000021, C000372, C000834">FUTEVN, FUTSPREAD, FUTSPREADEVN, OPTEVN, OPTEXP, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCbcoptvx#" FirmID="MC0138200000" ClientCodes="BP0593, BP5678/01, QINVESTOR">AETS, AUCB, CETS, CETS_INFO, CETS_MTL, CNGD, RSKC</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="BC9966, BP0593">CETS_CLIENT, CROSSRATE</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="LC00013">CQG</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1534837794" KeyID="7099918C3FDB8691">99001D045B7BC4220000010080C7A0C60878F43D2D7099918C3FDB8691000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>1</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="54" Comment="Валерий  Фирсов UID: 54">
+		<UserInfo>
+			<FirstName>Валерий</FirstName>
+			<MiddleName/>
+			<LastName>Фирсов</LastName>
+			<Comment/>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2018-08-21</ValidFrom>
+			<ValidTo>2100-01-01</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights/>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="" FirmID="" ClientCodes="2345152">PAEU, PAUS</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="BP0593, QINVESTOR">AETS_MTL, CNGD_MTL</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="BC9966, BP0593">SPBXM</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="BP0593, QINVESTOR">BTQBR, CETS_SWAP, FQBH, SMAL, TQBD, TQBR, TQIF, TQIR, TQPI, TQQI, TQTC, TQTD, TQTF</Classes>
+		<Classes Rights="BCbcoptvx#" FirmID="MC0138200000" ClientCodes="BP0593, QINVESTOR">AETS, AUCB, CETS, CETS_INFO, CETS_MTL, CNGD, RSKC</Classes>
+		<Classes Rights="BCboptvx" FirmID="SPBFUT" ClientCodes="C000732, C000733">FUTEVN, FUTSPREAD, FUTSPREADEVN, OPTEVN, OPTEXP, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="BC9966, BP0593">CETS_CLIENT, CROSSRATE</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1554282046" KeyID="DADFDC936E591031">99001D045CA4763E0000010080ADE03461B5638070DADFDC936E591031000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="57" Comment="Наталья Геннадьевна Титова UID: 57">
+		<UserInfo>
+			<FirstName>Наталья</FirstName>
+			<MiddleName>Геннадьевна</MiddleName>
+			<LastName>Титова</LastName>
+			<Comment>, BP99999/01, SPBFUT000sZ, дата 20110902 РФ, 197373, 185014, г. Петрозаводск, проспект Лесной, 7, 170</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2019-11-03</ValidFrom>
+			<ValidTo>2022-04-27</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail>4340505@mail.ru</EMail>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>l</Rights>
+			<Blocked>1</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="BP99999/01">BTQBR, CETS_SWAP, FQBH, SMAL, TQBD, TQBR, TQIF, TQIR, TQPI, TQQI, TQTC, TQTD, TQTF</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="SPBEX" ClientCodes="SPBFUT000sZ">FUTEVN, FUTSPREAD, FUTSPREADEVN, OPTEVN, OPTEXP, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCbcoptvx#" FirmID="MC0138200000" ClientCodes="BP99999/01">AETS, AUCB, CETS, CETS_INFO, CETS_MTL, CNGD, RSKC</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="BP99999/01, SPBFUT000sZ">CETS_CLIENT, CROSSRATE</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1560114000" KeyID="0E40CA412C215661">99001D045CFE1BCD0000010080BD65012B897727FD0E40CA412C215661000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="58" Comment="Сергей Леонидович Козлов UID: 58">
+		<UserInfo>
+			<FirstName>Сергей</FirstName>
+			<MiddleName>Леонидович</MiddleName>
+			<LastName>Козлов</LastName>
+			<Comment>, BP88888/01, SPBFUT0035W, SPBFUT16231, дата 20161115 РФ, 241016, Брянская, Бежицкий, Брянск, Корхова, 5</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2019-07-03</ValidFrom>
+			<ValidTo>2021-07-03</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail>ksl32@yandex.ru</EMail>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>l</Rights>
+			<Blocked>1</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="BP88888/01">BTQBR, CETS_SWAP, FQBH, SMAL, TQBD, TQBR, TQIF, TQIR, TQPI, TQQI, TQTC, TQTD, TQTF</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="SPBEX" ClientCodes="SPBFUT0035W, SPBFUT16231">FUTEVN, FUTSPREAD, FUTSPREADEVN, OPTEVN, OPTEXP, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCbcoptvx#" FirmID="MC0138200000" ClientCodes="BP88888/01">AETS, AUCB, CETS, CETS_INFO, CETS_MTL, CNGD, RSKC</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="BP88888/01, SPBFUT0035W, SPBFUT16231">CETS_CLIENT, CROSSRATE</Classes>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="59" Comment="Бернштейн  Субброкер UID: 59">
+		<UserInfo>
+			<FirstName>Бернштейн</FirstName>
+			<MiddleName/>
+			<LastName>Субброкер</LastName>
+			<Comment>Bernstain FIX FX Bquote EES субброкер</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2019-07-03</ValidFrom>
+			<ValidTo>2021-07-03</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>l</Rights>
+			<Blocked>1</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="" FirmID="" ClientCodes="BC19783/06, BC19783/08">CETS, CETS_CLIENT</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="BP87777/01">AETS, AUCB, CETS_INFO, CETS_MTL, CETS_SWAP, CNGD, RSKC, TQIF, TQQI, TQTC, TQTD</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="BP87777/01, SPBFUT00AjG">CROSSRATE</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="SPBFUT00AjG">FUTEVN, FUTSPREAD, FUTSPREADEVN, OPTEVN, OPTEXP, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCSbcoptvx" FirmID="MC0138200000" SubAdminCode="BernSubAdm" ClientCodes="BC19783/06, BC19783/08">FQBH, TQBD, TQBR, TQIR, TQPI, TQTF</Classes>
+		<Classes Rights="Cbcoptv" FirmID="MC0138200000" ClientCodes="BC19783/06, BC19783/08">SMAL</Classes>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="61" Comment="Владимир  Зубков UID: 61">
+		<UserInfo>
+			<FirstName>Владимир</FirstName>
+			<MiddleName/>
+			<LastName>Зубков</LastName>
+			<Comment>CQG менеджер</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2019-07-26</ValidFrom>
+			<ValidTo>2022-01-01</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>l</Rights>
+			<Blocked>1</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="BEFILPabdfoptvx" FirmID="ITICAPITAL" ClientCodes="">CQG</Classes>
+		<Classes Rights="Cbcoptv" FirmID="MC0138200000" ClientCodes="">BTQBR, CETS_SWAP, FUTEVN, FUTSPREAD, FUTSPREADEVN, OPTEVN, OPTEXP, SPBFUT, SPBOPT, TQIF, TQQI, TQTC, TQTD, TQTF, USDRUB</Classes>
+		<Classes Rights="Cbcoptv" FirmID="MC0138200000" ClientCodes="BC19783/06, BC19783/08, BernSubAdm, BP0694/06, BP0694/08, CONVBERN">FQBH, TQBD, TQBR, TQIR, TQPI</Classes>
+		<Classes Rights="Cbcoptv" FirmID="MC0138200000" ClientCodes="BC19783/06, BC19783/08, CONVBERN">BQUOTE, EES_T2_RUB, EES_T2_RUB_S, EES_T2_USD, EES_T2_USD_S, EES_T3_RUB, EES_T3_RUB_S, EES_T3_USD, EES_T3_USD_S, SMAL</Classes>
+		<Classes Rights="Cbcoptv#" FirmID="MC0138200000" ClientCodes="">AETS, AUCB, CETS_INFO, CNGD, RSKC</Classes>
+		<Classes Rights="Cbcoptv#" FirmID="MC0138200000" ClientCodes="BC19783/06, BC19783/08, CONVBERN">CETS, EES_CETS</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="">CROSSRATE</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="BC19783/06, BC19783/08, CONVBERN">EES_TQBR_T2, EES_TQBR_T3</Classes>
+		<Classes Rights="Cbcoptvx#" FirmID="MC0138200000" ClientCodes="BC19783/06, BC19783/08, CONVBERN">EES_CETS_T3</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1564128697" KeyID="E7D2AEA3D2DCDB45">99001D045D3AB5B90000010080C2EF5A689F5828BAE7D2AEA3D2DCDB45000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="63" Comment="ЕДП тестовый Клиент UID: 63">
+		<UserInfo>
+			<FirstName>ЕДП</FirstName>
+			<MiddleName>тестовый</MiddleName>
+			<LastName>Клиент</LastName>
+			<Comment>ЕДП для тестов</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2019-08-05</ValidFrom>
+			<ValidTo>2024-02-01</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights/>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo/>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="" FirmID="" ClientCodes="BC9966, BP0593, BP5678/01, QINVESTOR">AETS_MTL, CNGD_MTL, FQBR, TQDE</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="BC9966, BP0594">SPBXM</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="">CROSSRATE</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="BC9966, BP0593, BP5678/01, QINVESTOR">BTQBR, CETS_SWAP, FQBH, SMAL, TQBD, TQBR, TQIF, TQQI, TQTC, TQTD, TQTF</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="BP0593, BP5678/01, BP9966, QINVESTOR">TQIR, TQPI</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="C000021, C000372, C000833, C000834">FUTEVN, FUTSPREAD, FUTSPREADEVN, OPTEVN, OPTEXP, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="Cbcoptvx#" FirmID="MC0138200000" ClientCodes="BC9966, BP0593, BP5678/01, QINVESTOR">AETS, AUCB, CETS, CETS_INFO, CETS_MTL, CNGD, RSKC</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1565009710" KeyID="510D0584E16A042B">99001D045D48272E0000010080E42CD533DBC0B669510D0584E16A042B000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="64" Comment="неЕДП точно неЕДП клиент UID: 64">
+		<UserInfo>
+			<FirstName>неЕДП</FirstName>
+			<MiddleName>точно неЕДП</MiddleName>
+			<LastName>клиент</LastName>
+			<Comment>не ЕДП</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2016-09-20</ValidFrom>
+			<ValidTo>2022-09-30</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights/>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1, 2</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="BCGTbcoptvx" FirmID="SPBFUT" ClientCodes="C0000H0, C000729, C000730">FUTEVN, FUTSPREAD, FUTSPREADEVN, OPTEVN, OPTEXP, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCGTboptvx" FirmID="MC0138200000" ClientCodes="2345150, BP0694, BP0694/01, BP0694/02, BP0694/03">FQBH, SMAL, TQBD, TQBR, TQIF, TQIR, TQPI, TQQI, TQTC, TQTD, TQTF</Classes>
+		<Classes Rights="BCGTboptvx" FirmID="MC0138200000" ClientCodes="9860633, 9860634, BP0694, BP0694/01, BP0694/02, BP0694/03">CETS_SWAP</Classes>
+		<Classes Rights="BCGTboptvx#" FirmID="MC0138200000" ClientCodes="9860633, 9860634, BP0694, BP0694/01, BP0694/02, BP0694/03">AETS, AUCB, CETS, CETS_INFO, CNGD, RSKC</Classes>
+		<Classes Rights="BCNbcoptvx" FirmID="MC0138200000" ClientCodes="9860645">EES_T2_RUB</Classes>
+		<Classes Rights="BCNbcoptvx#" FirmID="MC0138200000" ClientCodes="9860645">EES_CETS</Classes>
+		<Classes Rights="BCTboptvx" FirmID="MC0138200000" ClientCodes="2345150, BP0694, BP0694/01, BP0694/02, BP0694/03">BTQBR</Classes>
+		<Classes Rights="BCbcoptvx#" FirmID="MC0138200000" ClientCodes="9860633, 9860634, BP0694, BP0694/01, BP0694/02, BP0694/03">AETS_MTL, CETS_MTL, CNGD_MTL</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="">CROSSRATE</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1565009782" KeyID="B2D1425316078801">99001D045D4827760000010080C4A86E9CA8E4A655B2D1425316078801000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="67" Comment="OMS BQ: Shares (best offer) - - - - - - -  FixClientConnector UID: 67">
+		<UserInfo>
+			<FirstName>OMS BQ: Shares (best offer)</FirstName>
+			<MiddleName>- - - - - - - </MiddleName>
+			<LastName>FixClientConnector</LastName>
+			<Comment>логин 12345 пасс 67890 \\172.16.6.11\c$\FixClientConnector_UAT\ BQ_EQBO (BQ: Shares (best offer)) каждый день перед началом торгов будет выставлять заявки на продажу с ценой оффера.</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2019-10-07</ValidFrom>
+			<ValidTo>2025-06-01</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>P</Rights>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>1</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo/>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="" FirmID="" ClientCodes="BP0694/01">CETS_INFO, FQBH, TQBD, TQBR</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="C000888">SPBFUT, SPBOPT</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="ITICAPITAL" ClientCodes="CLBESTOFFER">BQ_EQBO</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1570445244" KeyID="AE424648CD6D7567">99001D045D9B17BC0000010080C7AEAB379F68AB09AE424648CD6D7567000513</RSAKey>
+		</UserKey>
+		<Module ID="1052" Type="Public" Description="FIX Client Connector" Enabled="1"/>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="68" Comment="Igor  Dmitriev UID: 68">
+		<UserInfo>
+			<FirstName>Igor</FirstName>
+			<MiddleName/>
+			<LastName>Dmitriev</LastName>
+			<Comment/>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2018-08-21</ValidFrom>
+			<ValidTo>2100-01-01</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights/>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="" FirmID="" ClientCodes="2345150">FQBR, TQDE</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="2345152">PAEU, PAUS</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="BC9966, BP0593">SPBXM</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="ITICAPITAL" ClientCodes="17005259">CQG</Classes>
+		<Classes Rights="BCbcoptvx#" FirmID="MC0138200000" ClientCodes="">CETS_MTL</Classes>
+		<Classes Rights="BCboptvx" FirmID="MC0138200000" ClientCodes="">CETS_SWAP</Classes>
+		<Classes Rights="BCboptvx" FirmID="MC0138200000" ClientCodes="2345150">BTQBR, FQBH, SMAL, TQBD, TQBR, TQIF, TQQI, TQTC, TQTD, TQTF</Classes>
+		<Classes Rights="BCboptvx" FirmID="MC0138200000" ClientCodes="BP0593, QINVESTOR">TQIR, TQPI</Classes>
+		<Classes Rights="BCboptvx" FirmID="SPBFUT" ClientCodes="C000149">FUTEVN, FUTSPREAD, FUTSPREADEVN, OPTEVN, OPTEXP, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCboptvx#" FirmID="MC0138200000" ClientCodes="">AETS, AUCB, CETS, CETS_INFO, CNGD, RSKC</Classes>
+		<Classes Rights="BFILPbdfoptvx" FirmID="SPIMEX" ClientCodes="">SPIMFUTOIL</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="BC9966, BP0593">CETS_CLIENT, CROSSRATE</Classes>
+		<Classes Rights="Cc#" FirmID="MC0138200000" ClientCodes="">AETS_MTL, CNGD_MTL</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1574674564" KeyID="1D093B81D01494B7">99001D045DDBA08400000100809C9D998C867EA9861D093B81D01494B7000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="89" Comment="Ольга  Баклунова UID: 89">
+		<UserInfo>
+			<FirstName>Ольга</FirstName>
+			<MiddleName/>
+			<LastName>Баклунова</LastName>
+			<Comment>,BP0694/04 от 20050301, R РФ, itinvest</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2016-02-03</ValidFrom>
+			<ValidTo>2100-01-01</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail>Olga.Baklunova@iticapital.com</EMail>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights/>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="" FirmID="" ClientCodes="BP0694, BP0694-FX-01, BP0694-MS-01">INSTR_SYSTEM</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="BP0694-FX-01">INSTR_FX</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="BP0694-MS-01">INSTR</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="С0009DB">INSTR_RF</Classes>
+		<Classes Rights="5BFILPabdfoptvx" FirmID="MC0138200000" ClientCodes="">OMS_EQ_RU</Classes>
+		<Classes Rights="B" FirmID="ITICAPITAL" ClientCodes="">BQ_BND, BQ_INFO, FOR_BND</Classes>
+		<Classes Rights="BCNbcoptv#" FirmID="MC0138200000" ClientCodes="">CETS_INFO</Classes>
+		<Classes Rights="BFILMPabdfoptvx" FirmID="ITICAPITAL" ClientCodes="">BQ_EQ, BQ_RU</Classes>
+		<Classes Rights="BFILNPabdfoptvx" FirmID="MC0138200000" ClientCodes="">FQBH, SMAL, TQBD, TQBR, TQIR, TQPI, TQTF</Classes>
+		<Classes Rights="BFILPabdfoptvx" FirmID="ITICAPITAL" ClientCodes="">AIX_EQTY, FOR_AMS, FOR_AMS_B, FOR_AMS_S, FOR_BRU, FOR_BRU_S, FOR_COP, FOR_COP_S, FOR_FRA, FOR_FRA_S, FOR_HEL, FOR_HEL_S, FOR_LIS, FOR_LIS_S, FOR_LSE, FOR_LSE_S, FOR_NASDAQ, FOR_NASDAQ_S, FOR_NYSE, FOR_NYSE_S, FOR_OSL, FOR_OSL_S, FOR_STO, FOR_STO_S, FOR_SWS, FOR_SWS_S, FOR_TSE, FOR_TSE_S, FOR_WBO, FOR_WBO_S, FOR_XETR, FOR_XETR_S, OMS_ETC_BTC</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="">CROSSRATE</Classes>
+		<Classes Rights="FILPabdfoptvx" FirmID="ITICAPITAL" ClientCodes="">FOR_BRU_B, FOR_COP_B, FOR_FRA_B, FOR_HEL_B, FOR_LIS_B, FOR_LSE_B, FOR_NASDAQ_B, FOR_NYSE_B, FOR_OSL_B, FOR_STO_B, FOR_SWS_B, FOR_TSE_B, FOR_WBO_B, FOR_XETR_B</Classes>
+		<Classes Rights="FILPbdfoptvx" FirmID="MC0138200000" ClientCodes="">PACY, PAGB, PSAU, PSBB, PSDB, PSDE, PSEO, PSEQ, PSFSPREAD, PSFSPREADEVN, PSFUT, PSFUTEVN, PSIF, PSOB, PSOPT, PSOPTEVN, PSQI, PSQI_BND, PSSD, PSSU, PSTC, PSTD, PSTF, PTDE, PTEQ, PTEU, PTIF, PTOB, PTOD, PTQI, PTSD, PTTC, PTTD, PTTF, RPEO, RPEO_BND, RPEU, RPFG, RPMA, RPMO, RPNG, RPUA_MOEX, RPUO, TQTC, TQTD</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1580202539" KeyID="ECAB082E214037ED">99001D045E2FFA2B0000010080D31EF733E0382D34ECAB082E214037ED000511</RSAKey>
+		</UserKey>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1584529279" KeyID="8E23E3D8C6C3A771">99001D045E71FF7F000001008098BDDA6EFFB7AF618E23E3D8C6C3A771000513</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="92" Comment="Avankor Аванкор Test UID: 92">
+		<UserInfo>
+			<FirstName>Avankor</FirstName>
+			<MiddleName>Аванкор</MiddleName>
+			<LastName>Test</LastName>
+			<Comment>BP0694/01 фондовый</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2020-01-29</ValidFrom>
+			<ValidTo>2023-06-10</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>r</Rights>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>1</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="" FirmID="" ClientCodes="BP0694/01">TQOD</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="BP41233/01">INDX, INDXC</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="SPBFUT00LYK">FUTEVN, OPTEVN, OPTEXP, RTSIDX, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="">TQCB, TQIR, TQPI</Classes>
+		<Classes Rights="BCGTbcoptvx#" FirmID="MC0138200000" ClientCodes="">CETS</Classes>
+		<Classes Rights="BCGboptvx" FirmID="MC0138200000" ClientCodes="BP0694/01">FQBH, TQIF</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="BP0694/01">TQOB</Classes>
+		<Classes Rights="BCboptvx" FirmID="MC0138200000" ClientCodes="BP0694/01">BTQBR, FQBR, SMAL, TQBD, TQBR, TQDE, TQQI, TQTC, TQTD, TQTF</Classes>
+		<Classes Rights="CPbcoptv#" FirmID="MC0138200000" ClientCodes="">CETS_INFO</Classes>
+		<Classes Rights="Cbcoptv" FirmID="MC0138200000" ClientCodes="">CETS_CLIENT</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1623319050" KeyID="AEB0C798784AE6B3">99001D0460C1E20A0000010080D235EC3FD3CF6684AEB0C798784AE6B3000513</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="101" Comment="Assistant  OMS UID: 101">
+		<UserInfo>
+			<FirstName>Assistant</FirstName>
+			<MiddleName/>
+			<LastName>OMS</LastName>
+			<Comment>ОМС Ассистент</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2016-02-03</ValidFrom>
+			<ValidTo>2100-01-01</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights/>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="" FirmID="" ClientCodes="BP0694, BP0694-FX-01, BP0694-MS-01">INSTR_SYSTEM</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="BP0694-FX-01">INSTR_FX</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="BP0694-MS-01">INSTR</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="С0009DB">INSTR_RF</Classes>
+		<Classes Rights="5BFLPabdfoptvx" FirmID="MC0138200000" ClientCodes="">OMS_EQ_RU</Classes>
+		<Classes Rights="BCNbcoptv#" FirmID="MC0138200000" ClientCodes="">CETS_INFO</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="">CROSSRATE</Classes>
+		<Classes Rights="E" FirmID="MC0138200000" ClientCodes="">BTQBR</Classes>
+		<Classes Rights="EFIMPabdfoptvx" FirmID="ITICAPITAL" ClientCodes="">BQ_RU</Classes>
+		<Classes Rights="EFIPabdfoptv" FirmID="ITICAPITAL" ClientCodes="">AIX_EQTY, FOR_AMS, FOR_AMS_B, FOR_AMS_S, FOR_BND, FOR_BRU, FOR_BRU_B, FOR_BRU_S, FOR_COP, FOR_COP_B, FOR_COP_S, FOR_FRA, FOR_FRA_B, FOR_FRA_S, FOR_HEL, FOR_HEL_B, FOR_HEL_S, FOR_LIS, FOR_LIS_B, FOR_LIS_S, FOR_LSE, FOR_LSE_B, FOR_LSE_S, FOR_NASDAQ, FOR_NASDAQ_B, FOR_NASDAQ_S, FOR_NYSE, FOR_NYSE_B, FOR_NYSE_S, FOR_OSL, FOR_OSL_B, FOR_OSL_S, FOR_STO, FOR_STO_B, FOR_STO_S, FOR_SWS, FOR_SWS_B, FOR_SWS_S, FOR_TSE, FOR_TSE_B, FOR_TSE_S, FOR_WBO, FOR_WBO_B, FOR_WBO_S, FOR_XETR, FOR_XETR_B, FOR_XETR_S, OMS_ETC_BTC</Classes>
+		<Classes Rights="EFIPabdfoptvx" FirmID="ITICAPITAL" ClientCodes="">BQ_BRU, BQ_COP, BQ_EQ, BQ_FRA, BQ_HEL, BQ_INFO, BQ_LIS, BQ_LSE, BQ_NASDAQ, BQ_NYSE, BQ_OSL, BQ_STO, BQ_SWS, BQ_TSE, BQ_WBO, BQ_XETR</Classes>
+		<Classes Rights="EFNPabdfoptv" FirmID="MC0138200000" ClientCodes="">FQBH, SMAL, TQBD, TQBR, TQIR, TQPI, TQTF</Classes>
+		<Classes Rights="EFPbdfoptv" FirmID="MC0138200000" ClientCodes="">TQTC, TQTD</Classes>
+		<Classes Rights="FILMPabdfoptvx" FirmID="ITICAPITAL" ClientCodes="">BQ_BND</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1583153412" KeyID="0E2E096EDC9C7B71">99001D045E5D01040000010080D062C2352D89E2D30E2E096EDC9C7B71000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="105" Comment="Виктор Иванович Рублёв UID: 105">
+		<UserInfo>
+			<FirstName>Виктор</FirstName>
+			<MiddleName>Иванович</MiddleName>
+			<LastName>Рублёв</LastName>
+			<Comment>, BP44021/01, SPBFUT00O1Q от 20200310, R РФ, 109439, г Москва, г Москва, Волгоградский пр-кт, д 148 к 2, 24</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2020-03-11</ValidFrom>
+			<ValidTo>2022-03-11</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail>doc.viktoru@outlook.com</EMail>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>lr</Rights>
+			<Blocked>1</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>1</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="23CEotv" FirmID="MC0138200000" ClientCodes="BP44021/01, SPBFUT00O1Q">INSTR, INSTR_FX, INSTR_RF, INSTR_SYSTEM</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="BP44021/01">FQBH, INDX, INDXC, TQBD, TQBR, TQCB, TQIF, TQIR, TQOB, TQOD, TQPI, TQTF</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="SPBFUT" ClientCodes="SPBFUT00O1Q">FUTEVN, OPTEVN, OPTEXP, OPTW, OPTWEVN, RTSIDX, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCGTbcoptvx#" FirmID="MC0138200000" ClientCodes="BP44021/01">CETS</Classes>
+		<Classes Rights="CPbcoptv#" FirmID="MC0138200000" ClientCodes="BP44021/01">CETS_INFO</Classes>
+		<Classes Rights="Cbcoptv" FirmID="MC0138200000" ClientCodes="BP44021/01">CETS_CLIENT</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1583564083" KeyID="99C08C02668433EF">99001D045E6345330000010080D06F18589F124E4A99C08C02668433EF000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="108" Comment="-- - -- UID: 108">
+		<UserInfo>
+			<FirstName>--</FirstName>
+			<MiddleName>-</MiddleName>
+			<LastName>--</LastName>
+			<Comment>-</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2020-05-22</ValidFrom>
+			<ValidTo>2022-05-22</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail>lamis767@gmail.com</EMail>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>lr</Rights>
+			<Blocked>1</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>1</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="BCGTboptvx" FirmID="SPBFUT" ClientCodes="SPBFUT00O1Q, SPBFUT00PCL, SPBFUT00PWR">FUTEVN, OPTEVN, OPTEXP, OPTW, OPTWEVN, RTSIDX, SPBFUT, SPBOPT, USDRUB</Classes>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="111" Comment="неЕДП  клиент Срочного UID: 111">
+		<UserInfo>
+			<FirstName>неЕДП</FirstName>
+			<MiddleName/>
+			<LastName>клиент Срочного</LastName>
+			<Comment>логин пасс 12345</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2020-06-04</ValidFrom>
+			<ValidTo>2022-06-04</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights/>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo/>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="BCboptvx" FirmID="SPBFUT" ClientCodes="C000084, C000085">FUTEVN, FUTSPREAD, FUTSPREADEVN, OPTEVN, OPTEXP, SPBFUT, SPBOPT, USDRUB</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1591278753" KeyID="913D045A8F068B7F">99001D045ED8FCA10000010080E447269F8CF6F09C913D045A8F068B7F000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="132" Comment="Татьяна OMS Овчинникова UID: 132">
+		<UserInfo>
+			<FirstName>Татьяна</FirstName>
+			<MiddleName>OMS</MiddleName>
+			<LastName>Овчинникова</LastName>
+			<Comment>копия Гарнова</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2016-02-03</ValidFrom>
+			<ValidTo>2023-06-21</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>l</Rights>
+			<Blocked>1</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>0</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="" FirmID="" ClientCodes="BP0694, BP0694-FX-01, BP0694-MS-01">INSTR_SYSTEM</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="BP0694-FX-01">INSTR_FX</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="BP0694-MS-01">INSTR</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="С0009DB">INSTR_RF</Classes>
+		<Classes Rights="5FLMPabdfoptvx" FirmID="ITICAPITAL" ClientCodes="">OMS_EQ_RU</Classes>
+		<Classes Rights="BCNbcoptv#" FirmID="MC0138200000" ClientCodes="">CETS_INFO</Classes>
+		<Classes Rights="BFILNPabdfoptvx" FirmID="MC0138200000" ClientCodes="">FQBH, SMAL, TQBD, TQBR, TQIR, TQPI, TQTF</Classes>
+		<Classes Rights="BFILPbdfoptvx" FirmID="MC0138200000" ClientCodes="">TQTE</Classes>
+		<Classes Rights="BFLMPabdfoptvx" FirmID="ITICAPITAL" ClientCodes="">OMS_AMS, OMS_BND, OMS_BRU, OMS_COP, OMS_FRA, OMS_HEL, OMS_LIS, OMS_LSE, OMS_NASDAQ, OMS_NYSE, OMS_OSL, OMS_STO, OMS_SWS, OMS_TSE, OMS_WBO, OMS_XETR</Classes>
+		<Classes Rights="Cbcoptvx" FirmID="MC0138200000" ClientCodes="">CROSSRATE</Classes>
+		<Classes Rights="FILPbdfoptvx" FirmID="ITICAPITAL" ClientCodes="">AIX_DEBT, BQ_EQBO</Classes>
+		<Classes Rights="FILPbdfoptvx" FirmID="MC0138200000" ClientCodes="">PACY, PAGB, PSAU, PSBB, PSDB, PSDE, PSEO, PSEQ, PSFSPREAD, PSFSPREADEVN, PSFUT, PSFUTEVN, PSIF, PSOB, PSOPT, PSOPTEVN, PSQI, PSQI_BND, PSSD, PSSU, PSTC, PSTD, PSTF, PTDE, PTEQ, PTEU, PTIF, PTOB, PTOD, PTQI, PTSD, PTTC, PTTD, PTTF, RPEO, RPEO_BND, RPEU, RPFG, RPMA, RPMO, RPNG, RPUA_MOEX, RPUO, TQTC, TQTD</Classes>
+		<Classes Rights="FILPbdfoptvx#" FirmID="MC0138200000" ClientCodes="">AFXCURR</Classes>
+		<Classes Rights="FLMPabdfoptvx" FirmID="ITICAPITAL" ClientCodes="">AIX_EQTY, BQ_BND, BQ_EQ, BQ_INFO, BQ_RU, FOR_AMS, FOR_AMS_B, FOR_AMS_S, FOR_BND, FOR_BRU, FOR_BRU_B, FOR_BRU_S, FOR_COP, FOR_COP_B, FOR_COP_S, FOR_ETC_BTC, FOR_FRA, FOR_FRA_B, FOR_FRA_S, FOR_HEL, FOR_HEL_B, FOR_HEL_S, FOR_LIS, FOR_LIS_B, FOR_LIS_S, FOR_LSE, FOR_LSE_B, FOR_LSE_S, FOR_NASDAQ, FOR_NASDAQ_B, FOR_NASDAQ_S, FOR_NYSE, FOR_NYSE_B, FOR_NYSE_S, FOR_OSL, FOR_OSL_B, FOR_OSL_S, FOR_STO, FOR_STO_B, FOR_STO_S, FOR_SWS, FOR_SWS_B, FOR_SWS_S, FOR_TSE, FOR_TSE_B, FOR_TSE_S, FOR_WBO, FOR_WBO_B, FOR_WBO_S, FOR_XETR, FOR_XETR_B, FOR_XETR_S, OMS_AIX, OMS_ETC_BTC</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1624279871" KeyID="C626DAE320EFFBEF">99001D0460D08B3F0000010080A33888A899CC43E1C626DAE320EFFBEF000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="133" Comment="Avankor  Аванкор UID: 133">
+		<UserInfo>
+			<FirstName>Avankor</FirstName>
+			<MiddleName/>
+			<LastName>Аванкор</LastName>
+			<Comment>BP0694/01</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2020-01-29</ValidFrom>
+			<ValidTo>2023-06-18</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>r</Rights>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>1</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="" FirmID="" ClientCodes="BP41233/01">INDX, INDXC, TQOD</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="SPBFUT00LYK">FUTEVN, OPTEVN, OPTEXP, RTSIDX, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="">TQCB, TQIR, TQPI</Classes>
+		<Classes Rights="BCGTbcoptvx#" FirmID="MC0138200000" ClientCodes="">CETS</Classes>
+		<Classes Rights="BCGboptvx" FirmID="MC0138200000" ClientCodes="BP0694/01">FQBH, TQTF</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="BP0694/01">TQOB</Classes>
+		<Classes Rights="BCboptvx" FirmID="MC0138200000" ClientCodes="BP0694/01">BTQBR, FQBR, SMAL, TQBD, TQBR, TQDE, TQIF, TQQI, TQTC, TQTD</Classes>
+		<Classes Rights="CPbcoptv#" FirmID="MC0138200000" ClientCodes="">CETS_INFO</Classes>
+		<Classes Rights="Cbcoptv" FirmID="MC0138200000" ClientCodes="">CETS_CLIENT</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1624037780" KeyID="6AD10DD5986B9F31">99001D0460CCD9940000010080C16C9C8DEEF7D12A6AD10DD5986B9F31000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="135" Comment="Александр Владимирович Куликов UID: 135">
+		<UserInfo>
+			<FirstName>Александр</FirstName>
+			<MiddleName>Владимирович</MiddleName>
+			<LastName>Куликов</LastName>
+			<Comment>, BP64113/01, BP64113/02, SPBFUT002Jx от 20210208, R РФ, 234234234234 v23 кцуй ец у</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2021-06-16</ValidFrom>
+			<ValidTo>2022-06-06</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail>alexandrk871@gmail.com</EMail>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>lr</Rights>
+			<Blocked>1</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>1</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="23CEotv" FirmID="MC0138200000" ClientCodes="BP64113/01, BP64113/02, SPBFUT002Jx">INSTR, INSTR_FX, INSTR_RF, INSTR_SYSTEM</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="BP64113/01">INDXC</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="BP64113/01, BP64113/02">EQOB, FQBH, INDX, TQBR, TQCB, TQDE, TQIF, TQIR, TQOB, TQOD, TQPI, TQRD, TQTF</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="SPBFUT002Jx">FUTEVN, RTSIDX, SPBFUT, USDRUB</Classes>
+		<Classes Rights="BCGTbcoptvx#" FirmID="MC0138200000" ClientCodes="BP64113/01">CETS</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="">SPBXM</Classes>
+		<Classes Rights="CPbcoptv#" FirmID="MC0138200000" ClientCodes="BP64113/01">CETS_INFO</Classes>
+		<Classes Rights="Cbcoptv" FirmID="MC0138200000" ClientCodes="BP64113/01">CETS_CLIENT</Classes>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="138" Comment="Сергей Владимирович Копанев UID: 138">
+		<UserInfo>
+			<FirstName>Сергей</FirstName>
+			<MiddleName>Владимирович</MiddleName>
+			<LastName>Копанев</LastName>
+			<Comment>, BP1502/01, BP1502/02, SPBFUT00260 от 20060523, R РФ, 119421, Москва, ул.Новаторов, д.14, корп.2, кв.143</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2021-08-19</ValidFrom>
+			<ValidTo>2023-08-19</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail>kopanev@me.com</EMail>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>lr</Rights>
+			<Blocked>1</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>1</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="23CEotv" FirmID="MC0138200000" ClientCodes="BP1502/01, BP1502/02, SPBFUT00260">INSTR, INSTR_FX, INSTR_RF, INSTR_SYSTEM</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="">INDXC</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="BP1502/01, BP1502/02">EQOB, FQBH, INDX, TQBR, TQCB, TQDE, TQIF, TQIR, TQOB, TQOD, TQPI, TQRD, TQTF</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="SPBFUT" ClientCodes="SPBFUT00260">FUTEVN, OPTEVN, OPTEXP, OPTW, OPTWEVN, RTSIDX, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCGTbcoptvx#" FirmID="MC0138200000" ClientCodes="">CETS</Classes>
+		<Classes Rights="CPbcoptv#" FirmID="MC0138200000" ClientCodes="">CETS_INFO</Classes>
+		<Classes Rights="Cbcoptv" FirmID="MC0138200000" ClientCodes="">CETS_CLIENT</Classes>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="139" Comment="Александр Георгиевич Минаев UID: 139">
+		<UserInfo>
+			<FirstName>Александр</FirstName>
+			<MiddleName>Георгиевич</MiddleName>
+			<LastName>Минаев</LastName>
+			<Comment>, BP66370/01, SPBFUT002xN от 20210827, R РФ, г.Москва, ул.Профсоюзная, д.132, корп.2, кв.12</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2021-08-31</ValidFrom>
+			<ValidTo>2023-08-31</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail>sashamin@mail.ru</EMail>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>lr</Rights>
+			<Blocked>1</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>1</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="23CEotv" FirmID="MC0138200000" ClientCodes="BP66370/01, SPBFUT002xN">INSTR, INSTR_FX, INSTR_RF, INSTR_SYSTEM</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="BP66370/01">EQOB, FQBH, INDX, INDXC, TQBR, TQCB, TQDE, TQIF, TQIR, TQOB, TQOD, TQPI, TQRD, TQTF</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="SPBFUT" ClientCodes="SPBFUT002xN">FUTEVN, OPTEVN, OPTEXP, OPTW, OPTWEVN, RTSIDX, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCGTbcoptvx#" FirmID="MC0138200000" ClientCodes="BP66370/01">CETS</Classes>
+		<Classes Rights="CPbcoptv#" FirmID="MC0138200000" ClientCodes="BP66370/01">CETS_INFO</Classes>
+		<Classes Rights="Cbcoptv" FirmID="MC0138200000" ClientCodes="BP66370/01">CETS_CLIENT</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1630064559" KeyID="B9792B9E45D40863">99001D046128CFAF0000010080F1A86B3AD49609DFB9792B9E45D40863000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="140" Comment="Константин  Захаров UID: 140">
+		<UserInfo>
+			<FirstName>Константин</FirstName>
+			<MiddleName/>
+			<LastName>Захаров</LastName>
+			<Comment>для тестов Аванкор</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2020-01-29</ValidFrom>
+			<ValidTo>2023-09-06</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail/>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>r</Rights>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>1</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="" FirmID="" ClientCodes="BP41233/01">INDX, INDXC, TQOD</Classes>
+		<Classes Rights="" FirmID="" ClientCodes="SPBFUT00LYK">FUTEVN, OPTEVN, OPTEXP, RTSIDX, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="">TQCB, TQIR, TQPI</Classes>
+		<Classes Rights="BCGTbcoptvx#" FirmID="MC0138200000" ClientCodes="">CETS</Classes>
+		<Classes Rights="BCGboptvx" FirmID="MC0138200000" ClientCodes="BP0694/01">FQBH</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="BP0694/01">TQOB</Classes>
+		<Classes Rights="BCboptvx" FirmID="MC0138200000" ClientCodes="BP0694/01">BTQBR, FQBR, SMAL, TQBD, TQBR, TQDE, TQIF, TQQI, TQTC, TQTD, TQTF</Classes>
+		<Classes Rights="CPbcoptv#" FirmID="MC0138200000" ClientCodes="">CETS_INFO</Classes>
+		<Classes Rights="Cbcoptv" FirmID="MC0138200000" ClientCodes="">CETS_CLIENT</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1630921488" KeyID="FA422466EB4200C1">99001D046135E3100000010080BDF2FEEEF70FE6D8FA422466EB4200C1000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="141" Comment="Александр Сергеевич Грибенко UID: 141">
+		<UserInfo>
+			<FirstName>Александр</FirstName>
+			<MiddleName>Сергеевич</MiddleName>
+			<LastName>Грибенко</LastName>
+			<Comment>, BP66544/01, BP66544/D01, SPBFUT002zl от 20210913, R РФ, 641020, Курганская обл. Щучанский р-н, с. Чумляк, ул. Советская, д. 31</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2021-09-13</ValidFrom>
+			<ValidTo>2022-04-25</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail>gri8an@yandex.ru</EMail>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>lr</Rights>
+			<Blocked>1</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>1</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="" FirmID="" ClientCodes="BP66544/01">CETS_MTL</Classes>
+		<Classes Rights="23CEotv" FirmID="MC0138200000" ClientCodes="BP66544/01, BP66544/D01, SPBFUT002zl">INSTR, INSTR_FX, INSTR_RF, INSTR_SYSTEM</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="BP66544/01">EQOB, FQBH, INDX, INDXC, TQBR, TQCB, TQDE, TQIF, TQIR, TQOB, TQOD, TQPI, TQRD, TQTF</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="SPBFUT" ClientCodes="SPBFUT002zl">FUTEVN, OPTEVN, OPTEXP, OPTW, OPTWEVN, RTSIDX, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCGTbcoptvx#" FirmID="MC0138200000" ClientCodes="BP66544/01, BP66544/D01">CETS</Classes>
+		<Classes Rights="CPbcoptv#" FirmID="MC0138200000" ClientCodes="BP66544/01">CETS_INFO</Classes>
+		<Classes Rights="Cbcoptv" FirmID="MC0138200000" ClientCodes="BP66544/01">CETS_CLIENT</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1631531861" KeyID="FFF91E7CEFC54DF1">99001D04613F33550000010080B25B9862E199AA0DFFF91E7CEFC54DF1000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="146" Comment="Иван Сергеевич Сергеев UID: 146">
+		<UserInfo>
+			<FirstName>Иван</FirstName>
+			<MiddleName>Сергеевич</MiddleName>
+			<LastName>Сергеев</LastName>
+			<Comment>, BP67025/01, BP67025/D01, SPBFUT003Gp от 20211028, R РФ, 400080, Волгоградская обл, г Волгоград, ул Нижнедонская, д.вл31</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2021-10-29</ValidFrom>
+			<ValidTo>2023-10-29</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail>vsiergieiev332@inbox.ru</EMail>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>r</Rights>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>1</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="23CEotv" FirmID="MC0138200000" ClientCodes="BP67025/01, BP67025/D01, SPBFUT003Gp">INSTR, INSTR_FX, INSTR_RF, INSTR_SYSTEM</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="BP67025/01">EQOB, INDX, INDXC, TQBR, TQCB, TQDE, TQIF, TQIR, TQOB, TQOD, TQPI, TQRD, TQTF</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="SPBFUT" ClientCodes="SPBFUT003Gp">FUTEVN, OPTEVN, OPTEXP, OPTW, OPTWEVN, RTSIDX, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCGTbcoptvx#" FirmID="MC0138200000" ClientCodes="BP67025/01, BP67025/D01">CETS</Classes>
+		<Classes Rights="BCbcoptvx#" FirmID="MC0138200000" ClientCodes="BP67025/01">CETS_MTL</Classes>
+		<Classes Rights="CPbcoptv#" FirmID="MC0138200000" ClientCodes="BP67025/01">CETS_INFO</Classes>
+		<Classes Rights="Cbcoptv" FirmID="MC0138200000" ClientCodes="BP67025/01">CETS_CLIENT</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1635415982" KeyID="8C327EDB327186C9">99001D04617A77AE0000010080B461BDB8F919320A8C327EDB327186C9000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="148" Comment="Вячеслав Викторович Баранов UID: 148">
+		<UserInfo>
+			<FirstName>Вячеслав</FirstName>
+			<MiddleName>Викторович</MiddleName>
+			<LastName>Баранов</LastName>
+			<Comment>, BP68585/01, BP68585/D01, SPBFUT003op от 20220317, R РФ, 650065, Кемеровская область - Кузбасс, г Кемерово, пр-кт Ленина, д.152В, кв.17</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2022-03-23</ValidFrom>
+			<ValidTo>2022-04-26</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail>kemerovo142@gmail.com</EMail>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>lr</Rights>
+			<Blocked>1</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>1</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="23CEotv" FirmID="MC0138200000" ClientCodes="BP68585/01, BP68585/D01, SPBFUT003op">INSTR, INSTR_FX, INSTR_RF, INSTR_SYSTEM</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="BP68585/01">EQOB, INDX, INDXC, TQBR, TQCB, TQDE, TQIF, TQIR, TQOB, TQOD, TQPI, TQRD, TQTF</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="BP68585/01, BP68585/D01">CETS</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="SPBFUT" ClientCodes="SPBFUT003op">FUTEVN, OPTEVN, OPTEXP, OPTW, OPTWEVN, RTSIDX, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="BP68585/01, BP68585/D01">CETS_MTL</Classes>
+		<Classes Rights="CPbcoptv" FirmID="MC0138200000" ClientCodes="BP68585/01">CETS_INFO</Classes>
+		<Classes Rights="Cbcoptv" FirmID="MC0138200000" ClientCodes="BP68585/01">CETS_CLIENT</Classes>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+	<UserDescription UID="149" Comment="Владислав Валерьевич Умуров UID: 149">
+		<UserInfo>
+			<FirstName>Владислав</FirstName>
+			<MiddleName>Валерьевич</MiddleName>
+			<LastName>Умуров</LastName>
+			<Comment>, BP68897/01, BP68897/D01, SPBFUT003ro от 20220411, R РФ, 140730, Московская обл, г Рошаль, Советская, д.32/1, кв.59</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2022-04-18</ValidFrom>
+			<ValidTo>2022-04-26</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<Phone/>
+			<SMS/>
+			<EMail>vlad.umurov@mail.ru</EMail>
+		</ContactInfo>
+		<Security>
+			<CryptoType>Unknown</CryptoType>
+		</Security>
+		<GlobalRights>
+			<Rights>r</Rights>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>1</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+			<ServiceUser>0</ServiceUser>
+		</GlobalRights>
+		<IPAddress/>
+		<MsgGroup/>
+		<News/>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+			<Address/>
+			<EMail/>
+		</Organization>
+		<Classes Rights="23CEotv" FirmID="MC0138200000" ClientCodes="BP68897/01, BP68897/D01, SPBFUT003ro">INSTR, INSTR_FX, INSTR_RF, INSTR_SYSTEM</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="BP68897/01">FQBR, INDX, INDXC, TQBR, TQCB, TQIF, TQIR, TQOB, TQOD, TQPI, TQRD, TQTF</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="BP68897/01, BP68897/D01">CETS</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="SPBFUT" ClientCodes="SPBFUT003ro">FUTEVN, FUTSPREAD, FUTSPREADEVN, OPTEVN, OPTEXP, OPTW, OPTWEVN, RTSIDX, SPBFUT, SPBOPT, USDRUB</Classes>
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="BP68897/01, BP68897/D01">CETS_MTL</Classes>
+		<Classes Rights="CPbcoptv" FirmID="MC0138200000" ClientCodes="BP68897/01">CETS_INFO</Classes>
+		<Classes Rights="Cbcoptv" FirmID="MC0138200000" ClientCodes="BP68897/01">CETS_CLIENT</Classes>
+		<UserKey Type="plain">
+			<RSAKey Blocked="1" Bits="128" Time="1649965084" KeyID="52EB93928DBF3DDB">99001D046258781C00000100809B323B5F8D46FA8452EB93928DBF3DDB000511</RSAKey>
+		</UserKey>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1650626843" KeyID="11B499770C6224C5">99001D046262911B0000010080A4F9255F9BBE872211B499770C6224C5000511</RSAKey>
+		</UserKey>
+		<TFAuthUse>0</TFAuthUse>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+			<SMSPhone/>
+			<CodeWord/>
+			<EMail/>
+		</TFAuth>
+	</UserDescription>
+</UserData>

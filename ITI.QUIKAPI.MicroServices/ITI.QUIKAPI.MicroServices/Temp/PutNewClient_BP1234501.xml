@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<UserData xmlns="urn:quik:user-rights-import">
+	<Command Type="AddUser" Comment="Create new user in qAdmin. From ASP API">
+		<UserInfo>
+			<FirstName>Иван</FirstName>
+			<MiddleName>Семенович</MiddleName>
+			<LastName>Иванов</LastName>
+			<Comment>BP12345/01,SPBEX000abc,</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>2022-05-01</ValidFrom>
+			<ValidTo>2024-05-01</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<EMail>iii@aaa.ru</EMail>
+		</ContactInfo>
+		<GlobalRights>
+			<Rights>r</Rights>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>1</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+		</GlobalRights>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>Клиент</OrgName>
+		</Organization>
+		<Classes Rights="23CEotv" FirmID="MC0138200000" ClientCodes="BP12345/01,SPBEX000abc,">INSTR, INSTR_FX, INSTR_RF, INSTR_SYSTEM</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="BP12345/01,">EQOB, INDX, TQBR, TQDE, TQIF, TQOB, TQOD, TQTF, TQCB, TQPI, TQRD, TQIR</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="BP12345/01,">CETS, CETS_MTL</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="BP12345/01,">INDXC,CETS_CLIENT, CETS_INFO</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="SPBFUT" ClientCodes="SPBEX000abc,">FUTEVN, RTSIDX, SPBFUT, USDRUB</Classes><!-- NB! Firm MO if EDP, SPBFUT if NonEDP -->
+		<Classes Rights="BCGTbcoptvx" FirmID="SPBFUT" ClientCodes="SPBEX000abc,">SPBOPT, OPTEXP, OPTW, OPTEVN, OPTWEVN</Classes><!-- Only if nonEDP **DeleteEDP**-->    
+
+		<TFAuthUse>0</TFAuthUse>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="1650809567" KeyID="A37F2EAAF3316475">99001D0462655ADF0000010080BE92B3BDB54D9574A37F2EAAF3316475000511</RSAKey>
+		</UserKey>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+		</TFAuth>
+	</Command>
+</UserData>

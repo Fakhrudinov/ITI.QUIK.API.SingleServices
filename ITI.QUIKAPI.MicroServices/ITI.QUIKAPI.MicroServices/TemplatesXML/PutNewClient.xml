@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<UserData xmlns="urn:quik:user-rights-import">
+	<Command Type="AddUser" Comment="Create new user in qAdmin. From ASP API">
+		<UserInfo>
+			<FirstName>**FirstName**</FirstName>
+			<MiddleName>**MiddleName**</MiddleName>
+			<LastName>**LastName**</LastName>
+			<Comment>**Comment**</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>**DateNow**</ValidFrom>
+			<ValidTo>**ValidTo**</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<EMail>**EMail**</EMail>
+		</ContactInfo>
+		<GlobalRights>
+			<Rights>r</Rights>
+			<Blocked>0</Blocked>
+			<Archives>0</Archives>
+			<API>0</API>
+			<SeeNews>0</SeeNews>
+			<SendMessages>0</SendMessages>
+			<ReceiveMessages>1</ReceiveMessages>
+			<NeedSign>0</NeedSign>
+		</GlobalRights>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+			<OrgCode>2</OrgCode>
+			<OrgName>**OrgName**</OrgName>
+		</Organization>
+		<Classes Rights="23CEotv" FirmID="MC0138200000" ClientCodes="**CodesINSTR**">INSTR, INSTR_FX, INSTR_RF, INSTR_SYSTEM</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="**CodesMS**">EQOB, INDX, TQBR, TQDE, TQIF, TQOB, TQOD, TQTF, TQCB, TQPI, TQRD, TQIR</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="**CodesFX****CodesCD**">CETS, CETS_MTL</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="**CodesFX**">INDXC,CETS_CLIENT, CETS_INFO</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="**FIRM**" ClientCodes="**CodesRF**">FUTEVN, RTSIDX, SPBFUT, USDRUB</Classes><!-- NB! Firm MO if EDP, SPBFUT if NonEDP -->
+		<Classes Rights="BCGTbcoptvx" FirmID="SPBFUT" ClientCodes="**CodesRF**">SPBOPT, OPTEXP, OPTW, OPTEVN, OPTWEVN</Classes><!-- Only if nonEDP **DeleteEDP**-->    
+		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="**CodesRS**">SPBXM</Classes><!-- Only if EDP + SPBEX **DeleteNonEDP**--> 
+		<TFAuthUse>0</TFAuthUse>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="**Time**" KeyID="**KeyID**">**RSAKey**</RSAKey>
+		</UserKey>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+		</TFAuth>
+	</Command>
+</UserData>

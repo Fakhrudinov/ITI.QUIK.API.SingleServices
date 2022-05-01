@@ -12,6 +12,4 @@ namespace DataValidationService
                     .WithErrorCode("PP100");
         }
     }
-
-    //.Matches("^B[PC][0-9]{4,6}-(MS|MO|RF|CD|FX|RS)-[0-9]{2}$")
 }

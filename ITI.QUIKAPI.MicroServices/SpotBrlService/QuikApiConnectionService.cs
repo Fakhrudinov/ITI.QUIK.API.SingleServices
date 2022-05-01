@@ -1,5 +1,5 @@
 ﻿using DataAbstraction.Interfaces;
-using DataAbstraction.Models;
+using DataAbstraction.Models.Connections;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using QDealerAPI;
@@ -12,6 +12,7 @@ namespace SpotBrlService
     {
         private ILogger<QuikApiConnectionService> _logger;
         private QadminLogon _logon;
+        private int _errCode = -100;
 
         public QuikApiConnectionService(IOptions<QadminLogon> logon, ILogger<QuikApiConnectionService> logger)
         {
@@ -32,7 +33,7 @@ namespace SpotBrlService
             // Открытие настроек по фирме dealerFirm
             // 0 - чтение/запись
             // 1 - чтение
-            int _errCode = NativeMethods.QDAPI_DLOpenFile(firm, 0);
+            _errCode = NativeMethods.QDAPI_DLOpenFile(firm, 0);
             if (_errCode != (int)QDAPI_Errors.QDAPI_ERROR_SUCCESS)
             {
                 string errorText = CommonServices.QuikService.GetErrorDescription(_errCode);
@@ -56,7 +57,7 @@ namespace SpotBrlService
             // Открытие настроек по фирме dealerFirm
             // 0 - чтение/запись
             // 1 - чтение
-            int _errCode = NativeMethods.QDAPI_DLOpenFile(firm, 1);
+            _errCode = NativeMethods.QDAPI_DLOpenFile(firm, 1);
             if (_errCode != (int)QDAPI_Errors.QDAPI_ERROR_SUCCESS)
             {
                 string errorText = CommonServices.QuikService.GetErrorDescription(_errCode);
@@ -72,7 +73,7 @@ namespace SpotBrlService
             _logger.LogInformation("SpotService OpenQuikQadminAPI Called");
 
             IntPtr conErrPtr = IntPtr.Zero;
-            int _errCode = NativeMethods.QDAPI_Connect(@"QDealerAPI.ini", _logon.Login, _logon.Password, ref conErrPtr);
+            _errCode = NativeMethods.QDAPI_Connect(@"QDealerAPI.ini", _logon.Login, _logon.Password, ref conErrPtr);
             if (_errCode != (int)QDAPI_Errors.QDAPI_ERROR_SUCCESS)
             {
                 string conErr = Marshal.PtrToStringAnsi(conErrPtr);
@@ -101,7 +102,7 @@ namespace SpotBrlService
             try
             {
                 // Сохранение изменений
-                int _errCode = NativeMethods.QDAPI_DLUpdateFile(firm);
+                _errCode = NativeMethods.QDAPI_DLUpdateFile(firm);
 
                 if (_errCode != (int)QDAPI_Errors.QDAPI_ERROR_SUCCESS)
                 {

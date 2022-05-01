@@ -12,5 +12,21 @@
 
             return result;
         }
+
+        public static string GetSpotPortfolio(string portfolio)
+        {
+            var portfolioParts = portfolio.Split("-");
+
+            string result = portfolioParts[0]
+                        + "/"
+                        + portfolioParts[2];
+
+            return result;
+        }
+
+        public static string GetFortsQuikCode(string code)
+        {
+            return "SPBEX" + code.Substring(2);
+        }
     }
 }

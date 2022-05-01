@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<UserData xmlns="urn:quik:user-rights-import">
+	<Command Type="AddUser" Comment="Create new user for Option Workshop in qAdmin. From ASP API">
+		<UserInfo>
+			<FirstName>**FirstName**</FirstName>
+			<MiddleName>**MiddleName**</MiddleName>
+			<LastName>**LastName**</LastName>
+			<Comment>**Comment**</Comment>
+		</UserInfo>
+		<Permission>
+			<ValidFrom>**DateNow**</ValidFrom>
+			<ValidTo>**ValidTo**</ValidTo>
+		</Permission>
+		<ContactInfo>
+			<EMail>**EMail**</EMail>
+		</ContactInfo>
+		<GlobalRights>
+		  <Rights>r</Rights>
+		  <Blocked>0</Blocked>
+		  <Archives>0</Archives>
+		  <API>0</API>
+		  <SeeNews>0</SeeNews>
+		  <SendMessages>0</SendMessages>
+		  <ReceiveMessages>1</ReceiveMessages>
+		  <NeedSign>0</NeedSign>
+		</GlobalRights>
+		<MessagesTo>1</MessagesTo>
+		<Organization>
+		  <OrgCode>2</OrgCode>
+		  <OrgName>**OrgName**</OrgName>
+		</Organization>
+		<Classes Rights="BCGTboptvx" FirmID="SPBFUT" ClientCodes="**CodesRF**">FUTEVN, OPTEVN, OPTEXP, OPTW, OPTWEVN, RTSIDX, SPBFUT, SPBOPT, USDRUB</Classes>  
+		<TFAuthUse>0</TFAuthUse>
+		<UserKey Type="plain">
+			<RSAKey Blocked="0" Bits="128" Time="**Time**" KeyID="**KeyID**">**RSAKey**</RSAKey>
+		</UserKey>
+		<TFAuth>
+			<AuthType>-1</AuthType>
+			<Scenario>1</Scenario>
+			<ExpireDays>-1</ExpireDays>
+		</TFAuth>
+	</Command>
+</UserData>

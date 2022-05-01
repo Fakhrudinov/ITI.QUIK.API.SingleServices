@@ -3,12 +3,13 @@ using QDealerAPI;
 using DataAbstraction.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
+using System.Runtime.InteropServices;
+using DataAbstraction.Models.Connections;
 
 namespace SpotBrlService
 {
     public class SpotService : ISpotBrlService
-    {
-        //private int _errCode = -100;
+    {        
         private const string _spotFIRM = "MC0138200000";
         private QadminLogon _logon;
         private ILogger<SpotService> _logger;
@@ -21,20 +22,52 @@ namespace SpotBrlService
             _connection = connection;
         }
 
-
-
-
-        public string AddClientPortfolioToCD_portfolio(string quikportfolio)
+        public string AddClientPortfolioToKomissiiCDportfolio(string quikportfolio)
         {
-            _logger.LogInformation($"SpotService AddClientPortfolioToCD_portfolio {quikportfolio} Called");
+            _logger.LogInformation($"SpotService AddClientPortfolioToKomissiiCDportfolio {quikportfolio} Called");
+            return AddPortfolioKomissiiTemplate("CD_portfolio", quikportfolio);
+        }
+        public string AddClientPortfolioToKomissiiTemplate(string template, string quikportfolio)
+        {
+            _logger.LogInformation($"SpotService AddClientPortfolioToKomissiiTemplate Called {template} {quikportfolio}");
+            return AddPortfolioKomissiiTemplate(template, quikportfolio);
+        }
+        private string AddPortfolioKomissiiTemplate(string template, string quikportfolio)
+        {
+            var openResult = _connection.OpenQuikQadminApiToWrite(_spotFIRM);
+            if (!openResult.Equals("OK"))
+            {
+                return openResult;
+            }
+            //добавление одного кода клиента в клиентский шаблон «По комиссии».
+            int resultEditBrl = NativeMethods.QDAPI_AddClientToClientTemplate(_spotFIRM, template, quikportfolio);
+            _logger.LogInformation($"Insert result is: {resultEditBrl}");
 
+            return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM);
+        }
+
+        public string AddClientPortfolioToLeverageCDportfolio(string quikportfolio)
+        {
+            _logger.LogInformation($"SpotService AddClientPortfolioToLeverageCDportfolio {quikportfolio} Called");
+            return AddPortfolioLeverageTemplate("CD_portfolio", quikportfolio);
+        }
+
+        public string AddClientPortfolioToLeverageTemplate(string template, string quikportfolio)
+        {
+            _logger.LogInformation($"SpotService AddClientPortfolioToKomissiiTemplate Called {template} {quikportfolio}");
+            return AddPortfolioLeverageTemplate(template, quikportfolio);
+        }
+
+        private string AddPortfolioLeverageTemplate(string template, string quikportfolio)
+        {
             var openResult = _connection.OpenQuikQadminApiToWrite(_spotFIRM);
             if (!openResult.Equals("OK"))
             {
                 return openResult;
             }
 
-            int resultEditBrl = NativeMethods.QDAPI_AddClientToClientTemplate(_spotFIRM, "CD_portfolio", quikportfolio);
+            //добавление одного кода клиента в маржинальный шаблон "по Плечу"
+            int resultEditBrl = NativeMethods.QDAPI_AddClientToMarginTemplate(_spotFIRM, template, quikportfolio);
             _logger.LogInformation($"Insert result is: {resultEditBrl}");
 
             return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM);
@@ -58,169 +91,311 @@ namespace SpotBrlService
             return _connection.CloseQuikAPI(0, _spotFIRM);
         }
 
-        //private string OpenQuikQadminApiToWrite(string firm)
-        //{
-        //    _logger.LogInformation("SpotService OpenQuikQadminApiToWrite Called");
+        public string[] GetAllTemplatesPoKomissii()
+        {
+            _logger.LogInformation($"SpotService GetAllTemplatesPoKomissii Called");
+            
+            List<string> result = new List<string>();
 
-        //    var openResult = OpenQuikQadminAPI();
-        //    if (!openResult.Equals("OK"))
-        //    {
-        //        return openResult;
-        //    }
-        //    // Начало работы с настройками БРЛ
-        //    // Открытие настроек по фирме dealerFirm
-        //    // 0 - чтение/запись
-        //    // 1 - чтение
-        //    _errCode = NativeMethods.QDAPI_DLOpenFile(firm, 0);
-        //    if (_errCode != (int)QDAPI_Errors.QDAPI_ERROR_SUCCESS)
-        //    {
-        //        string errorText = CommonServices.QuikService.GetErrorDescription(_errCode);
-        //        _logger.LogWarning($"QAS100 Ошибка подключения к Qadmin API. Файл БРЛ не был открыт. Код ошибки: {_errCode} {errorText}");
-        //        return $"QAS100 Ошибка подключения к Qadmin API. Файл БРЛ не был открыт. Код ошибки: {_errCode} {errorText}";
-        //    }
+            var openResult = _connection.OpenQuikQadminApiToRead(_spotFIRM);
+            if (!openResult.Equals("OK"))
+            {
+                result.Add(openResult);
+                return result.ToArray();
+            }
 
-        //    return "OK";
-        //}
+            //получения списка всех шаблонов «По комиссии».
+            IntPtr templateListPoComissii = IntPtr.Zero;
+            NativeMethods.QDAPI_GetListOfClientTemplates(_spotFIRM, ref templateListPoComissii);
+            QDAPI_ArrayStrings templateCodes = Marshal.PtrToStructure<QDAPI_ArrayStrings>(templateListPoComissii);
 
-        //private string OpenQuikQadminApiToRead(string firm)
-        //{
-        //    _logger.LogInformation("SpotService OpenQuikQadminApiToRead Called");
+            _logger.LogInformation($"SpotService GetAllTemplatesKomissii Количество шаблонов по комиссии: {templateCodes.count}");
 
-        //    var openResult = OpenQuikQadminAPI();
-        //    if (!openResult.Equals("OK"))
-        //    {
-        //        return openResult;
-        //    }
-        //    // Начало работы с настройками БРЛ
-        //    // Открытие настроек по фирме dealerFirm
-        //    // 0 - чтение/запись
-        //    // 1 - чтение
-        //    _errCode = NativeMethods.QDAPI_DLOpenFile(firm, 1);
-        //    if (_errCode != (int)QDAPI_Errors.QDAPI_ERROR_SUCCESS)
-        //    {
-        //        string errorText = CommonServices.QuikService.GetErrorDescription(_errCode);
-        //        _logger.LogWarning($"QAS101 Ошибка подключения к Qadmin API. Файл БРЛ не был открыт. Код ошибки: {_errCode} {errorText}");
-        //        return $"QAS101 Ошибка подключения к Qadmin API. Файл БРЛ не был открыт. Код ошибки: {_errCode} {errorText}";
-        //    }
+            IntPtr[] templateCodesArrayComiss = new IntPtr[templateCodes.count];
+            Marshal.Copy(templateCodes.elems, templateCodesArrayComiss, 0, (int)templateCodes.count);
 
-        //    return "OK";
-        //}
+            for (uint i = 0; i < templateCodes.count; ++i)
+            {
+                var templateCode = Marshal.PtrToStringAnsi(templateCodesArrayComiss[i]);
+                result.Add(templateCode);
+            }
+            NativeMethods.QDAPI_FreeMemory(ref templateListPoComissii);
 
-        //private string OpenQuikQadminAPI()
-        //{
-        //    _logger.LogInformation("SpotService OpenQuikQadminAPI Called");
+            string close = _connection.CloseQuikAPI(0, _spotFIRM);
+            if (!close.Equals("OK"))
+            {
+                result.Add(close);
+            }
 
-        //    IntPtr conErrPtr = IntPtr.Zero;
-        //    int _errCode = NativeMethods.QDAPI_Connect(@"QDealerAPI.ini", _logon.Login, _logon.Password, ref conErrPtr);
-        //    if (_errCode != (int)QDAPI_Errors.QDAPI_ERROR_SUCCESS)
-        //    {
-        //        string conErr = Marshal.PtrToStringAnsi(conErrPtr);
-        //        NativeMethods.QDAPI_FreeMemory(ref conErrPtr);
+            return result.ToArray();
+        }
 
-        //        if (conErr == null)
-        //        {
-        //            _logger.LogWarning("QAS102 Ошибка подключения к Qadmin API - conErr is null");
-        //            return "QAS102 Ошибка подключения к Qadmin API - conErr is null";
-        //        }
+        public string[] GetAllTemplatesPoPlechu()
+        {
+            _logger.LogInformation($"SpotService GetAllTemplatesPoPlechu Called");
 
-        //        _logger.LogWarning($"QAS103 Ошибка подключения к Qadmin API: {conErr}");
-        //        return $"QAS103 Ошибка подключения к Qadmin API: {conErr}";
-        //    }
-        //    else
-        //    {
-        //        _logger.LogInformation("Соединение установлено");
-        //        return "OK";
-        //    }
-        //}
+            List<string> result = new List<string>();
 
-        //private string CloseQuikQadminAPI(string firm)
-        //{
-        //    _logger.LogInformation("SpotService CloseQuikQadminAPI Called");
+            var openResult = _connection.OpenQuikQadminApiToRead(_spotFIRM);
+            if (!openResult.Equals("OK"))
+            {
+                result.Add(openResult);
+                return result.ToArray();
+            }
 
-        //    try
-        //    {
-        //        // Сохранение изменений
-        //        _errCode = NativeMethods.QDAPI_DLUpdateFile(firm);
+            //Получение списка всех шаблонов «По плечу».
+            IntPtr templateListPoPlechu = IntPtr.Zero;
+            NativeMethods.QDAPI_GetListOfMarginTemplates(_spotFIRM, ref templateListPoPlechu);
+            QDAPI_ArrayStrings templateCodes = Marshal.PtrToStructure<QDAPI_ArrayStrings>(templateListPoPlechu);
 
-        //        if (_errCode != (int)QDAPI_Errors.QDAPI_ERROR_SUCCESS)
-        //        {
-        //            string errorText = CommonServices.QuikService.GetErrorDescription(_errCode);
-        //            _logger.LogWarning($"QAS104 Qadmin API Настройки не были сохранены. Код ошибки: {_errCode}");
-        //            //12 = Текущий доступ к настройкам БРЛ не допускает их изменения. ОК при "1" в подключении
-        //            if (_errCode != 12)
-        //            {
-        //                _logger.LogWarning($"QAS105 Qadmin API Ошибка в CloseQuikQadminAPI. Настройки не были сохранены, код ошибки: {_errCode} {errorText}");
-        //                return $"QAS105 Qadmin API Ошибка в CloseQuikQadminAPI. Настройки не были сохранены, код ошибки: {_errCode} {errorText}";
-        //            }
-        //        }
-        //        else
-        //        {
-        //            _logger.LogInformation("Настройки успешно сохранены");
-        //        }
+            _logger.LogInformation($"SpotService GetAllTemplatesPoPlechu Количество шаблонов по плечу: {templateCodes.count}");
 
-        //        // Закрытие файла настроек
-        //        _errCode = NativeMethods.QDAPI_DLCloseFile(firm);
+            IntPtr[] templateCodesArray = new IntPtr[templateCodes.count];
+            Marshal.Copy(templateCodes.elems, templateCodesArray, 0, (int)templateCodes.count);
 
-        //        if (_errCode != (int)QDAPI_Errors.QDAPI_ERROR_SUCCESS)
-        //        {
-        //            string errorText = CommonServices.QuikService.GetErrorDescription(_errCode);
-        //            _logger.LogWarning($"QAS106 Qadmin API Файл не был закрыт. Код ошибки: {_errCode} {errorText}");
-        //            return $"QAS106 Qadmin API Файл не был закрыт. Код ошибки: {_errCode} {errorText}";
-        //        }
-        //        else
-        //        {
-        //            _logger.LogInformation("Qadmin API Файл успешно закрыт");
-        //        }
+            for (uint i = 0; i < templateCodes.count; ++i)
+            {
+                var templateCode = Marshal.PtrToStringAnsi(templateCodesArray[i]);
+                result.Add(templateCode);
+            }
+            NativeMethods.QDAPI_FreeMemory(ref templateListPoPlechu);
 
-        //        // Отключение от Сервера Quik Administrator
-        //        _errCode = NativeMethods.QDAPI_Disconnect();
+            string close = _connection.CloseQuikAPI(0, _spotFIRM);
+            if (!close.Equals("OK"))
+            {
+                result.Add(close);
+            }
 
-        //        if (_errCode != (int)QDAPI_Errors.QDAPI_ERROR_SUCCESS)
-        //        {
-        //            string errorText = CommonServices.QuikService.GetErrorDescription(_errCode);
-        //            _logger.LogWarning($"QAS107 Ошибка отключения от сервера. Код ошибки: {_errCode} {errorText}");
-        //            return $"QAS107 Ошибка отключения от сервера. Код ошибки: {_errCode} {errorText}";
-        //        }
-        //        else
-        //        {
-        //            _logger.LogInformation("Отключение от сервера успешно произведено");
-        //            return "OK";
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogWarning($"QAS108 CheckConnectionQadmin Error {ex.Message}");
-        //        return $"QAS108 CheckConnectionQadmin Error {ex.Message}";
-        //    }
-        //}
+            return result.ToArray();
+        }
 
-        //private string CloseQuikAPI(int resultEditBrl, string firm)
-        //{
-        //    var resultClose = CloseQuikQadminAPI(firm);
+        public string[] GetAllClientsFromTemplatePoKomissii(string templateName)
+        {
+            _logger.LogInformation($"SpotService GetAllClientsFromTemplatePoKomissii Called " + templateName);
 
-        //    if (resultClose == null)
-        //    {
-        //        _logger.LogWarning("QAS109 No answer received when close QUIK BRL MC0138200000");
-        //        return "QAS109 No answer received when close QUIK BRL MC0138200000";
-        //    }
-        //    else if (resultClose.Equals("OK"))
-        //    {
-        //        _logger.LogInformation("Файл успешно закрыт");
-        //        if (resultEditBrl == 0)
-        //        {
-        //            return "OK";
-        //        }
-        //        else
-        //        {
-        //            string errorText = CommonServices.QuikService.GetErrorDescription(resultEditBrl);
-        //            return $"QAS110 Ошибка при выполнении = {resultEditBrl} {errorText}";
-        //        }
-        //    }
-        //    else
-        //    {
-        //        _logger.LogWarning("QAS111 Error at close QUIK BRL MC0138200000, error=" + resultClose);
-        //        return "QAS111 Error at close QUIK BRL MC0138200000, error=" + resultClose;
-        //    }
-        //}
+            List<string> result = new List<string>();
+
+            var openResult = _connection.OpenQuikQadminApiToRead(_spotFIRM);
+            if (!openResult.Equals("OK"))
+            {
+                result.Add(openResult);
+                return result.ToArray();
+            }
+
+            //получения полного списка клиентов в клиентском шаблоне "По комиссии"
+            IntPtr clPtr = IntPtr.Zero;
+            NativeMethods.QDAPI_GetClientsListOfClientTemplate(_spotFIRM, templateName, ref clPtr);
+            if (clPtr != IntPtr.Zero)
+            {
+                QDAPI_ArrayStrings templateComissionClientCodes = Marshal.PtrToStructure<QDAPI_ArrayStrings>(clPtr);
+
+                _logger.LogInformation($"SpotService GetAllClientsFromTemplatePoKomissii клиентов в шаблоне По комиссии {templateName} : {templateComissionClientCodes.count}");
+
+                IntPtr[] templateCDCodesArray = new IntPtr[templateComissionClientCodes.count];
+                Marshal.Copy(templateComissionClientCodes.elems, templateCDCodesArray, 0, (int)templateComissionClientCodes.count);
+
+                for (uint i = 0; i < templateComissionClientCodes.count; ++i)
+                {
+                    var templateCode = Marshal.PtrToStringAnsi(templateCDCodesArray[i]);
+                    result.Add(templateCode);
+                }
+                NativeMethods.QDAPI_FreeMemory(ref clPtr);
+            }
+            else
+            {
+                result.Add($"Template {templateName} not found");
+            }
+
+            string close = _connection.CloseQuikAPI(0, _spotFIRM);
+            if (!close.Equals("OK"))
+            {
+                result.Add(close);
+            }
+
+            return result.ToArray();
+        }
+
+        public string[] GetAllClientsFromTemplatePoPlechu(string templateName)
+        {
+            _logger.LogInformation($"SpotService GetAllClientsFromTemplatePoPlechu Called " + templateName);
+
+            List<string> result = new List<string>();
+
+            var openResult = _connection.OpenQuikQadminApiToRead(_spotFIRM);
+            if (!openResult.Equals("OK"))
+            {
+                result.Add(openResult);
+                return result.ToArray();
+            }
+
+            //получение полного списка клиентов в маржинальном шаблоне "по Плечу"
+            IntPtr clPtr = IntPtr.Zero;
+            NativeMethods.QDAPI_GetClientsListOfMarginTemplate(_spotFIRM, templateName, ref clPtr);
+
+            if (clPtr != IntPtr.Zero)
+            {
+                QDAPI_ArrayStrings templateComissionClientCodes = Marshal.PtrToStructure<QDAPI_ArrayStrings>(clPtr);
+
+                _logger.LogInformation($"SpotService GetAllClientsFromTemplatePoPlechu клиентов в шаблоне По Плечу {templateName} : {templateComissionClientCodes.count}");
+
+                IntPtr[] templateCDCodesArray = new IntPtr[templateComissionClientCodes.count];
+                Marshal.Copy(templateComissionClientCodes.elems, templateCDCodesArray, 0, (int)templateComissionClientCodes.count);
+
+                for (uint i = 0; i < templateComissionClientCodes.count; ++i)
+                {
+                    var templateCode = Marshal.PtrToStringAnsi(templateCDCodesArray[i]);
+                    result.Add(templateCode);
+                }
+                NativeMethods.QDAPI_FreeMemory(ref clPtr);
+            }
+            else
+            {
+                result.Add($"Template {templateName} not found");
+            }
+
+            string close = _connection.CloseQuikAPI(0, _spotFIRM);
+            if (!close.Equals("OK"))
+            {
+                result.Add(close);
+            }
+
+            return result.ToArray();
+        }
+
+        public string DeleteCodeFromTemplatePoKomissii(TemplateAndCodeModel model)
+        {
+            _logger.LogInformation($"SpotService DeleteCodeFromTemplatePoKomissii Called {model.Template} {model.ClientCode}");
+
+            var openResult = _connection.OpenQuikQadminApiToWrite(_spotFIRM);
+            if (!openResult.Equals("OK"))
+            {
+                return openResult;
+            }
+            //удаления одного кода клиента из шаблона  "по Комиссии"
+            int resultEditBrl = NativeMethods.QDAPI_RemoveClientFromClientTemplate(_spotFIRM, model.Template, model.ClientCode);
+            _logger.LogInformation($"Delete result is: {resultEditBrl}");
+
+            return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM);
+        }
+
+        public string DeleteCodeFromTemplatePoPlechu(TemplateAndCodeModel model)
+        {
+            _logger.LogInformation($"SpotService DeleteCodeFromTemplatePoPlechu Called {model.Template} {model.ClientCode}");
+
+            var openResult = _connection.OpenQuikQadminApiToWrite(_spotFIRM);
+            if (!openResult.Equals("OK"))
+            {
+                return openResult;
+            }
+            //удаления одного кода клиента из шаблона  "по Плечу"
+            int resultEditBrl = NativeMethods.QDAPI_RemoveClientFromMarginTemplate(_spotFIRM, model.Template, model.ClientCode);
+            _logger.LogInformation($"Delete result is: {resultEditBrl}");
+
+            return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM);
+        }
+
+        public string MoveClientCodeBetweenTemplatesPoKomissii(MoveCodeModel moveModel)
+        {
+            _logger.LogInformation($"SpotService MoveClientCodeBetweenTemplatesPoKomissii Called {moveModel.FromTemplate}->{moveModel.ToTemplate} {moveModel.ClientCode}");
+
+            var openResult = _connection.OpenQuikQadminApiToWrite(_spotFIRM);
+            if (!openResult.Equals("OK"))
+            {
+                return openResult;
+            }
+
+            //перемещения кода клиента из одного шаблона «По комиссии». в другой  шаблон «По комиссии».
+            int resultEditBrl = NativeMethods.QDAPI_MoveClientBetweenClientTemplates(_spotFIRM, moveModel.FromTemplate, moveModel.ToTemplate, moveModel.ClientCode);
+            _logger.LogInformation($"Move result is: {resultEditBrl}");
+
+            return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM);
+        }
+
+        public string MoveClientCodeBetweenTemplatesPoPlechu(MoveCodeModel moveModel)
+        {
+            _logger.LogInformation($"SpotService MoveClientCodeBetweenTemplatesPoPlechu Called {moveModel.FromTemplate}->{moveModel.ToTemplate} {moveModel.ClientCode}");
+
+            var openResult = _connection.OpenQuikQadminApiToWrite(_spotFIRM);
+            if (!openResult.Equals("OK"))
+            {
+                return openResult;
+            }
+
+            //перемещение кода клиента из одного шаблона "по Плечу" в другой  шаблон "по Плечу".
+            int resultEditBrl = NativeMethods.QDAPI_MoveClientBetweenMarginTemplates(_spotFIRM, moveModel.FromTemplate, moveModel.ToTemplate, moveModel.ClientCode);
+            _logger.LogInformation($"Move result is: {resultEditBrl}");
+
+            return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM);
+        }
+
+        public string ReplaceAllCodesMatrixInPoKomisiiTemplate(TemplateAndCodesModel model)
+        {
+            _logger.LogInformation($"SpotService ReplaceAllCodesMatrixInPoKomisiiTemplate Called for {model.Template}");
+
+            var openResult = _connection.OpenQuikQadminApiToWrite(_spotFIRM);
+            if (!openResult.Equals("OK"))
+            {
+                return openResult;
+            }
+
+            //изменения полного списка клиентов в клиентском шаблоне «По комиссии».
+            QDAPI_ArrayStrings clStruct = new QDAPI_ArrayStrings
+            {
+                count = (uint)model.ClientCodes.Length,
+                elems = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(IntPtr)) * model.ClientCodes.Length)
+            };
+            IntPtr[] clPtrArray = new IntPtr[model.ClientCodes.Length];
+            for (int i = 0; i < model.ClientCodes.Length; ++i)
+            {
+                clPtrArray[i] = Marshal.StringToHGlobalAnsi(model.ClientCodes[i]);
+            }
+            Marshal.Copy(clPtrArray, 0, clStruct.elems, clPtrArray.Length);
+
+            int resultEditBrl = NativeMethods.QDAPI_SetClientsListOfClientTemplate(_spotFIRM, model.Template, ref clStruct);
+            _logger.LogInformation($"Move result is: {resultEditBrl}");
+
+            Marshal.FreeHGlobal(clStruct.elems);
+            for (int i = 0; i < clPtrArray.Length; ++i)
+            {
+                Marshal.FreeHGlobal(clPtrArray[i]);
+            }
+
+            return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM);
+        }
+
+        public string ReplaceAllCodesMatrixInLeverageTemplate(TemplateAndCodesModel model)
+        {
+            _logger.LogInformation($"SpotService ReplaceAllCodesMatrixInLeverageTemplate Called for {model.Template}");
+
+            var openResult = _connection.OpenQuikQadminApiToWrite(_spotFIRM);
+            if (!openResult.Equals("OK"))
+            {
+                return openResult;
+            }
+
+            //изменения полного списка клиентов в маржинальном шаблоне  "по Плечу"
+            QDAPI_ArrayStrings clStruct = new QDAPI_ArrayStrings
+            {
+                count = (uint) model.ClientCodes.Length,
+                elems = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(IntPtr)) * model.ClientCodes.Length)
+            };
+            IntPtr[] clPtrArray = new IntPtr[model.ClientCodes.Length];
+            for (int i = 0; i < model.ClientCodes.Length; ++i)
+            {
+                clPtrArray[i] = Marshal.StringToHGlobalAnsi(model.ClientCodes[i]);
+            }
+            Marshal.Copy(clPtrArray, 0, clStruct.elems, clPtrArray.Length);
+
+            int resultEditBrl = NativeMethods.QDAPI_SetClientsListOfMarginTemplate(_spotFIRM, model.Template, ref clStruct);
+            _logger.LogInformation($"Move result is: {resultEditBrl}");
+
+            Marshal.FreeHGlobal(clStruct.elems);
+            for (int i = 0; i < clPtrArray.Length; ++i)
+            {
+                Marshal.FreeHGlobal(clPtrArray[i]);
+            }
+
+            return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM);
+        }
     }
 }
