@@ -4,7 +4,7 @@ namespace DataAbstraction.Models
 {
     public class FortsClientCodeModel
     {
-        [DefaultValue("C0000abc")]
+        [DefaultValue("C000abc")]
         public string FortsClientCode { get; set; }
     }
 }

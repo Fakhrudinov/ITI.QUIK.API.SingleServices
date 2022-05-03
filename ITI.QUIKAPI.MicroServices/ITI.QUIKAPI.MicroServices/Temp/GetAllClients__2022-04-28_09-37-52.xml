@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="WINDOWS-1251"?>
-<UserData xmlns="urn:quik:user-rights-import">
-	<Command Type="ExportUser" Comment="Export all users with status Client">
-		<ExportFileName>CurrClnts.xml</ExportFileName>
-		<OrgCode>2</OrgCode>
-	</Command>
-</UserData>

@@ -26,7 +26,7 @@
 
         public static string GetFortsQuikCode(string code)
         {
-            return "SPBEX" + code.Substring(2);
+            return "SPBFUT" + code.Substring(2);
         }
     }
 }

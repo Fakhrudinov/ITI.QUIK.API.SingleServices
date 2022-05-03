@@ -7,7 +7,7 @@ namespace DataValidationService
         public SingleFortsCodeStringValidationService()
         {
             RuleFor(x => x)
-                .Matches("^C0[0-9A-Za-z]{5}")
+                .Matches("^C0[0-9A-Za-z]{5}$")
                     .WithMessage("{PropertyName} '{PropertyValue}' is not in format 'C0xxxxx'.")
                     .WithErrorCode("PP701");
         }

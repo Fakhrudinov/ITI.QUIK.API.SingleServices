@@ -35,6 +35,270 @@ namespace QuikSftpService
             _logger = logger;
         }
 
+        public StringResponceModel DeleteStartMessageForUID(int uid)
+        {
+            _logger.LogInformation($"SFTPService DeleteStartMessage/ForUID/{uid} Called");
+
+            return DeleteStartMessage(uid, false);
+        }
+
+        public StringResponceModel GetStartMessageforAll()
+        {
+            _logger.LogInformation($"SFTPService GetStartMessage/forAll Called");
+
+            return GetStartMessage(0, true);
+        }
+        public StringResponceModel GetStartMessageforUID(int uid)
+        {
+            _logger.LogInformation($"SFTPService GetStartMessage/forUID Called");
+
+            return GetStartMessage(uid, false);
+        }
+
+        private StringResponceModel GetStartMessage(int uid, bool forAll)
+        {
+            StringResponceModel response = new StringResponceModel();
+
+            //путь SFTP            
+            string remoteDirPath = Path.Combine(_messageToSinglePathSFTP, uid.ToString());
+            if (forAll)
+            {
+                remoteDirPath = _messageToAllPathSFTP;
+            }
+
+            //получаем
+            using var client = new SftpClient(_logon.Host, _logon.Port, _logon.Login, _logon.Password);
+            try
+            {
+                client.Connect();
+
+                if (!forAll)
+                {
+                    if (!client.Exists(remoteDirPath))
+                    {
+                        _logger.LogWarning($"SFTP GetStartMessage/forUID/{uid} Failed: Message not found by path {remoteDirPath}");
+
+                        response.IsSuccess = false;
+                        response.Message = $"SFTP GetStartMessage/forUID/{uid} Failed: Message not found by path {remoteDirPath}";
+                        return response;
+                    }
+                }
+
+                List<SftpFile> fileList = client.ListDirectory(remoteDirPath).ToList();
+                foreach (SftpFile file in fileList)
+                {
+                    if (!file.IsDirectory)
+                    {
+                        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                        response.Message = response.Message + client.ReadAllText(file.FullName, Encoding.GetEncoding("windows-1251"));
+                    }
+                }
+
+                if (response.Message is null)
+                {
+                    response.IsSuccess = false;
+                    response.Message = $"SFTP GetStartMessage /forAll/{forAll} {uid} Failed: Message not found";
+                    return response;
+                }
+            }
+            catch (Exception exception)
+            {
+                _logger.LogWarning($"SFTP GetStartMessage/forAll/{forAll} {uid} Failed with Error: {exception.Message}");
+
+                response.IsSuccess = false;
+                response.Message = $"SFTP GetStartMessage/forAll/{forAll} {uid} Failed with Error: {exception.Message}";
+                return response;
+            }
+            finally
+            {
+                client.Disconnect();
+            }
+
+            return response;
+        }
+
+        public StringResponceModel DeleteStartMessageForAll()
+        {
+            _logger.LogInformation($"SFTPService DeleteStartMessage/ForAll Called");
+
+            return DeleteStartMessage(1, true);
+        }
+
+        private StringResponceModel DeleteStartMessage(int uid, bool forAll)
+        {
+            StringResponceModel response = new StringResponceModel();
+
+            //путь SFTP            
+            string remoteDirPath = Path.Combine(_messageToSinglePathSFTP, uid.ToString());            
+            if (forAll)
+            {
+                remoteDirPath = _messageToAllPathSFTP;
+            }
+ 
+            //удаляем 
+            using var client = new SftpClient(_logon.Host, _logon.Port, _logon.Login, _logon.Password);
+            try
+            {
+                client.Connect();
+
+                List<SftpFile> fileList = client.ListDirectory(remoteDirPath).ToList();
+                foreach (SftpFile file in fileList)
+                {
+                    if (!file.IsDirectory)
+                    {
+                        client.DeleteFile(file.FullName);
+                    }
+                }
+
+                if (!forAll)
+                {
+                    if (client.Exists(remoteDirPath))
+                    {
+                        client.DeleteDirectory(remoteDirPath);
+                    }
+                    else
+                    {
+                        _logger.LogWarning($"SFTP DeleteStartMessage/{forAll} {uid} Failed: Dir not found by path {remoteDirPath}");
+
+                        response.IsSuccess = false;
+                        response.Message = $"SFTP DeleteStartMessage/forAll/{forAll} {uid} Failed: Dir not found by path {remoteDirPath}";
+                        return response;
+                    }
+                }
+
+            }
+            catch (Exception exception)
+            {
+                _logger.LogWarning($"SFTP DeleteStartMessage/forAll/{forAll} {uid} Failed with Error: {exception.Message}");
+
+                response.IsSuccess = false;
+                response.Message = $"SFTP DeleteStartMessage/forAll/{forAll} {uid} Failed with Error: {exception.Message}";
+                return response;
+            }
+            finally
+            {
+                client.Disconnect();
+            }
+
+            response.Message = $"SFTP DeleteStartMessage success";
+            return response;
+        }
+
+        public StringResponceModel SetStartMessage(StartMessageModel model)
+        {
+            _logger.LogInformation($"SFTPService SetStartMessageToSingleUID Called, ToAll={model.ToAll} UID={model.UID}");
+            StringResponceModel response = new StringResponceModel();
+
+            //путь SFTP            
+            string remoteDirPath = Path.Combine(_messageToSinglePathSFTP, model.UID.ToString());
+            if (model.ToAll)
+            {
+                remoteDirPath = _messageToAllPathSFTP;
+            }
+            string remoteFilePath = Path.Combine(remoteDirPath, "message.txt");
+
+            //отправляем файл
+            using var client = new SftpClient(_logon.Host, _logon.Port, _logon.Login, _logon.Password);
+            try
+            {
+                client.Connect();
+
+                if (!client.Exists(remoteDirPath))
+                {
+                    client.CreateDirectory(remoteDirPath);
+                }
+
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                client.WriteAllText(remoteFilePath, model.Message, Encoding.GetEncoding("windows-1251"));
+                _logger.LogInformation($"Finished WriteAllText to file [{remoteFilePath}]");
+            }
+            catch (Exception exception)
+            {
+                _logger.LogWarning("SFTP WriteAllText to file Failed with Error: " + exception.Message);
+
+                response.IsSuccess = false;
+                response.Message = "SFTP WriteAllText to file Failed with Error: " + exception.Message;
+                return response;
+            }
+            finally
+            {
+                client.Disconnect();
+            }
+
+            response.Message = $"SFTP WriteAllText to file {remoteFilePath} success";
+            return response;
+        }
+
+        public ListStringResponseModel GetUIDByMatrixCode(string code)
+        {
+            _logger.LogInformation($"SFTPService GetUIDByMatrixCode Called, code=" + code);
+
+            //из кода матрицы сделаем код quik
+            string quikCode = PortfoliosConvertingService.GetSpotPortfolio(code);
+
+            return GetUIDFromCurrClnts(quikCode);
+        }
+
+        public ListStringResponseModel GetUIDByFortsCode(string code)
+        {
+            _logger.LogInformation($"SFTPService GetUIDByFortsCode Called, code=" + code);
+
+            //из кода матрицы сделаем код quik
+            string quikCode = PortfoliosConvertingService.GetFortsQuikCode(code);
+
+            return GetUIDFromCurrClnts(quikCode);
+        }
+
+        private ListStringResponseModel GetUIDFromCurrClnts(string quikCode)
+        {
+            ListStringResponseModel response = new ListStringResponseModel();
+            //сначала проверить что файл есть
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), _filesFolder, "CurrClnts.xml");
+            if (!File.Exists(filePath))
+            {
+                _logger.LogWarning("SFTPService GetUIDFromCurrClnts Error - file not found: " + filePath);
+                response.IsSuccess = false;
+                response.Messages.Add("Error - file not found: " + filePath);
+                return response;
+            }
+
+            //открыть файл
+            XmlDocument xmlConfig = new XmlDocument();
+            XmlNamespaceManager nsmanager = new XmlNamespaceManager(xmlConfig.NameTable);
+            nsmanager.AddNamespace("qx", "urn:quik:user-rights-import");
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            xmlConfig.Load(filePath);
+            
+            XmlNodeList nodeSearchResult = xmlConfig.SelectNodes("//qx:Classes[contains(@ClientCodes,'" + quikCode + "')]", nsmanager);
+            if (nodeSearchResult.Count > 0)
+            {
+                List<XmlNode> nodeResult = new List<XmlNode>();
+
+                foreach (XmlNode node in nodeSearchResult)
+                {
+                    response.IsSuccess = true;
+                    if (node.ParentNode is not null)
+                    {
+                        if (!nodeResult.Contains(node.ParentNode))
+                        {
+                            nodeResult.Add(node.ParentNode);
+                        }
+                    }                    
+                }
+
+                foreach (XmlNode node in nodeResult)
+                {
+                    response.Messages.Add(node.OuterXml);
+                }
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.Messages.Add("Code not found at file " + filePath);
+            }
+            return response;
+        }
+
         public StringResponceModel BlockUserByUID(int uid)
         {
             _logger.LogInformation($"SFTPService BlockUserByUID Called, UID=" + uid);
@@ -819,6 +1083,7 @@ namespace QuikSftpService
             XmlNode nodeResult = xmlConfig.SelectSingleNode("//qx:Result", nsmanager);
 
             /*
+             * possible xml:
             <Result Status="ERROR" ProcessTime="2022-04-26T08:16:18">
                 <ErrorMsg> File[BlockUserByClientCode_BP56646.xml]. Command[UpdateUser]. Error on: [UpdateUser. User=0] Error description: [not specified userID.]</ErrorMsg>
             </Result>

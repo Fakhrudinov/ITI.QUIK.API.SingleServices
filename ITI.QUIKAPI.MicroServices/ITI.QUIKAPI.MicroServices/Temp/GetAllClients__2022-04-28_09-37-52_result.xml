@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="Windows-1251"?>
-<UserData xmlns="urn:quik:user-rights-import">
-	<Command Type="ExportUser" Comment="Export all users with status Client">
-		<ExportFileName>CurrClnts.xml</ExportFileName>
-		<OrgCode>2</OrgCode>
-		<Result Status="OK" ProcessTime="2022-04-28T09:38:40" count="36"/>
-	</Command>
-</UserData>

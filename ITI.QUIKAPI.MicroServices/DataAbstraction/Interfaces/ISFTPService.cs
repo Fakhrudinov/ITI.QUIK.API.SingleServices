@@ -19,5 +19,12 @@ namespace DataAbstraction.Interfaces
         StringResponceModel DownloadAllClients();
         StringResponceModel SendNewClientOptionWorkshop(NewClientOptionWorkShopModel model);
         StringResponceModel SendNewClient(NewClientModel model);
+        ListStringResponseModel GetUIDByMatrixCode(string matrixClientCode);
+        ListStringResponseModel GetUIDByFortsCode(string fortsClientCode);
+        StringResponceModel SetStartMessage(StartMessageModel model);
+        StringResponceModel DeleteStartMessageForUID(int uid);
+        StringResponceModel DeleteStartMessageForAll();
+        StringResponceModel GetStartMessageforAll();
+        StringResponceModel GetStartMessageforUID(int uid);
     }
 }

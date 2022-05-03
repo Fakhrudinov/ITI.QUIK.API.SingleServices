@@ -6,7 +6,7 @@ namespace DataAbstraction.Models
     {
         [DefaultValue("BP12345-RF-01")]
         public string MatrixClientCode { get; set; }
-        [DefaultValue("C0000abc")]
+        [DefaultValue("C000abc")]
         public string FortsClientCode { get; set; }
     }
 }

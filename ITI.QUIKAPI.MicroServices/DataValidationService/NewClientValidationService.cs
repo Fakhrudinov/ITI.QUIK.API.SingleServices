@@ -28,7 +28,7 @@ namespace DataValidationService
             RuleForEach(x => x.CodesPairRF).ChildRules(codes =>
             {
                 codes.RuleFor(x => x.FortsClientCode)
-                    .Matches("^C0[0-9A-Za-z]{5}")
+                    .Matches("^C0[0-9A-Za-z]{5}$")
                         .WithMessage("{PropertyName} '{PropertyValue}' is not in format 'C0xxxxx'.")
                         .WithErrorCode("PP902");
             });

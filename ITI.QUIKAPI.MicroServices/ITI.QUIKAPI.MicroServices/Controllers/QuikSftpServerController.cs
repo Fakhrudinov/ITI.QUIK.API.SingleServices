@@ -20,13 +20,10 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         }
 
         // To Do:
-        //узнать uid по коду клиента из currClnts.xml by matrixCode - return int aray
-        //узнать uid по коду клиента из currClnts.xml by fortsCode - return int aray
-        //
-        // оповещение одному uid
-        // оповещение всем клиентам
-        // удалить оповещение всем
-        // удалить оповещение одному uid
+
+        // получить оповещение всем клиентам
+
+        // получить список клиентов с оповещениями
 
 
 
@@ -47,6 +44,151 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return BadRequest(result);
             }
         }
+
+
+        [HttpGet("GetStartMessage/forAll")]
+        public IActionResult GetStartMessageforAll()
+        {
+            _logger.LogInformation("HttpGet GetStartMessage/forAll Call");
+
+            var result = _serviceSFTP.GetStartMessageforAll();
+
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+        [HttpGet("GetStartMessage/forUID/{uid}")]
+        public IActionResult GetStartMessageforUID(int uid)
+        {
+            _logger.LogInformation($"HttpGet GetStartMessage/forUID/{uid} Call");
+
+            var result = _serviceSFTP.GetStartMessageforUID(uid);
+
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+
+
+        [HttpDelete("DeleteStartMessage/ForAll")]
+        public IActionResult DeleteStartMessageForAll()
+        {
+            _logger.LogInformation($"HttpDelete DeleteStartMessage/ForAll");
+
+            var result = _serviceSFTP.DeleteStartMessageForAll();
+
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+
+        [HttpDelete("DeleteStartMessage/ForUID/{uid}")]
+        public IActionResult DeleteStartMessageForUID(int uid)
+        {
+            _logger.LogInformation($"HttpDelete DeleteStartMessage/ForUID/{uid}");
+
+            var result = _serviceSFTP.DeleteStartMessageForUID(uid);
+
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+
+        [HttpPost("SetStartMessage")]
+        public IActionResult SetStartMessage([FromBody] StartMessageModel model)
+        {
+            _logger.LogInformation($"HttpPost SetStartMessage Call, ToAll={model.ToAll} UID={model.UID}");
+
+            var result = _serviceSFTP.SetStartMessage(model);
+
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+
+        [HttpGet("UID/byMatrixCode")]
+        public IActionResult GetUIDByMatrixCode([FromQuery] MatrixClientCodeModel model)
+        {
+            _logger.LogInformation("HttpGet GetUID/ByMatrixCode Call " + model.MatrixClientCode);
+
+            SingleMatrixCodeStringValidationService validator = new SingleMatrixCodeStringValidationService();
+            ValidationResult validationResult = validator.Validate(model.MatrixClientCode);
+            if (!validationResult.IsValid)
+            {
+                var response = new StringResponceModel();
+                response.Message = validationResult.Errors.First().ErrorCode + " " + validationResult.Errors.First().ErrorMessage;
+                response.IsSuccess = false;
+
+                _logger.LogWarning("HttpGet GetUID/ByMatrixCode Failed with " + response.Message);
+                return BadRequest(response);
+            }
+
+            var result = _serviceSFTP.GetUIDByMatrixCode(model.MatrixClientCode);
+
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+
+        [HttpGet("UID/byFortsCode")]
+        public IActionResult GetUIDByFortsCode([FromQuery] FortsClientCodeModel model)
+        {
+            _logger.LogInformation($"HttpGet GetUID/ByFortsCode Call " + model.FortsClientCode);
+
+            SingleFortsCodeStringValidationService validator = new SingleFortsCodeStringValidationService();
+            ValidationResult validationResult = validator.Validate(model.FortsClientCode);
+            if (!validationResult.IsValid)
+            {
+                var response = new StringResponceModel();
+                response.Message = validationResult.Errors.First().ErrorCode + " " + validationResult.Errors.First().ErrorMessage;
+                response.IsSuccess = false;
+
+                _logger.LogWarning("HttpGet GetUID/ByFortsCode Failed with " + response.Message);
+                return BadRequest(response);
+            }
+
+            var result = _serviceSFTP.GetUIDByFortsCode(model.FortsClientCode);
+
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+
 
         [HttpPost("NewClient/OptionWorkshop")]
         public IActionResult NewClientOptionWorkshop([FromBody] NewClientOptionWorkShopModel model)
