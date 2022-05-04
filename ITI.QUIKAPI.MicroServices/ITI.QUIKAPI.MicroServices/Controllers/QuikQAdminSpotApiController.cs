@@ -36,42 +36,28 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         public IActionResult CheckConnection()
         {
             _logger.LogInformation("HttpGet CheckConnections/SpotApi Call");
+            
+            var result = _qService.CheckConnection();
 
-            var response = new StringResponceModel();
-            var result = _qService.CheckConnection();            
-
-            if (result == null)
+            if (result.IsSuccess)
             {
-                _logger.LogWarning("HttpGet CheckConnections Result = No answer received from QUIK BRL MC0138200000");
-                response.IsSuccess = false;
-                response.Message = "No answer received from QUIK BRL MC0138200000";
-                return BadRequest(response);
-            }
-            else if (result.Equals("OK"))
-            {
-                _logger.LogInformation("HttpGet CheckConnections Result = OK");
-
-                response.Message = "OK";
-                return Ok(response);
+                return Ok(result);
             }
             else
             {
-                _logger.LogWarning("HttpGet CheckConnections Result = " + result);
-                response.IsSuccess = false;
-                response.Message = "HttpGet CheckConnections Result = " + result;
-                return BadRequest(response);
-            } 
+                return BadRequest(result);
+            }
         }
 
-        [HttpPost("AddMatrixClientPortfolioTo/KomissiiTemplate/CD_portfolio/{portfolio}")]
-        public IActionResult AddClientPortfolioToKomissiiCDportfolio(string portfolio)
+        [HttpPost("AddMatrixClientPortfolioTo/KomissiiTemplate/CD_portfolio")]
+        public IActionResult AddClientPortfolioToKomissiiCDportfolio([FromBody] MatrixClientCodeModel model)
         {
-            _logger.LogInformation("Httppost AddMatrixClientPortfolioTo/KomissiiTemplate/CD_portfolio Call, " + portfolio);
+            _logger.LogInformation("Httppost AddMatrixClientPortfolioTo/KomissiiTemplate/CD_portfolio Call, " + model.MatrixClientCode);
 
             CDPortfolioValidationService validator = new CDPortfolioValidationService();
             var responseList = new ListStringResponseModel();
 
-            ValidationResult validationResult = validator.Validate(portfolio);
+            ValidationResult validationResult = validator.Validate(model);
 
             if (!validationResult.IsValid)
             {
@@ -82,36 +68,29 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return BadRequest(responseList);
             }
 
-            string quikportfolio = PortfoliosConvertingService.GetCdPortfolio(portfolio);
+            string quikportfolio = PortfoliosConvertingService.GetCdPortfolio(model.MatrixClientCode);
 
-            string result = _qService.AddClientPortfolioToKomissiiCDportfolio(quikportfolio);
-
-            var response = new StringResponceModel();
-            response.Message = result;
-
-            if (result.Equals("OK"))
+            var result = _qService.AddClientPortfolioToKomissiiCDportfolio(quikportfolio);
+            
+            if (result.IsSuccess)
             {
-                _logger.LogInformation("Httppost AddMatrixClientPortfolioTo/KomissiiTemplate/CD_portfolio Result = OK");
-
-                return Ok(response);
+                return Ok(result);
             }
             else
             {
-                _logger.LogWarning("Httppost AddMatrixClientPortfolioTo/KomissiiTemplate/CD_portfolio Failed with " + result);
-                response.IsSuccess = false;                
-                return BadRequest(response);
+                return BadRequest(result);
             }
         }
 
-        [HttpPost("AddMatrixClientPortfolioTo/LeverageTemplate/CD_portfolio/{portfolio}")]
-        public IActionResult AddClientPortfolioToLeverageCDportfolio(string portfolio)
+        [HttpPost("AddMatrixClientPortfolioTo/LeverageTemplate/CD_portfolio")]
+        public IActionResult AddClientPortfolioToLeverageCDportfolio([FromBody] MatrixClientCodeModel model)
         {
-            _logger.LogInformation("Httppost AddMatrixClientPortfolioTo/LeverageTemplate/CD_portfolio Call, " + portfolio);
+            _logger.LogInformation("Httppost AddMatrixClientPortfolioTo/LeverageTemplate/CD_portfolio Call, " + model.MatrixClientCode);
 
             CDPortfolioValidationService validator = new CDPortfolioValidationService();
             var responseList = new ListStringResponseModel();
 
-            ValidationResult validationResult = validator.Validate(portfolio);
+            ValidationResult validationResult = validator.Validate(model);
 
             if (!validationResult.IsValid)
             {
@@ -122,24 +101,17 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return BadRequest(responseList);
             }
 
-            string quikportfolio = PortfoliosConvertingService.GetCdPortfolio(portfolio);
+            string quikportfolio = PortfoliosConvertingService.GetCdPortfolio(model.MatrixClientCode);
 
-            string result = _qService.AddClientPortfolioToLeverageCDportfolio(quikportfolio);
+            var result = _qService.AddClientPortfolioToLeverageCDportfolio(quikportfolio);
 
-            var response = new StringResponceModel();
-            response.Message = result;
-
-            if (result.Equals("OK"))
+            if (result.IsSuccess)
             {
-                _logger.LogInformation("Httppost AddMatrixClientPortfolioTo/LeverageTemplate/CD_portfolio Result = OK");
-
-                return Ok(response);
+                return Ok(result);
             }
             else
             {
-                _logger.LogWarning("Httppost AddMatrixClientPortfolioTo/LeverageTemplate/CD_portfolio Failed with " + result);
-                response.IsSuccess = false;
-                return BadRequest(response);
+                return BadRequest(result);
             }
         }
 
@@ -177,21 +149,15 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return BadRequest(response);
             }
 
-            string result = _qService.AddClientPortfolioToKomissiiTemplate(model.Template, quikportfolio);
+            var result = _qService.AddClientPortfolioToKomissiiTemplate(model.Template, quikportfolio);
 
-            response.Message = result;
-
-            if (result.Equals("OK"))
+            if (result.IsSuccess)
             {
-                _logger.LogInformation("Httppost AddMatrixClientPortfolioTo/KomissiiTemplate Result = OK");
-
-                return Ok(response);
+                return Ok(result);
             }
             else
             {
-                _logger.LogWarning("Httppost AddMatrixClientPortfolioTo/KomissiiTemplate Failed with " + result);
-                response.IsSuccess = false;
-                return BadRequest(response);
+                return BadRequest(result);
             }
         }
 
@@ -229,22 +195,31 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return BadRequest(response);
             }
 
-            string result = _qService.AddClientPortfolioToLeverageTemplate(model.Template, quikportfolio);
+            var result = _qService.AddClientPortfolioToLeverageTemplate(model.Template, quikportfolio);
 
-            response.Message = result;
-
-            if (result.Equals("OK"))
+            if (result.IsSuccess)
             {
-                _logger.LogInformation("Httppost AddMatrixClientPortfolioTo/LeverageTemplate Result = OK");
-
-                return Ok(response);
+                return Ok(result);
             }
             else
             {
-                _logger.LogWarning("Httppost AddMatrixClientPortfolioTo/LeverageTemplate Failed with " + result);
-                response.IsSuccess = false;
-                return BadRequest(response);
+                return BadRequest(result);
             }
+
+            //response.Message = result;
+
+            //if (result.Equals("OK"))
+            //{
+            //    _logger.LogInformation("Httppost AddMatrixClientPortfolioTo/LeverageTemplate Result = OK");
+
+            //    return Ok(response);
+            //}
+            //else
+            //{
+            //    _logger.LogWarning("Httppost AddMatrixClientPortfolioTo/LeverageTemplate Failed with " + result);
+            //    response.IsSuccess = false;
+            //    return BadRequest(response);
+            //}
         }
 
         [HttpGet("GetAllTemplates/PoKomisii")]
@@ -252,9 +227,16 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation("HttpGet GetAllTemplates/PoKomisii Call");
 
-            string [] result = _qService.GetAllTemplatesPoKomissii();
+            var result = _qService.GetAllTemplatesPoKomissii();
 
-            return Ok(result);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
         }
 
         [HttpGet("GetAllTemplates/PoPlechu")]
@@ -262,9 +244,16 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation("HttpGet GetAllTemplates/PoPlechu Call");
 
-            string[] result = _qService.GetAllTemplatesPoPlechu();
+            var result = _qService.GetAllTemplatesPoPlechu();
 
-            return Ok(result);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
         }
 
         [HttpGet("GetAllClientsFromTemplate/PoKomissii/{templateName}")]
@@ -272,9 +261,16 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation("HttpGet GetAllClientsFromTemplate/PoKomissii Call " + templateName);
 
-            string[] result = _qService.GetAllClientsFromTemplatePoKomissii(templateName);
+            var result = _qService.GetAllClientsFromTemplatePoKomissii(templateName);
 
-            return Ok(result);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
         }
 
         [HttpGet("GetAllClientsFromTemplate/PoPlechu/{templateName}")]
@@ -282,13 +278,20 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation("HttpGet GetAllClientsFromTemplate/PoPlechu Call " + templateName);
 
-            string[] result = _qService.GetAllClientsFromTemplatePoPlechu(templateName);
+            var result = _qService.GetAllClientsFromTemplatePoPlechu(templateName);
 
-            return Ok(result);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
         }
 
         [HttpDelete("DeleteQuikCodeFromTemplate/PoKomissii")]
-        public IActionResult DeleteCodeFromTemplatePoKomissii([FromBody] TemplateAndCodeModel model)
+        public IActionResult DeleteCodeFromTemplatePoKomissii([FromBody] TemplateAndQuikCodeModel model)
         {
             _logger.LogInformation($"HttpDelete DeleteQuikCodeFromTemplate/PoKomissii Call {model.Template} {model.ClientCode}");
 
@@ -306,13 +309,13 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return BadRequest(responseList);
             }
 
-            string result = _qService.DeleteCodeFromTemplatePoKomissii(model);
+            var result = _qService.DeleteCodeFromTemplatePoKomissii(model);
 
             return Ok(result);
         }
 
         [HttpDelete("DeleteQuikCodeFromTemplate/PoPlechu")]
-        public IActionResult DeleteCodeFromTemplatePoPlechu([FromBody] TemplateAndCodeModel model)
+        public IActionResult DeleteCodeFromTemplatePoPlechu([FromBody] TemplateAndQuikCodeModel model)
         {
             _logger.LogInformation($"HttpDelete DeleteQuikCodeFromTemplate/PoPlechu Call {model.Template} {model.ClientCode}");
             TemplateAndQuikCodeModelValidationService validator = new TemplateAndQuikCodeModelValidationService();
@@ -329,7 +332,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return BadRequest(responseList);
             }
 
-            string result = _qService.DeleteCodeFromTemplatePoPlechu(model);
+            var result = _qService.DeleteCodeFromTemplatePoPlechu(model);
 
             return Ok(result);
         }
@@ -354,8 +357,15 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return BadRequest(responseList);
             }
 
-            string result = _qService.MoveClientCodeBetweenTemplatesPoKomissii(moveModel);
-            return Ok(result);
+            var result = _qService.MoveClientCodeBetweenTemplatesPoKomissii(moveModel);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
         }
 
         [HttpPut("MoveClientCodeBetweenTemplates/PoPlechu")]
@@ -377,8 +387,16 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return BadRequest(responseList);
             }
 
-            string result = _qService.MoveClientCodeBetweenTemplatesPoPlechu(moveModel);
-            return Ok(result);
+            var result = _qService.MoveClientCodeBetweenTemplatesPoPlechu(moveModel);
+            
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
         }
 
         [HttpPost("ReplaceAllCodesMatrixInTemplate/PoKomisii")]
@@ -398,81 +416,29 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 _logger.LogWarning("Httppost ReplaceAllCodesMatrixInTemplate/PoKomisii Failed with " + errors);
                 return BadRequest(responseList);
             }
-            //TemplateAndCodeModel modelSingle = new TemplateAndCodeModel();
-            //modelSingle.Template = "ABCDE";//set correct template
-            ////проверки
-            //foreach (var code in model.ClientCodes)
-            //{
-            //    if (code.Contains("RF")) //проверка наличия срочного рынка
-            //    {
-            //        _logger.LogWarning($"Httppost ReplaceAllCodesMatrixInTemplate/PoKomisii Failed with Error: RF portfolio {code} not allowed in SPOT BRL");
-            //        responseList.IsSuccess = false;
-            //        responseList.Messages.Add($"RF portfolio {code} not allowed in SPOT BRL");
-            //    }
-            //    else // проверка кода
-            //    {
-            //        modelSingle.ClientCode = code;
-            //        ValidationResult validationCodeResult = validator.Validate(modelSingle);
-
-            //        if (!validationCodeResult.IsValid)
-            //        {
-            //            responseList.IsSuccess = false;
-            //            foreach (ValidationFailure failure in validationCodeResult.Errors)
-            //            {
-            //                responseList.Messages.Add(failure.ErrorCode + " " + failure.ErrorMessage);
-            //            }
-            //            _logger.LogWarning("Httppost ReplaceAllCodesMatrixInTemplate/PoKomisii Validation Failed at " + code);
-            //        }
-            //    }
-            //}
-            //// проверка шаблона
-            //modelSingle.ClientCode = "BP1234-MS-01";//set correct code
-            //modelSingle.Template = model.Template;
-            //ValidationResult validationTemplResult = validator.Validate(modelSingle);
-            //if (!validationTemplResult.IsValid)
-            //{
-            //    responseList.IsSuccess = false;
-            //    foreach (ValidationFailure failure in validationTemplResult.Errors)
-            //    {
-            //        responseList.Messages.Add(failure.ErrorCode + " " + failure.ErrorMessage);
-            //    }
-
-            //    _logger.LogWarning("Httppost ReplaceAllCodesMatrixInTemplate/PoKomisii Validation Failed at template " + model.Template);
-            //}
-            //if (!responseList.IsSuccess)
-            //{
-            //    return BadRequest(responseList);
-            //}
 
             // переделаем коды на QUIK формат
             for (int i = 0; i < model.ClientCodes.Length; i++)
             {
-                if (model.ClientCodes[i].Contains("CD"))
+                if (model.ClientCodes[i].MatrixClientCode.Contains("CD"))
                 {
-                    model.ClientCodes[i] = PortfoliosConvertingService.GetCdPortfolio(model.ClientCodes[i]);
+                    model.ClientCodes[i].MatrixClientCode = PortfoliosConvertingService.GetCdPortfolio(model.ClientCodes[i].MatrixClientCode);
                 }
                 else
                 {
-                    model.ClientCodes[i] = PortfoliosConvertingService.GetSpotPortfolio(model.ClientCodes[i]);
+                    model.ClientCodes[i].MatrixClientCode = PortfoliosConvertingService.GetSpotPortfolio(model.ClientCodes[i].MatrixClientCode);
                 }
             }
 
-            string result = _qService.ReplaceAllCodesMatrixInPoKomisiiTemplate(model);
+            var result = _qService.ReplaceAllCodesMatrixInPoKomisiiTemplate(model);
 
-            var response = new StringResponceModel();
-            response.Message = result;
-
-            if (result.Equals("OK"))
+            if (result.IsSuccess)
             {
-                _logger.LogInformation("Httppost ReplaceAllCodesMatrixInTemplate/PoKomisii Result = OK");
-
-                return Ok(response);
+                return Ok(result);
             }
             else
             {
-                _logger.LogWarning("Httppost ReplaceAllCodesMatrixInTemplate/PoKomisii Failed with " + result);
-                response.IsSuccess = false;
-                return BadRequest(response);
+                return BadRequest(result);
             }
         }
 
@@ -494,79 +460,28 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return BadRequest(responseList);
             }
 
-            //TemplateAndCodeModel modelSingle =  new TemplateAndCodeModel();
-            //modelSingle.Template = "ABCDE";//set correct template
-            ////проверки
-            //foreach (var code in model.ClientCodes)
-            //{
-            //    if (code.Contains("RF")) //проверка наличия срочного рынка
-            //    {
-            //        _logger.LogWarning($"Httppost ReplaceAllCodesMatrixInTemplate/Leverage Failed with Error: RF portfolio {code} not allowed in SPOT BRL");
-            //        responseList.IsSuccess = false;
-            //        responseList.Messages.Add($"RF portfolio {code} not allowed in SPOT BRL");
-            //    }
-            //    else // проверка кода
-            //    {
-            //        modelSingle.ClientCode = code;
-            //        ValidationResult validationCodeResult = validator.Validate(modelSingle);
-            //        if (!validationCodeResult.IsValid)
-            //        {
-            //            responseList.IsSuccess = false;
-            //            foreach (ValidationFailure failure in validationCodeResult.Errors)
-            //            {
-            //                responseList.Messages.Add(failure.ErrorCode + " " + failure.ErrorMessage);
-            //            }
-            //            _logger.LogWarning("Httppost ReplaceAllCodesMatrixInTemplate/Leverage Validation Failed at " + code);
-            //        }
-            //    }
-            //}
-            //// проверка шаблона
-            //modelSingle.ClientCode = "BP1234-MS-01";//set correct code
-            //modelSingle.Template = model.Template;
-            //ValidationResult validationTemplResult = validator.Validate(modelSingle);
-            //if (!validationTemplResult.IsValid)
-            //{
-            //    responseList.IsSuccess = false;
-            //    foreach (ValidationFailure failure in validationTemplResult.Errors)
-            //    {
-            //        responseList.Messages.Add(failure.ErrorCode + " " + failure.ErrorMessage);
-            //    }
-            //    _logger.LogWarning("Httppost ReplaceAllCodesMatrixInTemplate/Leverage Validation Failed at template " + model.Template);
-            //}
-            //if (!responseList.IsSuccess)
-            //{
-            //    return BadRequest(responseList);
-            //}
-
             // переделаем коды на QUIK формат
             for (int i = 0; i < model.ClientCodes.Length; i++)
             {    
-                if (model.ClientCodes[i].Contains("CD"))
+                if (model.ClientCodes[i].MatrixClientCode.Contains("CD"))
                 {
-                    model.ClientCodes[i] = PortfoliosConvertingService.GetCdPortfolio(model.ClientCodes[i]);
+                    model.ClientCodes[i].MatrixClientCode = PortfoliosConvertingService.GetCdPortfolio(model.ClientCodes[i].MatrixClientCode);
                 }
                 else
                 {
-                    model.ClientCodes[i] = PortfoliosConvertingService.GetSpotPortfolio(model.ClientCodes[i]);
+                    model.ClientCodes[i].MatrixClientCode = PortfoliosConvertingService.GetSpotPortfolio(model.ClientCodes[i].MatrixClientCode);
                 }
             }
 
-            string result = _qService.ReplaceAllCodesMatrixInLeverageTemplate(model);
-
-            var response = new StringResponceModel();
-            response.Message = result;
-
-            if (result.Equals("OK"))
+            var result = _qService.ReplaceAllCodesMatrixInLeverageTemplate(model);
+            
+            if (result.IsSuccess)
             {
-                _logger.LogInformation("Httppost ReplaceAllCodesMatrixInTemplate/Leverage Result = OK");
-
-                return Ok(response);
+                return Ok(result);
             }
             else
             {
-                _logger.LogWarning("Httppost ReplaceAllCodesMatrixInTemplate/Leverage Failed with " + result);
-                response.IsSuccess = false;
-                return BadRequest(response);
+                return BadRequest(result);
             }
         }
     }

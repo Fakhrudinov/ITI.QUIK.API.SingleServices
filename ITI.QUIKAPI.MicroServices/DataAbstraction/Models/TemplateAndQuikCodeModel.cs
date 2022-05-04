@@ -2,10 +2,10 @@
 
 namespace DataAbstraction.Models
 {
-    public class TemplateAndCodeModel
+    public class TemplateAndQuikCodeModel
     {
         public string Template { get; set; }
-        [DefaultValue("BP12345-MO-01")]
+        [DefaultValue("BP12345/01")]
         public string ClientCode { get; set; }
     }
 }

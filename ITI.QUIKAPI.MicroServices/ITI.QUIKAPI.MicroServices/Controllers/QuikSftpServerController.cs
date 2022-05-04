@@ -19,15 +19,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             _serviceSFTP = serviceSFTP;
         }
 
-        // To Do:
-
-        // получить оповещение всем клиентам
-
-        // получить список клиентов с оповещениями
-
-
-
-
         [HttpGet("CheckConnections/ServerSFTP")]
         public IActionResult CheckConnection()
         {

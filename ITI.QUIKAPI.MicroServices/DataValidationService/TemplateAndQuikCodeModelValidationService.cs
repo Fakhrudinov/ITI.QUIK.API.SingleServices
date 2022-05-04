@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace DataValidationService
 {
-    public class TemplateAndQuikCodeModelValidationService : AbstractValidator<TemplateAndCodeModel>
+    public class TemplateAndQuikCodeModelValidationService : AbstractValidator<TemplateAndQuikCodeModel>
     {
         public TemplateAndQuikCodeModelValidationService()
         {

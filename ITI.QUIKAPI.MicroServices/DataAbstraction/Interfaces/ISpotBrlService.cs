@@ -4,21 +4,21 @@ namespace DataAbstraction.Interfaces
 {
     public interface ISpotBrlService
     {
-        string CheckConnection();
+        ListStringResponseModel CheckConnection();
         string GetLogin();
-        string AddClientPortfolioToKomissiiCDportfolio(string quikportfolio);
-        string AddClientPortfolioToLeverageCDportfolio(string quikportfolio);
-        string[] GetAllTemplatesPoKomissii();
-        string[] GetAllTemplatesPoPlechu();
-        string[] GetAllClientsFromTemplatePoKomissii(string templateName);
-        string[] GetAllClientsFromTemplatePoPlechu(string templateName);
-        string DeleteCodeFromTemplatePoKomissii(TemplateAndCodeModel model);
-        string DeleteCodeFromTemplatePoPlechu(TemplateAndCodeModel model);
-        string AddClientPortfolioToKomissiiTemplate(string template, string quikportfolio);
-        string AddClientPortfolioToLeverageTemplate(string template, string quikportfolio);
-        string MoveClientCodeBetweenTemplatesPoKomissii(MoveCodeModel moveModel);
-        string MoveClientCodeBetweenTemplatesPoPlechu(MoveCodeModel moveModel);
-        string ReplaceAllCodesMatrixInLeverageTemplate(TemplateAndCodesModel model);
-        string ReplaceAllCodesMatrixInPoKomisiiTemplate(TemplateAndCodesModel model);
+        ListStringResponseModel AddClientPortfolioToKomissiiCDportfolio(string quikportfolio);
+        ListStringResponseModel AddClientPortfolioToLeverageCDportfolio(string quikportfolio);
+        ListStringResponseModel GetAllTemplatesPoKomissii();
+        ListStringResponseModel GetAllTemplatesPoPlechu();
+        ListStringResponseModel GetAllClientsFromTemplatePoKomissii(string templateName);
+        ListStringResponseModel GetAllClientsFromTemplatePoPlechu(string templateName);
+        ListStringResponseModel DeleteCodeFromTemplatePoKomissii(TemplateAndQuikCodeModel model);
+        ListStringResponseModel DeleteCodeFromTemplatePoPlechu(TemplateAndQuikCodeModel model);
+        ListStringResponseModel AddClientPortfolioToKomissiiTemplate(string template, string quikportfolio);
+        ListStringResponseModel AddClientPortfolioToLeverageTemplate(string template, string quikportfolio);
+        ListStringResponseModel MoveClientCodeBetweenTemplatesPoKomissii(MoveCodeModel moveModel);
+        ListStringResponseModel MoveClientCodeBetweenTemplatesPoPlechu(MoveCodeModel moveModel);
+        ListStringResponseModel ReplaceAllCodesMatrixInLeverageTemplate(TemplateAndCodesModel model);
+        ListStringResponseModel ReplaceAllCodesMatrixInPoKomisiiTemplate(TemplateAndCodesModel model);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DataAbstraction.Interfaces;
+using DataAbstraction.Models;
 using DataAbstraction.Models.Connections;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -156,33 +157,46 @@ namespace SpotBrlService
             }
         }
 
-        public string CloseQuikAPI(int resultEditBrl, string firm)
+        public ListStringResponseModel CloseQuikAPI(int resultEditBrl, string firm, ListStringResponseModel response)
         {
             var resultClose = CloseQuikQadminAPI(firm);
 
             if (resultClose == null)
             {
                 _logger.LogWarning("QAS109 No answer received when close QUIK BRL MC0138200000");
-                return "QAS109 No answer received when close QUIK BRL MC0138200000";
+                //return "QAS109 No answer received when close QUIK BRL MC0138200000";
+                response.IsSuccess = false;
+                response.Messages.Add("QAS111 Error at close QUIK BRL MC0138200000, error=" + resultClose);
             }
             else if (resultClose.Equals("OK"))
             {
                 _logger.LogInformation("Файл успешно закрыт");
                 if (resultEditBrl == 0)
                 {
-                    return "OK";
+                    //return "OK";
+                    if (response.Messages.Count == 0)
+                    {
+                        response.Messages.Add("OK");
+                    }
+                    return response;
                 }
                 else
                 {
                     string errorText = CommonServices.QuikService.GetErrorDescription(resultEditBrl);
-                    return $"QAS110 Ошибка при выполнении = {resultEditBrl} {errorText}";
+                    //return $"QAS110 Ошибка при выполнении = {resultEditBrl} {errorText}";
+                    response.IsSuccess = false;
+                    response.Messages.Add($"QAS110 Error! при выполнении задачи = {resultEditBrl} {errorText}");
                 }
             }
             else
             {
                 _logger.LogWarning("QAS111 Error at close QUIK BRL MC0138200000, error=" + resultClose);
-                return "QAS111 Error at close QUIK BRL MC0138200000, error=" + resultClose;
+                //return "QAS111 Error at close QUIK BRL MC0138200000, error=" + resultClose;
+                response.IsSuccess = false;
+                response.Messages.Add("QAS111 Error at close QUIK BRL MC0138200000, error=" + resultClose);
             }
+
+            return response;
         }
     }
 }
