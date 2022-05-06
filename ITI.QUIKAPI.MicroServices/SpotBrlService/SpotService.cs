@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using System.Runtime.InteropServices;
 using DataAbstraction.Models.Connections;
 
-namespace SpotBrlService
+namespace QuikAPIBrlService
 {
     public class SpotService : ISpotBrlService
     {        

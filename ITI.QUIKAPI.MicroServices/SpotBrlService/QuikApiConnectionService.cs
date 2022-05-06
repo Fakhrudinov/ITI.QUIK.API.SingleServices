@@ -7,7 +7,7 @@ using QDealerAPI;
 using System.Runtime.InteropServices;
 
 
-namespace SpotBrlService
+namespace QuikAPIBrlService
 {
     public class QuikApiConnectionService : IQuikApiConnectionService
     {
@@ -23,7 +23,7 @@ namespace SpotBrlService
 
         public ListStringResponseModel OpenQuikQadminApiToWrite(string firm, ListStringResponseModel response)
         {
-            _logger.LogInformation("SpotService OpenQuikQadminApiToWrite Called");
+            _logger.LogInformation("QuikAPIBrlService OpenQuikQadminApiToWrite Called");
 
             var openResult = OpenQuikQadminAPI();
             if (!openResult.Equals("OK"))
@@ -52,7 +52,7 @@ namespace SpotBrlService
 
         public ListStringResponseModel OpenQuikQadminApiToRead(string firm, ListStringResponseModel response)
         {
-            _logger.LogInformation("SpotService OpenQuikQadminApiToRead Called");
+            _logger.LogInformation("QuikAPIBrlService OpenQuikQadminApiToRead Called");
 
             var openResult = OpenQuikQadminAPI();
             if (!openResult.Equals("OK"))
@@ -81,7 +81,7 @@ namespace SpotBrlService
 
         private string OpenQuikQadminAPI()
         {
-            _logger.LogInformation("SpotService OpenQuikQadminAPI Called");
+            _logger.LogInformation("QuikAPIBrlService OpenQuikQadminAPI Called");
 
             IntPtr conErrPtr = IntPtr.Zero;
             _errCode = NativeMethods.QDAPI_Connect(@"QDealerAPI.ini", _logon.Login, _logon.Password, ref conErrPtr);
@@ -108,7 +108,7 @@ namespace SpotBrlService
 
         private string CloseQuikQadminAPI(string firm)
         {
-            _logger.LogInformation("SpotService CloseQuikQadminAPI Called");
+            _logger.LogInformation("QuikAPIBrlService CloseQuikQadminAPI Called");
 
             try
             {

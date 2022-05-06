@@ -1,7 +1,8 @@
 using DataAbstraction.Interfaces;
 using DataAbstraction.Models.Connections;
+using QuikAPIBrlService;
 using QuikSftpService;
-using SpotBrlService;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ builder.Services.AddSwaggerGen();
 
 //add QUIK qadmin BRL services
 builder.Services.AddTransient<ISpotBrlService, SpotService>();
+builder.Services.AddTransient<IFortsBrlService, FortsService>();
 builder.Services.AddTransient<IQuikApiConnectionService, QuikApiConnectionService>();
 builder.Services.Configure<QadminLogon>(
     builder.Configuration.GetSection("QadminLogon"));
