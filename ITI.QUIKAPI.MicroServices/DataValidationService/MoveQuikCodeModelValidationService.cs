@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace DataValidationService
 {
-    public class MoveCodeModelValidationService : AbstractValidator<MoveCodeModel>
+    public class MoveQuikCodeModelValidationService : AbstractValidator<MoveQuikCodeModel>
     {
-        public MoveCodeModelValidationService()
+        public MoveQuikCodeModelValidationService()
         {
             RuleFor(x => x.ClientCode)
                 .Matches("^B[PC][0-9]{4,6}\\/[D]{0,1}[0-9]{2}$")

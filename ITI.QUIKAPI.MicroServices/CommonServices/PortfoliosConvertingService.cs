@@ -2,7 +2,7 @@
 {
     public static class PortfoliosConvertingService
     {
-        public static string GetCdPortfolio(string portfolio)
+        public static string GetQuikCdPortfolio(string portfolio)
         {
             var portfolioParts = portfolio.Split("-");
 
@@ -13,7 +13,7 @@
             return result;
         }
 
-        public static string GetSpotPortfolio(string portfolio)
+        public static string GetQuikSpotPortfolio(string portfolio)
         {
             var portfolioParts = portfolio.Split("-");
 
@@ -24,7 +24,7 @@
             return result;
         }
 
-        public static string GetFortsQuikCode(string code)
+        public static string GetQuikFortsQuikCode(string code)
         {
             return "SPBFUT" + code.Substring(2);
         }

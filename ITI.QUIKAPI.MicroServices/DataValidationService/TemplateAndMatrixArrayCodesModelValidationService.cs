@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace DataValidationService
 {
-    public class TemplateAndMatrixArrayCodesModelValidationService : AbstractValidator<TemplateAndCodesModel>
+    public class TemplateAndMatrixArrayCodesModelValidationService : AbstractValidator<TemplateAndMatrixCodesModel>
     {
         public TemplateAndMatrixArrayCodesModelValidationService()
         {

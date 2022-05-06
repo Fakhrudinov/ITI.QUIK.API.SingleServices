@@ -234,7 +234,7 @@ namespace QuikSftpService
             _logger.LogInformation($"SFTPService GetUIDByMatrixCode Called, code=" + code);
 
             //из кода матрицы сделаем код quik
-            string quikCode = PortfoliosConvertingService.GetSpotPortfolio(code);
+            string quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(code);
 
             return GetUIDFromCurrClnts(quikCode);
         }
@@ -244,7 +244,7 @@ namespace QuikSftpService
             _logger.LogInformation($"SFTPService GetUIDByFortsCode Called, code=" + code);
 
             //из кода матрицы сделаем код quik
-            string quikCode = PortfoliosConvertingService.GetFortsQuikCode(code);
+            string quikCode = PortfoliosConvertingService.GetQuikFortsQuikCode(code);
 
             return GetUIDFromCurrClnts(quikCode);
         }
@@ -313,7 +313,7 @@ namespace QuikSftpService
             _logger.LogInformation($"SFTPService BlockUserByMatrixClientCode Called, code=" + code);
 
             //из кода матрицы сделаем код quik
-            string quikCode = PortfoliosConvertingService.GetSpotPortfolio(code);
+            string quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(code);
 
             FortsCodeAndPubringKeyModel model = new FortsCodeAndPubringKeyModel();
             return SetTempatesAndUploadToSFTP(quikCode, model, "BlockUserByClientCode.xml");
@@ -324,7 +324,7 @@ namespace QuikSftpService
             _logger.LogInformation($"SFTPService BlockUserByFortsClientCode Called, code=" + code);
 
             //из кода матрицы сделаем код quik
-            string quikCode = PortfoliosConvertingService.GetFortsQuikCode(code);
+            string quikCode = PortfoliosConvertingService.GetQuikFortsQuikCode(code);
 
             FortsCodeAndPubringKeyModel model = new FortsCodeAndPubringKeyModel();
             return SetTempatesAndUploadToSFTP(quikCode, model, "BlockUserByClientCode.xml");
@@ -335,7 +335,7 @@ namespace QuikSftpService
             _logger.LogInformation($"SFTPService SetNewPubringKeyByMatrixClientCode Called, code=" + model.ClientCode);
 
             //из кода матрицы сделаем код quik
-            string quikCode = PortfoliosConvertingService.GetSpotPortfolio(model.ClientCode.MatrixClientCode);
+            string quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(model.ClientCode.MatrixClientCode);
 
             FortsCodeAndPubringKeyModel fortsModel = new FortsCodeAndPubringKeyModel();
             fortsModel.Key = model.Key;
@@ -348,7 +348,7 @@ namespace QuikSftpService
             _logger.LogInformation($"SFTPService SetNewPubringKeyByFortsClientCode Called, code=" + model.ClientCode);
 
             //из кода матрицы сделаем код quik
-            string quikCode = PortfoliosConvertingService.GetFortsQuikCode(model.ClientCode.FortsClientCode);
+            string quikCode = PortfoliosConvertingService.GetQuikFortsQuikCode(model.ClientCode.FortsClientCode);
             
             return SetTempatesAndUploadToSFTP(quikCode, model, "ReplacePubringKeyByClientCode.xml");
         }
@@ -377,8 +377,8 @@ namespace QuikSftpService
             string listRfCodes = "";
             foreach (MatrixToFortsCodesMappingModel pair in model.CodesPairRF)
             {
-                listRfCodes = listRfCodes + $"{PortfoliosConvertingService.GetFortsQuikCode(pair.FortsClientCode)},";
-                comment = comment + $"{pair.MatrixClientCode} {PortfoliosConvertingService.GetFortsQuikCode(pair.FortsClientCode)}, ";
+                listRfCodes = listRfCodes + $"{PortfoliosConvertingService.GetQuikFortsQuikCode(pair.FortsClientCode)},";
+                comment = comment + $"{pair.MatrixClientCode} {PortfoliosConvertingService.GetQuikFortsQuikCode(pair.FortsClientCode)}, ";
             }
             comment = comment + "для Option Workshop";
 
@@ -638,22 +638,22 @@ namespace QuikSftpService
                     string quikCode = "";
                     if (code.MatrixClientCode.Contains("MS"))
                     {
-                        quikCode = PortfoliosConvertingService.GetSpotPortfolio(code.MatrixClientCode);
+                        quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientCode);
                         result.CodesMS = result.CodesMS + $"{quikCode},";
                     }
                     if (code.MatrixClientCode.Contains("FX"))
                     {
-                        quikCode = PortfoliosConvertingService.GetSpotPortfolio(code.MatrixClientCode);
+                        quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientCode);
                         result.CodesFX = result.CodesFX +$"{quikCode},";
                     }
                     if (code.MatrixClientCode.Contains("RS"))
                     {
-                        quikCode = PortfoliosConvertingService.GetSpotPortfolio(code.MatrixClientCode);
+                        quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientCode);
                         result.CodesRS = result.CodesRS + $"{quikCode},";
                     }
                     if (code.MatrixClientCode.Contains("CD"))
                     {
-                        quikCode = PortfoliosConvertingService.GetCdPortfolio(code.MatrixClientCode);
+                        quikCode = PortfoliosConvertingService.GetQuikCdPortfolio(code.MatrixClientCode);
                         result.CodesCD = result.CodesCD + $"{quikCode},";
                     }
 
@@ -670,7 +670,7 @@ namespace QuikSftpService
             {
                 foreach (MatrixToFortsCodesMappingModel pair in model.CodesPairRF)
                 {
-                    string quikCode = PortfoliosConvertingService.GetFortsQuikCode(pair.FortsClientCode);
+                    string quikCode = PortfoliosConvertingService.GetQuikFortsQuikCode(pair.FortsClientCode);
                     result.CodesRF = result.CodesRF + $"{quikCode},";
 
 
@@ -812,17 +812,17 @@ namespace QuikSftpService
             {
                 if (code.MatrixClientCode.Contains("-RS-"))
                 {
-                    string codeForCodesIni = GenerateRSClientCodeStringForCodesIni(PortfoliosConvertingService.GetSpotPortfolio(code.MatrixClientCode));
+                    string codeForCodesIni = GenerateRSClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientCode));
                     codesRs.Add(codeForCodesIni);
                 }
                 else if (code.MatrixClientCode.Contains("-CD-"))
                 {
-                    string codeForCodesIni = GenerateCDClientCodeStringForCodesIni(PortfoliosConvertingService.GetCdPortfolio(code.MatrixClientCode));
+                    string codeForCodesIni = GenerateCDClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikCdPortfolio(code.MatrixClientCode));
                     codesMoMsFxCd.Add(codeForCodesIni);
                 }
                 else
                 {
-                    string codeForCodesIni = GenerateClientCodeStringForCodesIni(PortfoliosConvertingService.GetSpotPortfolio(code.MatrixClientCode));
+                    string codeForCodesIni = GenerateClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientCode));
                     codesMoMsFxCd.Add(codeForCodesIni);
                 }
             }

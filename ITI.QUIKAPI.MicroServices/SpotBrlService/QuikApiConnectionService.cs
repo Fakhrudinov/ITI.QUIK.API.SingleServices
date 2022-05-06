@@ -21,14 +21,16 @@ namespace SpotBrlService
             _logon = logon.Value;
         }
 
-        public string OpenQuikQadminApiToWrite(string firm)
+        public ListStringResponseModel OpenQuikQadminApiToWrite(string firm, ListStringResponseModel response)
         {
             _logger.LogInformation("SpotService OpenQuikQadminApiToWrite Called");
 
             var openResult = OpenQuikQadminAPI();
             if (!openResult.Equals("OK"))
             {
-                return openResult;
+                response.IsSuccess = false;
+                response.Messages.Add(openResult);
+                return response;
             }
             // Начало работы с настройками БРЛ
             // Открытие настроек по фирме dealerFirm
@@ -38,21 +40,26 @@ namespace SpotBrlService
             if (_errCode != (int)QDAPI_Errors.QDAPI_ERROR_SUCCESS)
             {
                 string errorText = CommonServices.QuikService.GetErrorDescription(_errCode);
-                _logger.LogWarning($"QAS100 Ошибка подключения к Qadmin API. Файл БРЛ не был открыт. Код ошибки: {_errCode} {errorText}");
-                return $"QAS100 Ошибка подключения к Qadmin API. Файл БРЛ не был открыт. Код ошибки: {_errCode} {errorText}";
+                _logger.LogWarning($"QAS100 Ошибка подключения к Qadmin API. Файл БРЛ {firm} не был открыт. Код ошибки: {_errCode} {errorText}");
+
+                response.IsSuccess = false;
+                response.Messages.Add($"QAS100 Ошибка подключения к Qadmin API. Файл БРЛ {firm} не был открыт. Код ошибки: {_errCode} {errorText}");
+                return response;
             }
 
-            return "OK";
+            return response;
         }
 
-        public string OpenQuikQadminApiToRead(string firm)
+        public ListStringResponseModel OpenQuikQadminApiToRead(string firm, ListStringResponseModel response)
         {
             _logger.LogInformation("SpotService OpenQuikQadminApiToRead Called");
 
             var openResult = OpenQuikQadminAPI();
             if (!openResult.Equals("OK"))
             {
-                return openResult;
+                response.IsSuccess = false;
+                response.Messages.Add(openResult);
+                return response;
             }
             // Начало работы с настройками БРЛ
             // Открытие настроек по фирме dealerFirm
@@ -62,11 +69,14 @@ namespace SpotBrlService
             if (_errCode != (int)QDAPI_Errors.QDAPI_ERROR_SUCCESS)
             {
                 string errorText = CommonServices.QuikService.GetErrorDescription(_errCode);
-                _logger.LogWarning($"QAS101 Ошибка подключения к Qadmin API. Файл БРЛ не был открыт. Код ошибки: {_errCode} {errorText}");
-                return $"QAS101 Ошибка подключения к Qadmin API. Файл БРЛ не был открыт. Код ошибки: {_errCode} {errorText}";
+                _logger.LogWarning($"QAS101 Ошибка подключения к Qadmin API. Файл БРЛ {firm} не был открыт. Код ошибки: {_errCode} {errorText}");
+
+                response.IsSuccess = false;
+                response.Messages.Add($"QAS101 Ошибка подключения к Qadmin API. Файл БРЛ {firm} не был открыт. Код ошибки: {_errCode} {errorText}");
+                return response;
             }
 
-            return "OK";
+            return response;
         }
 
         private string OpenQuikQadminAPI()
@@ -163,37 +173,33 @@ namespace SpotBrlService
 
             if (resultClose == null)
             {
-                _logger.LogWarning("QAS109 No answer received when close QUIK BRL MC0138200000");
-                //return "QAS109 No answer received when close QUIK BRL MC0138200000";
+                _logger.LogWarning("QAS109 No answer received when close QUIK BRL " + firm);
                 response.IsSuccess = false;
-                response.Messages.Add("QAS111 Error at close QUIK BRL MC0138200000, error=" + resultClose);
+                response.Messages.Add($"QAS109 Error at close QUIK BRL {firm}, error={resultClose}");
             }
             else if (resultClose.Equals("OK"))
             {
                 _logger.LogInformation("Файл успешно закрыт");
                 if (resultEditBrl == 0)
                 {
-                    //return "OK";
-                    if (response.Messages.Count == 0)
-                    {
-                        response.Messages.Add("OK");
-                    }
                     return response;
                 }
                 else
                 {
                     string errorText = CommonServices.QuikService.GetErrorDescription(resultEditBrl);
-                    //return $"QAS110 Ошибка при выполнении = {resultEditBrl} {errorText}";
+
+                    _logger.LogWarning($"QAS110 Error! при выполнении задачи = {resultEditBrl} {errorText}");
+
                     response.IsSuccess = false;
                     response.Messages.Add($"QAS110 Error! при выполнении задачи = {resultEditBrl} {errorText}");
                 }
             }
             else
             {
-                _logger.LogWarning("QAS111 Error at close QUIK BRL MC0138200000, error=" + resultClose);
-                //return "QAS111 Error at close QUIK BRL MC0138200000, error=" + resultClose;
+                _logger.LogWarning($"QAS111 Error at close QUIK BRL {firm}, error={resultClose}");
+
                 response.IsSuccess = false;
-                response.Messages.Add("QAS111 Error at close QUIK BRL MC0138200000, error=" + resultClose);
+                response.Messages.Add($"QAS111 Error at close QUIK BRL {firm}, error={resultClose}");
             }
 
             return response;

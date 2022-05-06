@@ -4,8 +4,8 @@ namespace DataAbstraction.Interfaces
 {
     public interface IQuikApiConnectionService
     {
-        string OpenQuikQadminApiToWrite(string firm);
-        public string OpenQuikQadminApiToRead(string firm);
+        public ListStringResponseModel OpenQuikQadminApiToWrite(string firm, ListStringResponseModel response);
+        public ListStringResponseModel OpenQuikQadminApiToRead(string firm, ListStringResponseModel response);
         public ListStringResponseModel CloseQuikAPI(int resultEditBrl, string firm, ListStringResponseModel response);
     }
 }
