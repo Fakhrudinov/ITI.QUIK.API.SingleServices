@@ -108,6 +108,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return BadRequest(result);
             }
 
+            //проверим на наличие этого шаблона
             ListStringResponseModel isTemplateExist = _qService.GetList(true, true, "");
             if (!isTemplateExist.Messages.Contains(model.Template))
             {
@@ -142,6 +143,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return BadRequest(result);
             }
 
+            //проверим на наличие этого шаблона
             ListStringResponseModel isTemplateExist = _qService.GetList(true, false, "");
             if (!isTemplateExist.Messages.Contains(model.Template))
             {
