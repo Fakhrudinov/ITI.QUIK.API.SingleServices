@@ -48,5 +48,77 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return BadRequest(result);
             }
         }
+
+
+        [HttpGet("GetAllTemplates/PoKomisii")]
+        public IActionResult GetAllTemplatesPoKomissii()
+        {
+            _logger.LogInformation("HttpGet GetAllTemplates/PoKomisii Call");
+
+            var result = _qService.GetList(true, true, "");
+
+            _logger.LogInformation($"HttpGet GetAllTemplates/PoKomisii result isOK={result.IsSuccess}");
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+        [HttpGet("GetAllTemplates/PoPlechu")]
+        public IActionResult GetAllTemplatesPoPlechu()
+        {
+            _logger.LogInformation("HttpGet GetAllTemplates/PoPlechu Call");
+
+            var result = _qService.GetList(true, false, "");
+
+            _logger.LogInformation($"HttpGet GetAllTemplates/PoPlechu result isOK={result.IsSuccess}");
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+
+
+        [HttpGet("GetAllClientsFromTemplate/PoKomissii/{templateName}")]
+        public IActionResult GetAllClientsFromTemplatePoKomissii(string templateName)
+        {
+            _logger.LogInformation("HttpGet GetAllClientsFromTemplate/PoKomissii Call " + templateName);
+
+            var result = _qService.GetList(false, true, templateName);
+
+            _logger.LogInformation($"HttpGet GetAllClientsFromTemplate/PoKomissii result isOK={result.IsSuccess}");
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+        [HttpGet("GetAllClientsFromTemplate/PoPlechu/{templateName}")]
+        public IActionResult GetAllClientsFromTemplatePoPlechu(string templateName)
+        {
+            _logger.LogInformation("HttpGet GetAllClientsFromTemplate/PoPlechu Call " + templateName);
+
+            var result = _qService.GetList(false, false, templateName);
+
+            _logger.LogInformation($"HttpGet  GetAllClientsFromTemplate/PoPlechu result isOK={result.IsSuccess}");
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
     }
 }
