@@ -31,11 +31,26 @@
 
         public static string GetMatrixFortsCode(string code)
         {
-            return "C0" + code.Substring(6);
+            if (code.Contains("SPBFUT"))
+            {
+                return "C0" + code.Substring(6);
+            }
+            else
+            {
+                return code;
+            }
+                
         }
 
         public static string GetMatrixMOCode(string code)
         {
+            //case of test contur
+            if (!code.Contains('/'))
+            {
+                return code;
+            }
+
+
             var portfolioParts = code.Split("/");
 
             string result = portfolioParts[0]

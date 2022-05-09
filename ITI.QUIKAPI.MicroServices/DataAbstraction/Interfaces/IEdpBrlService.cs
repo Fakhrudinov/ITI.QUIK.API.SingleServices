@@ -8,5 +8,6 @@ namespace DataAbstraction.Interfaces
         ListStringResponseModel GetEDPMatrixClientCodeByFortsCode(FortsClientCodeModel model);
         ListStringResponseModel SetNewEdpRelation(MatrixToFortsCodesMappingModel model);
         ListStringResponseModel DeleteEdpRelation(MatrixClientCodeModel model);
+        ListStringResponseModel GetAllEdpRelation();
     }
 }

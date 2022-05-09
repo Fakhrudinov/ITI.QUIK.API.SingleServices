@@ -120,5 +120,23 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return BadRequest(result);
             }
         }
+
+        [HttpGet("Get/AllEdpRelation")]
+        public IActionResult GetAllEdpRelation()
+        {
+            _logger.LogInformation("HttpGet Get/AllEdpRelation");
+
+            ListStringResponseModel result = _qService.GetAllEdpRelation();
+
+            _logger.LogInformation($"HttpGet Get/AllEdpRelation result isOK={result.IsSuccess}");
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
     }
 }

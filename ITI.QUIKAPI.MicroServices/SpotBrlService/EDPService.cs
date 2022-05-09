@@ -130,5 +130,45 @@ namespace QuikAPIBrlService
             //закрыть соединение
             return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM, response);
         }
+
+        public ListStringResponseModel GetAllEdpRelation()
+        {
+            _logger.LogInformation($"EDPService GetAllEdpRelation Called");
+            ListStringResponseModel response = new ListStringResponseModel();
+
+            // открыть соединение
+            var openResult = _connection.OpenQuikQadminApiToRead(_spotFIRM, response);
+            if (!openResult.IsSuccess)
+            {
+                return response;
+            }
+
+            //выполнить работу
+            IntPtr lsPtr = IntPtr.Zero;
+            //Функция предназначена для получения всех соответствий клиентских кодов и торговых счетов срочного рынка для указанной фирмы.                                
+            int resultEditBrl = NativeMethods.QDAPI_GetChangeFutClientCodesByFirmFromGlobal(_spotFIRM, _fortsFIRM, ref lsPtr);
+
+            QDAPI_ArrayClientCodeToTrdAcc clientCodesToTrdAccs = (QDAPI_ArrayClientCodeToTrdAcc)Marshal.
+                PtrToStructure(lsPtr, typeof(QDAPI_ArrayClientCodeToTrdAcc));
+                
+            IntPtr ptr = clientCodesToTrdAccs.elems;
+            for (uint i = 0; i < clientCodesToTrdAccs.count; i++)
+            {
+                QDAPI_ClientCodeToTrdAcc clientCodeToTrdAcc = (QDAPI_ClientCodeToTrdAcc)Marshal.
+                    PtrToStructure(ptr, typeof(QDAPI_ClientCodeToTrdAcc));
+
+                response.Messages.Add($"{CommonServices.PortfoliosConvertingService.GetMatrixMOCode(clientCodeToTrdAcc.clientCode)}=" +
+                    $"{CommonServices.PortfoliosConvertingService.GetMatrixFortsCode(clientCodeToTrdAcc.tradeAcc)}");
+
+                ptr += Marshal.SizeOf(typeof(QDAPI_ClientCodeToTrdAcc));
+            }
+                
+            NativeMethods.QDAPI_FreeMemory(ref lsPtr);
+
+            _logger.LogInformation($"EDPService GetAllEdpRelation result : {resultEditBrl}' count={clientCodesToTrdAccs.count}");
+
+            //закрыть соединение
+            return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM, response);
+        }
     }
 }
