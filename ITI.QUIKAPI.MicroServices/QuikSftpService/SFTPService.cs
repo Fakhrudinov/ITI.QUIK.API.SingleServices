@@ -244,7 +244,7 @@ namespace QuikSftpService
             _logger.LogInformation($"SFTPService GetUIDByFortsCode Called, code=" + code);
 
             //из кода матрицы сделаем код quik
-            string quikCode = PortfoliosConvertingService.GetQuikFortsQuikCode(code);
+            string quikCode = PortfoliosConvertingService.GetQuikFortsCode(code);
 
             return GetUIDFromCurrClnts(quikCode);
         }
@@ -324,7 +324,7 @@ namespace QuikSftpService
             _logger.LogInformation($"SFTPService BlockUserByFortsClientCode Called, code=" + code);
 
             //из кода матрицы сделаем код quik
-            string quikCode = PortfoliosConvertingService.GetQuikFortsQuikCode(code);
+            string quikCode = PortfoliosConvertingService.GetQuikFortsCode(code);
 
             FortsCodeAndPubringKeyModel model = new FortsCodeAndPubringKeyModel();
             return SetTempatesAndUploadToSFTP(quikCode, model, "BlockUserByClientCode.xml");
@@ -348,7 +348,7 @@ namespace QuikSftpService
             _logger.LogInformation($"SFTPService SetNewPubringKeyByFortsClientCode Called, code=" + model.ClientCode);
 
             //из кода матрицы сделаем код quik
-            string quikCode = PortfoliosConvertingService.GetQuikFortsQuikCode(model.ClientCode.FortsClientCode);
+            string quikCode = PortfoliosConvertingService.GetQuikFortsCode(model.ClientCode.FortsClientCode);
             
             return SetTempatesAndUploadToSFTP(quikCode, model, "ReplacePubringKeyByClientCode.xml");
         }
@@ -377,8 +377,8 @@ namespace QuikSftpService
             string listRfCodes = "";
             foreach (MatrixToFortsCodesMappingModel pair in model.CodesPairRF)
             {
-                listRfCodes = listRfCodes + $"{PortfoliosConvertingService.GetQuikFortsQuikCode(pair.FortsClientCode)},";
-                comment = comment + $"{pair.MatrixClientCode} {PortfoliosConvertingService.GetQuikFortsQuikCode(pair.FortsClientCode)}, ";
+                listRfCodes = listRfCodes + $"{PortfoliosConvertingService.GetQuikFortsCode(pair.FortsClientCode)},";
+                comment = comment + $"{pair.MatrixClientCode} {PortfoliosConvertingService.GetQuikFortsCode(pair.FortsClientCode)}, ";
             }
             comment = comment + "для Option Workshop";
 
@@ -670,7 +670,7 @@ namespace QuikSftpService
             {
                 foreach (MatrixToFortsCodesMappingModel pair in model.CodesPairRF)
                 {
-                    string quikCode = PortfoliosConvertingService.GetQuikFortsQuikCode(pair.FortsClientCode);
+                    string quikCode = PortfoliosConvertingService.GetQuikFortsCode(pair.FortsClientCode);
                     result.CodesRF = result.CodesRF + $"{quikCode},";
 
 

@@ -7,11 +7,10 @@ namespace DataAbstraction.Interfaces
         ListStringResponseModel CheckConnection();
         string GetLogin();
 
-        //ListStringResponseModel DeleteCodeFromTemplate(bool itIsPoKomissii, string template, string clientCode, bool needToConvertCode);
-        //ListStringResponseModel AddClientPortfolioToTemplate(bool itIsPoKomissii, string template, string clientCode);
+        ListStringResponseModel DeleteCodeFromTemplate(bool itIsPoKomissii, string template, string clientCode, bool needToConvertCode);
+        ListStringResponseModel AddFortsCodeToTemplate(bool itIsPoKomissii, string template, string clientCode);
         ListStringResponseModel GetList(bool itIsTemplatesList, bool itIsPoKomissii, string template);
-        //ListStringResponseModel MoveQuikClientCodeBetweenTemplates(bool itIsPoKomissii, MoveQuikCodeModel moveModel);
-        //ListStringResponseModel MoveMatrixClientCodeBetweenTemplates(bool itIsPoKomissii, MoveMatrixCodeModel moveModel);
-        //ListStringResponseModel ReplaceAllCodesInTemplate(bool itIsPoKomissii, TemplateAndMatrixCodesModel model);
+        ListStringResponseModel MoveMatrixFortsCodeBetweenTemplates(bool itIsPoKomissii, MoveMatrixFortsCodeModel moveModel);
+        ListStringResponseModel ReplaceAllMatrixFortsCodesInTemplate(bool itIsPoKomissii, TemplateAndMatrixFortsCodesModel model);
     }
 }

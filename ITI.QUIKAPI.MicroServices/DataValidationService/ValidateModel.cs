@@ -99,5 +99,50 @@ namespace DataValidationService
 
             return responseList;
         }
+
+        public static ListStringResponseModel ValidateTemplateAndFortsCodeModel(TemplateAndFortsCodeModel model)
+        {
+            TemplateAndFortsCodeModelValidationService validator = new TemplateAndFortsCodeModelValidationService();
+            ListStringResponseModel responseList = new ListStringResponseModel();
+
+            ValidationResult validationResult = validator.Validate(model);
+
+            if (!validationResult.IsValid)
+            {
+                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
+            }
+
+            return responseList;
+        }
+
+        public static ListStringResponseModel ValidateMatrixFortsCodeModel(MoveMatrixFortsCodeModel model)
+        {
+            MoveMatrixFortsCodeModelValidationService validator = new MoveMatrixFortsCodeModelValidationService();
+            ListStringResponseModel responseList = new ListStringResponseModel();
+
+            ValidationResult validationResult = validator.Validate(model);
+
+            if (!validationResult.IsValid)
+            {
+                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
+            }
+
+            return responseList;
+        }
+
+        public static ListStringResponseModel ValidateTemplateAnMatrixFortsCodesModel(TemplateAndMatrixFortsCodesModel model)
+        {
+            TemplateAndMatrixFortsCodesModelValidationService validator = new TemplateAndMatrixFortsCodesModelValidationService();
+            ListStringResponseModel responseList = new ListStringResponseModel();
+
+            ValidationResult validationResult = validator.Validate(model);
+
+            if (!validationResult.IsValid)
+            {
+                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
+            }
+
+            return responseList;
+        }
     }
 }
