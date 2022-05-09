@@ -12,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //add QUIK qadmin BRL services
+builder.Services.AddTransient<IEdpBrlService, EDPService>();
 builder.Services.AddTransient<ISpotBrlService, SpotService>();
 builder.Services.AddTransient<IFortsBrlService, FortsService>();
 builder.Services.AddTransient<IQuikApiConnectionService, QuikApiConnectionService>();

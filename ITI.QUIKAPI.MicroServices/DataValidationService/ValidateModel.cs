@@ -26,7 +26,22 @@ namespace DataValidationService
             return responseList;
         }
 
-        public static ListStringResponseModel ValidateMatrixClientCodeModel(MatrixClientCodeModel model)
+        public static ListStringResponseModel ValidateMatrixSpotClientCodeModel(MatrixClientCodeModel model)
+        {
+            SingleMatrixCodeStringValidationService validator = new SingleMatrixCodeStringValidationService();
+            var responseList = new ListStringResponseModel();
+
+            ValidationResult validationResult = validator.Validate(model.MatrixClientCode);
+
+            if (!validationResult.IsValid)
+            {
+                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
+            }
+
+            return responseList;
+        }
+
+        public static ListStringResponseModel ValidateMatrixCDClientCodeModel(MatrixClientCodeModel model)
         {
             CDPortfolioValidationService validator = new CDPortfolioValidationService();
             var responseList = new ListStringResponseModel();

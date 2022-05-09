@@ -28,5 +28,10 @@
         {
             return "SPBFUT" + code.Substring(2);
         }
+
+        public static string GetMatrixFortsCode(string code)
+        {
+            return "C0" + code.Substring(5);
+        }
     }
 }
