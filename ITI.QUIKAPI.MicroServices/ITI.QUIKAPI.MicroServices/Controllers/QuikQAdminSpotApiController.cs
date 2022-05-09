@@ -53,7 +53,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation("Httppost AddMatrixClientPortfolioTo/KomissiiTemplate/CD_portfolio Call, " + model.MatrixClientCode);
 
-            ListStringResponseModel result = ValidateModel.ValidateMatrixClientCodeModel(model);
+            ListStringResponseModel result = ValidateModel.ValidateMatrixCDClientCodeModel(model);
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"Httppost AddMatrixClientPortfolioTo/KomissiiTemplate/CD_portfolio Error: {result.Messages[0]}");
@@ -77,7 +77,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation("Httppost AddMatrixClientPortfolioTo/PoPlechuTemplate/CD_portfolio Call, " + model.MatrixClientCode);
 
-            ListStringResponseModel result = ValidateModel.ValidateMatrixClientCodeModel(model);
+            ListStringResponseModel result = ValidateModel.ValidateMatrixCDClientCodeModel(model);
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"Httppost AddMatrixClientPortfolioTo/PoPlechuTemplate/CD_portfolio Error: {result.Messages[0]}");
