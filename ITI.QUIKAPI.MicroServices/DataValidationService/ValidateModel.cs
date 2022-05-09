@@ -56,9 +56,39 @@ namespace DataValidationService
             return responseList;
         }
 
+        public static ListStringResponseModel ValidateMatrixFortsClientCodeModel(string code)
+        {
+            SingleFortsCodeStringValidationService validator = new SingleFortsCodeStringValidationService();
+            var responseList = new ListStringResponseModel();
+
+            ValidationResult validationResult = validator.Validate(code);
+
+            if (!validationResult.IsValid)
+            {
+                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
+            }
+
+            return responseList;
+        }
+
         public static ListStringResponseModel ValidateTemplateAndQuikCodeModel(TemplateAndQuikCodeModel model)
         {
             TemplateAndQuikCodeModelValidationService validator = new TemplateAndQuikCodeModelValidationService();
+            var responseList = new ListStringResponseModel();
+
+            ValidationResult validationResult = validator.Validate(model);
+
+            if (!validationResult.IsValid)
+            {
+                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
+            }
+
+            return responseList;
+        }
+
+        public static ListStringResponseModel ValidateMatrixToFortsCodesMappingModel(MatrixToFortsCodesMappingModel model)
+        {
+            MatrixToFortsCodeMappingModelValidationService validator = new MatrixToFortsCodeMappingModelValidationService();
             var responseList = new ListStringResponseModel();
 
             ValidationResult validationResult = validator.Validate(model);

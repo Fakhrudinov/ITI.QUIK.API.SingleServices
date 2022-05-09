@@ -31,7 +31,18 @@
 
         public static string GetMatrixFortsCode(string code)
         {
-            return "C0" + code.Substring(5);
+            return "C0" + code.Substring(6);
+        }
+
+        public static string GetMatrixMOCode(string code)
+        {
+            var portfolioParts = code.Split("/");
+
+            string result = portfolioParts[0]
+                        + "-MO-"
+                        + portfolioParts[1];
+
+            return result;
         }
     }
 }

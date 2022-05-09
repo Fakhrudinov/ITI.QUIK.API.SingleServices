@@ -1,10 +1,9 @@
 ﻿using DataAbstraction.Interfaces;
 using QDealerAPI;
 using DataAbstraction.Models;
-using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 using System.Runtime.InteropServices;
-using DataAbstraction.Models.Connections;
+
 
 namespace QuikAPIBrlService
 {
@@ -12,14 +11,11 @@ namespace QuikAPIBrlService
     {
         private const string _spotFIRM = "MC0138200000";
         private const string _fortsFIRM = "SPBFUT";
-        //private QadminLogon _logon;
         private ILogger<EDPService> _logger;
         IQuikApiConnectionService _connection;
         
-        public EDPService(//IOptions<QadminLogon> logon, 
-            ILogger<EDPService> logger, IQuikApiConnectionService connection)
+        public EDPService(ILogger<EDPService> logger, IQuikApiConnectionService connection)
         {
-            //_logon = logon.Value;
             _logger = logger;
             _connection = connection;
         }
@@ -36,18 +32,100 @@ namespace QuikAPIBrlService
                 return response;
             }
 
+            // переделаем код на QUIK формат
             string quikCode = CommonServices.PortfoliosConvertingService.GetQuikSpotPortfolio(model.MatrixClientCode);
 
             //выполнить работу            
             IntPtr ptr = IntPtr.Zero;
-
             //получение кода срочного рынка ЕДП по коду клиента
             int resultEditBrl = NativeMethods.QDAPI_GetTrdAccGlobalChangeFutClientCodesByClientCode(_spotFIRM, _fortsFIRM, quikCode, ref ptr);
-            //string derAcc = Marshal.PtrToStringAnsi(derivativeAcc);
-            //Console.WriteLine("derAcc = " + derAcc);
-            response.Messages.Add(CommonServices.PortfoliosConvertingService.GetMatrixFortsCode(Marshal.PtrToStringAnsi(ptr)));
-
+            _logger.LogInformation($"EDPService GetEDPFortsClientCodeByMatrixCode {model.MatrixClientCode} result : '{Marshal.PtrToStringAnsi(ptr)}'");
+            if (resultEditBrl == 0)
+            {
+                response.Messages.Add(CommonServices.PortfoliosConvertingService.GetMatrixFortsCode(Marshal.PtrToStringAnsi(ptr)));
+            }          
             NativeMethods.QDAPI_FreeMemory(ref ptr);
+
+            //закрыть соединение
+            return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM, response);
+        }
+        public ListStringResponseModel GetEDPMatrixClientCodeByFortsCode(FortsClientCodeModel model)
+        {
+            _logger.LogInformation($"EDPService GetEDPMatrixClientCodeByFortsCode {model.FortsClientCode} Called");
+            ListStringResponseModel response = new ListStringResponseModel();
+
+            // открыть соединение
+            var openResult = _connection.OpenQuikQadminApiToRead(_spotFIRM, response);
+            if (!openResult.IsSuccess)
+            {
+                return response;
+            }
+
+            // переделаем код на QUIK формат
+            string quikCode = CommonServices.PortfoliosConvertingService.GetQuikFortsCode(model.FortsClientCode);
+
+            //выполнить работу            
+            IntPtr ptr = IntPtr.Zero;
+            //получение кода клиента ЕДП по коду срочного рынка
+            int resultEditBrl = NativeMethods.QDAPI_GetClientCodeGlobalChangeFutClientCodesByTrdAcc(_spotFIRM, _fortsFIRM, quikCode, ref ptr);
+            _logger.LogInformation($"EDPService GetEDPMatrixClientCodeByFortsCode {model.FortsClientCode} result : '{Marshal.PtrToStringAnsi(ptr)}'");
+            if (resultEditBrl == 0)
+            {
+                response.Messages.Add(CommonServices.PortfoliosConvertingService.GetMatrixMOCode(Marshal.PtrToStringAnsi(ptr)));
+            }
+            NativeMethods.QDAPI_FreeMemory(ref ptr);
+
+            //закрыть соединение
+            return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM, response);
+        }
+
+        public ListStringResponseModel SetNewEdpRelation(MatrixToFortsCodesMappingModel model)
+        {
+            _logger.LogInformation($"EDPService SetNewEdpRelation {model.MatrixClientCode} Called");
+            ListStringResponseModel response = new ListStringResponseModel();
+
+            // открыть соединение
+            var openResult = _connection.OpenQuikQadminApiToWrite(_spotFIRM, response);
+            if (!openResult.IsSuccess)
+            {
+                return response;
+            }
+
+            //выполнить работу            
+            QDAPI_StringToString clCodeTrdAccStruct = new QDAPI_StringToString
+            {
+                fst = CommonServices.PortfoliosConvertingService.GetQuikSpotPortfolio(model.MatrixClientCode),
+                snd = CommonServices.PortfoliosConvertingService.GetQuikFortsCode(model.FortsClientCode)
+            };
+            //добавление нового соответствия ЕДП клиента
+            int resultEditBrl = NativeMethods.QDAPI_AddCorrespToGlobalChangeFutClientCodes(_spotFIRM, _fortsFIRM, ref clCodeTrdAccStruct);
+            _logger.LogInformation($"EDPService SetNewEdpRelation {model.MatrixClientCode} result : '{resultEditBrl}'");
+
+            //закрыть соединение
+            return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM, response);
+        }
+
+
+        public ListStringResponseModel DeleteEdpRelation(MatrixClientCodeModel model)
+        {
+            _logger.LogInformation($"EDPService DeleteEdpRelation {model.MatrixClientCode} Called");
+            ListStringResponseModel response = new ListStringResponseModel();
+
+            // открыть соединение
+            var openResult = _connection.OpenQuikQadminApiToWrite(_spotFIRM, response);
+            if (!openResult.IsSuccess)
+            {
+                return response;
+            }
+
+            // переделаем код на QUIK формат
+            string quikCode = CommonServices.PortfoliosConvertingService.GetQuikSpotPortfolio(model.MatrixClientCode);
+
+            //выполнить работу
+            //удаление соответствия ЕДП по коду клиента
+            int resultEditBrl = NativeMethods.QDAPI_RemoveCorrespFromGlobalChangeFutClientCodesByClientCode(_spotFIRM, _fortsFIRM, quikCode);
+
+            _logger.LogInformation($"EDPService DeleteEdpRelation {model.MatrixClientCode} result : '{resultEditBrl}'");
 
             //закрыть соединение
             return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM, response);
