@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITI.QUIKAPI.MicroServices", "ITI.QUIKAPI.MicroServices\ITI.QUIKAPI.MicroServices.csproj", "{68F83EAD-F14F-45A4-BB43-E8D8D8F44F86}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotBrlService", "SpotBrlService\SpotBrlService.csproj", "{9EC1673A-6B6D-4F91-824B-E12F4D389C9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuikAPIBrlService", "SpotBrlService\QuikAPIBrlService.csproj", "{9EC1673A-6B6D-4F91-824B-E12F4D389C9A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAbstraction", "DataAbstraction\DataAbstraction.csproj", "{C83C3703-2A20-49CC-8B89-39124CB74801}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataValidationService", "Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonServices", "CommonServices\CommonServices.csproj", "{C8343BED-711B-430A-8172-5BCADEA9AFC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuikSftpService", "QuikSftpService\QuikSftpService.csproj", "{B9CB0951-E533-4C59-9D72-10F7E68ACC91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuikSftpService", "QuikSftpService\QuikSftpService.csproj", "{B9CB0951-E533-4C59-9D72-10F7E68ACC91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

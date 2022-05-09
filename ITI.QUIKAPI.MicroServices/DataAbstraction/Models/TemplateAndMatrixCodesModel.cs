@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace DataAbstraction.Models
+﻿namespace DataAbstraction.Models
 {
     public class TemplateAndMatrixCodesModel
     {

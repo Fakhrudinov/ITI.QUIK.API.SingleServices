@@ -21,7 +21,7 @@
     <ProjectReference Include="..\DataAbstraction\DataAbstraction.csproj" />
     <ProjectReference Include="..\DataValidationService\DataValidationService.csproj" />
     <ProjectReference Include="..\QuikSftpService\QuikSftpService.csproj" />
-    <ProjectReference Include="..\SpotBrlService\SpotBrlService.csproj" />
+    <ProjectReference Include="..\SpotBrlService\QuikAPIBrlService.csproj" />
   </ItemGroup>
 
   <ItemGroup>

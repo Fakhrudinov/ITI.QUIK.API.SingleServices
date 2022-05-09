@@ -24,7 +24,7 @@
             return result;
         }
 
-        public static string GetQuikFortsQuikCode(string code)
+        public static string GetQuikFortsCode(string code)
         {
             return "SPBFUT" + code.Substring(2);
         }
