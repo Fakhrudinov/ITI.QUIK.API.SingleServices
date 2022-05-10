@@ -4,27 +4,27 @@ namespace DataAbstraction.Interfaces
 {
     public interface ISFTPService
     {
-        StringResponceModel CheckConnections();
-        StringResponceModel BlockUserByUID(int uid);
-        StringResponceModel BackUpFileCodesIni();
-        StringResponceModel AddMAtrixCodesToFileCodesIni(CodesArrayModel model);
-        StringResponceModel BackUpFileDealLibIni();
-        StringResponceModel BackUpFileSpbfutlibIni();
-        StringResponceModel BlockUserByMatrixClientCode(string code);
-        StringResponceModel BlockUserByFortsClientCode(string code);
-        StringResponceModel SetNewPubringKeyByMatrixClientCode(MatrixCodeAndPubringKeyModel model);
-        StringResponceModel SetNewPubringKeyByFortsClientCode(FortsCodeAndPubringKeyModel model);
-        StringResponceModel GetResultOfXMLFileUpload(string file);
-        StringResponceModel RequestFileAllClients();
-        StringResponceModel DownloadAllClients();
-        StringResponceModel SendNewClientOptionWorkshop(NewClientOptionWorkShopModel model);
-        StringResponceModel SendNewClient(NewClientModel model);
+        ListStringResponseModel CheckConnections();
+        ListStringResponseModel BlockUserByUID(int uid);
+        ListStringResponseModel BackUpFileCodesIni();
+        ListStringResponseModel AddMAtrixCodesToFileCodesIni(CodesArrayModel model);
+        ListStringResponseModel BackUpFileDealLibIni();
+        ListStringResponseModel BackUpFileSpbfutlibIni();
+        ListStringResponseModel BlockUserByMatrixClientCode(string code);
+        ListStringResponseModel BlockUserByFortsClientCode(string code);
+        ListStringResponseModel SetNewPubringKeyByMatrixClientCode(MatrixCodeAndPubringKeyModel model);
+        ListStringResponseModel SetNewPubringKeyByFortsClientCode(FortsCodeAndPubringKeyModel model);
+        ListStringResponseModel GetResultOfXMLFileUpload(string file);
+        ListStringResponseModel RequestFileAllClients();
+        ListStringResponseModel DownloadAllClients();
+        ListStringResponseModel SendNewClientOptionWorkshop(NewClientOptionWorkShopModel model);
+        ListStringResponseModel SendNewClient(NewClientModel model);
         ListStringResponseModel GetUIDByMatrixCode(string matrixClientCode);
         ListStringResponseModel GetUIDByFortsCode(string fortsClientCode);
-        StringResponceModel SetStartMessage(StartMessageModel model);
-        StringResponceModel DeleteStartMessageForUID(int uid);
-        StringResponceModel DeleteStartMessageForAll();
-        StringResponceModel GetStartMessageforAll();
-        StringResponceModel GetStartMessageforUID(int uid);
+        ListStringResponseModel SetStartMessage(StartMessageModel model);
+        ListStringResponseModel DeleteStartMessageForUID(int uid);
+        ListStringResponseModel DeleteStartMessageForAll();
+        ListStringResponseModel GetStartMessageforAll();
+        ListStringResponseModel GetStartMessageforUID(int uid);
     }
 }

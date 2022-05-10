@@ -1,7 +1,6 @@
 ﻿using DataAbstraction.Interfaces;
 using DataAbstraction.Models;
 using DataValidationService;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITI.QUIKAPI.MicroServices.Controllers
@@ -125,21 +124,17 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpGet("UID/byMatrixCode")]
         public IActionResult GetUIDByMatrixCode([FromQuery] MatrixClientCodeModel model)
         {
-            _logger.LogInformation("HttpGet GetUID/ByMatrixCode Call " + model.MatrixClientCode);
+            _logger.LogInformation($"HttpGet GetUID/ByMatrixCode {model.MatrixClientCode} Call ");
 
-            SingleMatrixCodeStringValidationService validator = new SingleMatrixCodeStringValidationService();
-            ValidationResult validationResult = validator.Validate(model.MatrixClientCode);
-            if (!validationResult.IsValid)
+            //проверим корректность входных данных
+            ListStringResponseModel result = ValidateModel.ValidateMatrixSpotClientCodeModel(model);//MS MO RS FX
+            if (!result.IsSuccess)
             {
-                var response = new StringResponceModel();
-                response.Message = validationResult.Errors.First().ErrorCode + " " + validationResult.Errors.First().ErrorMessage;
-                response.IsSuccess = false;
-
-                _logger.LogWarning("HttpGet GetUID/ByMatrixCode Failed with " + response.Message);
-                return BadRequest(response);
+                _logger.LogInformation($"HttpGet GetUID/ByMatrixCode {model.MatrixClientCode} Error: {result.Messages[0]}");
+                return BadRequest(result);
             }
 
-            var result = _serviceSFTP.GetUIDByMatrixCode(model.MatrixClientCode);
+            result = _serviceSFTP.GetUIDByMatrixCode(model.MatrixClientCode);
 
             if (result.IsSuccess)
             {
@@ -154,21 +149,17 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpGet("UID/byFortsCode")]
         public IActionResult GetUIDByFortsCode([FromQuery] FortsClientCodeModel model)
         {
-            _logger.LogInformation($"HttpGet GetUID/ByFortsCode Call " + model.FortsClientCode);
+            _logger.LogInformation($"HttpGet GetUID/ByFortsCode {model.FortsClientCode} Call ");
 
-            SingleFortsCodeStringValidationService validator = new SingleFortsCodeStringValidationService();
-            ValidationResult validationResult = validator.Validate(model.FortsClientCode);
-            if (!validationResult.IsValid)
+            //проверим корректность входных данных
+            ListStringResponseModel result = ValidateModel.ValidateMatrixFortsClientCodeModel(model.FortsClientCode);
+            if (!result.IsSuccess)
             {
-                var response = new StringResponceModel();
-                response.Message = validationResult.Errors.First().ErrorCode + " " + validationResult.Errors.First().ErrorMessage;
-                response.IsSuccess = false;
-
-                _logger.LogWarning("HttpGet GetUID/ByFortsCode Failed with " + response.Message);
-                return BadRequest(response);
+                _logger.LogInformation($"HttpGet GetUID/ByFortsCode {model.FortsClientCode} Error: {result.Messages[0]}");
+                return BadRequest(result);
             }
 
-            var result = _serviceSFTP.GetUIDByFortsCode(model.FortsClientCode);
+            result = _serviceSFTP.GetUIDByFortsCode(model.FortsClientCode);
 
             if (result.IsSuccess)
             {
@@ -186,20 +177,15 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation($"HttpPost NewClient/OptionWorkshop Call for {model.Client.FirstName} {model.Client.LastName}");
 
-            var responseList = new ListStringResponseModel();
-            NewClientOptionWorkshopValidationService validator = new NewClientOptionWorkshopValidationService();
-            ValidationResult validationResult = validator.Validate(model);
-
-            if (!validationResult.IsValid)
+            //проверим корректность входных данных
+            ListStringResponseModel result = ValidateModel.ValidateNewClientOptionWorkShopModel(model);
+            if (!result.IsSuccess)
             {
-                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
-
-                string errors = SetResponseFromValidationResult.GetErrorsCodeFromValidationResult(validationResult);
-                _logger.LogWarning("HttpPost NewClient/OptionWorkshop Failed with " + errors);
-                return BadRequest(responseList);
+                _logger.LogWarning("HttpPost NewClient/OptionWorkshop Failed with " + result.Messages[0]);
+                return BadRequest(result);
             }
 
-            var result = _serviceSFTP.SendNewClientOptionWorkshop(model);
+            result = _serviceSFTP.SendNewClientOptionWorkshop(model);
 
             if (result.IsSuccess)
             {
@@ -216,20 +202,15 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation($"HttpPost NewClient Call for {model.Client.FirstName} {model.Client.LastName}");
 
-            var responseList = new ListStringResponseModel();
-            NewClientValidationService validator = new NewClientValidationService();
-            ValidationResult validationResult = validator.Validate(model);
-
-            if (!validationResult.IsValid)
+            //проверим корректность входных данных
+            ListStringResponseModel result = ValidateModel.ValidateNewClientModel(model);
+            if (!result.IsSuccess)
             {
-                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
-
-                string errors = SetResponseFromValidationResult.GetErrorsCodeFromValidationResult(validationResult);
-                _logger.LogWarning("HttpPost NewClient Failed with " + errors);
-                return BadRequest(responseList);
+                _logger.LogWarning("HttpPost NewClient Failed with " + result.Messages[0]);
+                return BadRequest(result);
             }
 
-            var result = _serviceSFTP.SendNewClient(model);
+            result = _serviceSFTP.SendNewClient(model);
 
             if (result.IsSuccess)
             {
@@ -331,20 +312,15 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation("HttpPut AddMatrixCodesToFileCodesIni Call");
 
-            var responseList = new ListStringResponseModel();
-            MatrixArrayCodesValidationService validator = new MatrixArrayCodesValidationService();
-            ValidationResult validationResult = validator.Validate(model);
-
-            if (!validationResult.IsValid)
+            //проверим корректность входных данных
+            ListStringResponseModel result = ValidateModel.ValidateCodesArrayModel(model);
+            if (!result.IsSuccess)
             {
-                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
-
-                string errors = SetResponseFromValidationResult.GetErrorsCodeFromValidationResult(validationResult);
-                _logger.LogWarning("HttpPut AddMatrixCodesToFileCodesIni Failed with " + errors);
-                return BadRequest(responseList);
+                _logger.LogWarning("HttpPut AddMatrixCodesToFileCodesIni Failed with " + result.Messages[0]);
+                return BadRequest(result);
             }
 
-            var result = _serviceSFTP.AddMAtrixCodesToFileCodesIni(model);
+            result = _serviceSFTP.AddMAtrixCodesToFileCodesIni(model);
 
             if (result.IsSuccess)
             {
@@ -378,19 +354,15 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation($"HttpDelete BlockUserBy/MatrixClientCode/{model.MatrixClientCode} Call");
 
-            SingleMatrixCodeStringValidationService validator = new SingleMatrixCodeStringValidationService();
-            ValidationResult validationResult = validator.Validate(model.MatrixClientCode);
-            if (!validationResult.IsValid)
+            //проверим корректность входных данных
+            ListStringResponseModel result = ValidateModel.ValidateMatrixSpotClientCodeModel(model);//MS MO RS FX
+            if (!result.IsSuccess)
             {
-                var response = new StringResponceModel();
-                response.Message = validationResult.Errors.First().ErrorCode + " " + validationResult.Errors.First().ErrorMessage;
-                response.IsSuccess = false;
-
-                _logger.LogWarning("HttpDelete BlockUserBy/MatrixClientCode Failed with " + response.Message);
-                return BadRequest(response);
+                _logger.LogInformation($"HttpDelete BlockUserBy/MatrixClientCode/{model.MatrixClientCode} Error: {result.Messages[0]}");
+                return BadRequest(result);
             }
 
-            var result = _serviceSFTP.BlockUserByMatrixClientCode(model.MatrixClientCode);
+            result = _serviceSFTP.BlockUserByMatrixClientCode(model.MatrixClientCode);
 
             if (result.IsSuccess)
             {
@@ -407,19 +379,15 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation($"HttpDelete BlockUserBy/FortsClientCode/{model.FortsClientCode} Call");
 
-            SingleFortsCodeStringValidationService validator = new SingleFortsCodeStringValidationService();
-            ValidationResult validationResult = validator.Validate(model.FortsClientCode);
-            if (!validationResult.IsValid)
+            //проверим корректность входных данных
+            ListStringResponseModel result = ValidateModel.ValidateMatrixFortsClientCodeModel(model.FortsClientCode);
+            if (!result.IsSuccess)
             {
-                var response = new StringResponceModel();
-                response.Message = validationResult.Errors.First().ErrorCode + " " + validationResult.Errors.First().ErrorMessage;
-                response.IsSuccess = false;
-
-                _logger.LogWarning("HttpDelete BlockUserBy/FortsClientCode Failed with " + response.Message);
-                return BadRequest(response);
+                _logger.LogInformation($"HttpDelete BlockUserBy/FortsClientCode/{model.FortsClientCode} Error: {result.Messages[0]}");
+                return BadRequest(result);
             }
 
-            var result = _serviceSFTP.BlockUserByFortsClientCode(model.FortsClientCode);
+            result = _serviceSFTP.BlockUserByFortsClientCode(model.FortsClientCode);
 
             if (result.IsSuccess)
             {
@@ -436,19 +404,15 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation("HttpPut SetNewPubringKey/ByMatrixClientCode Call " + model.ClientCode);
 
-            SingleMatrixCodeStringValidationService validator = new SingleMatrixCodeStringValidationService();
-            ValidationResult validationResult = validator.Validate(model.ClientCode.MatrixClientCode);
-            if (!validationResult.IsValid)
+            //проверим корректность входных данных
+            ListStringResponseModel result = ValidateModel.ValidateMatrixCodeAndPubringKeyModel(model);
+            if (!result.IsSuccess)
             {
-                var response = new StringResponceModel();
-                response.Message = validationResult.Errors.First().ErrorCode + " " + validationResult.Errors.First().ErrorMessage;
-                response.IsSuccess = false;
-
-                _logger.LogWarning("HttpPut SetNewPubringKey/ByMatrixClientCode Failed with " + response.Message);
-                return BadRequest(response);
+                _logger.LogWarning("HttpPut SetNewPubringKey/ByMatrixClientCode Failed with " + result.Messages[0]);
+                return BadRequest(result);
             }
 
-            var result = _serviceSFTP.SetNewPubringKeyByMatrixClientCode(model);
+            result = _serviceSFTP.SetNewPubringKeyByMatrixClientCode(model);
 
             if (result.IsSuccess)
             {
@@ -465,19 +429,15 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation("HttpPut SetNewPubringKey/ByFortsClientCode Call " + model.ClientCode);
 
-            SingleFortsCodeStringValidationService validator = new SingleFortsCodeStringValidationService();
-            ValidationResult validationResult = validator.Validate(model.ClientCode.FortsClientCode);
-            if (!validationResult.IsValid)
+            //проверим корректность входных данных
+            ListStringResponseModel result = ValidateModel.ValidateFortsCodeAndPubringKeyModel(model);
+            if (!result.IsSuccess)
             {
-                var response = new StringResponceModel();
-                response.Message = validationResult.Errors.First().ErrorCode + " " + validationResult.Errors.First().ErrorMessage;
-                response.IsSuccess = false;
-
-                _logger.LogWarning("HttpPut SetNewPubringKey/ByFortsClientCode Failed with " + response.Message);
-                return BadRequest(response);
+                _logger.LogWarning("HttpPut SetNewPubringKey/ByFortsClientCode Failed with " + result.Messages[0]);
+                return BadRequest(result);
             }
 
-            var result = _serviceSFTP.SetNewPubringKeyByFortsClientCode(model);
+            result = _serviceSFTP.SetNewPubringKeyByFortsClientCode(model);
 
             if (result.IsSuccess)
             {
