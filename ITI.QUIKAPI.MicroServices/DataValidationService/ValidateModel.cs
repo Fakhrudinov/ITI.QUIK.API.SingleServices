@@ -160,6 +160,21 @@ namespace DataValidationService
             return responseList;
         }
 
+        public static ListStringResponseModel ValidateNewClientOptionWorkShopModel(NewClientOptionWorkShopModel model)
+        {
+            NewClientOptionWorkshopValidationService validator = new NewClientOptionWorkshopValidationService();
+            ListStringResponseModel responseList = new ListStringResponseModel();
+
+            ValidationResult validationResult = validator.Validate(model);
+
+            if (!validationResult.IsValid)
+            {
+                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
+            }
+
+            return responseList;
+        }
+
         public static ListStringResponseModel ValidateMatrixFortsCodeModel(MoveMatrixFortsCodeModel model)
         {
             MoveMatrixFortsCodeModelValidationService validator = new MoveMatrixFortsCodeModelValidationService();
@@ -178,6 +193,66 @@ namespace DataValidationService
         public static ListStringResponseModel ValidateTemplateAnMatrixFortsCodesModel(TemplateAndMatrixFortsCodesModel model)
         {
             TemplateAndMatrixFortsCodesModelValidationService validator = new TemplateAndMatrixFortsCodesModelValidationService();
+            ListStringResponseModel responseList = new ListStringResponseModel();
+
+            ValidationResult validationResult = validator.Validate(model);
+
+            if (!validationResult.IsValid)
+            {
+                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
+            }
+
+            return responseList;
+        }
+
+        public static ListStringResponseModel ValidateNewClientModel(NewClientModel model)
+        {
+            NewClientValidationService validator = new NewClientValidationService();
+            ListStringResponseModel responseList = new ListStringResponseModel();
+
+            ValidationResult validationResult = validator.Validate(model);
+
+            if (!validationResult.IsValid)
+            {
+                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
+            }
+
+            return responseList;
+        }
+
+        public static ListStringResponseModel ValidateMatrixCodeAndPubringKeyModel(MatrixCodeAndPubringKeyModel model)
+        {
+            MatrixCodeAndPubringKeyModelValidationService validator = new MatrixCodeAndPubringKeyModelValidationService();
+            ListStringResponseModel responseList = new ListStringResponseModel();
+
+            ValidationResult validationResult = validator.Validate(model);
+
+            if (!validationResult.IsValid)
+            {
+                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
+            }
+
+            return responseList;
+        }
+
+        public static ListStringResponseModel ValidateFortsCodeAndPubringKeyModel(FortsCodeAndPubringKeyModel model)
+        {
+            FortsCodeAndPubringKeyModelValidationService validator = new FortsCodeAndPubringKeyModelValidationService();
+            ListStringResponseModel responseList = new ListStringResponseModel();
+
+            ValidationResult validationResult = validator.Validate(model);
+
+            if (!validationResult.IsValid)
+            {
+                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
+            }
+
+            return responseList;
+        }
+
+        public static ListStringResponseModel ValidateCodesArrayModel(CodesArrayModel model)
+        {
+            MatrixArrayCodesValidationService validator = new MatrixArrayCodesValidationService();
             ListStringResponseModel responseList = new ListStringResponseModel();
 
             ValidationResult validationResult = validator.Validate(model);
