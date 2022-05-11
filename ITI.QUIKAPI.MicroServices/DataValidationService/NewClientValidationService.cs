@@ -1,4 +1,5 @@
 ﻿using DataAbstraction.Models;
+using DataValidationService.SingleEntityValidation;
 using FluentValidation;
 
 
@@ -10,27 +11,33 @@ namespace DataValidationService
         {
             RuleForEach(x => x.CodesMatrix).ChildRules(codes =>
             {
-                codes.RuleFor(x => x.MatrixClientCode)
-                    .Matches("^B[PC][0-9]{4,6}-(MS|MO|CD|FX|RS)-[0-9]{2}$")
-                        .WithMessage("{PropertyName} '{PropertyValue}' is not in format 'BP12345-XX-01'. Accept only MS|MO|CD|FX|RS portfolio")
-                        .WithErrorCode("PP900");
+                codes
+                    .RuleFor(x => x.MatrixClientCode).SetValidator(new ClientCodeSpotMatrixMsMoFxRsCdValidator());
+                    //.RuleFor(x => x.MatrixClientCode)
+                    //    .Matches("^B[PC][0-9]{4,6}-(MS|MO|CD|FX|RS)-[0-9]{2}$")
+                    //        .WithMessage("{PropertyName} '{PropertyValue}' is not in format 'BP12345-XX-01'. Accept only MS|MO|CD|FX|RS portfolio")
+                    //        .WithErrorCode("PP900");
             });
 
 
             RuleForEach(x => x.CodesPairRF).ChildRules(codes =>
             {
-                codes.RuleFor(x => x.MatrixClientCode)
-                    .Matches("^B[PC][0-9]{4,6}-RF-[0-9]{2}$")
-                        .WithMessage("{PropertyName} '{PropertyValue}' is not in format 'BP12345-RF-01'. Accept only RF portfolio")
-                        .WithErrorCode("PP901");
+                codes
+                    .RuleFor(x => x.MatrixClientCode).SetValidator(new ClientCodeFortsRfMatrixValidator());
+                    //.RuleFor(x => x.MatrixClientCode)
+                    //    .Matches("^B[PC][0-9]{4,6}-RF-[0-9]{2}$")
+                    //        .WithMessage("{PropertyName} '{PropertyValue}' is not in format 'BP12345-RF-01'. Accept only RF portfolio")
+                    //        .WithErrorCode("PP901");
             });
 
             RuleForEach(x => x.CodesPairRF).ChildRules(codes =>
             {
-                codes.RuleFor(x => x.FortsClientCode)
-                    .Matches("^C0[0-9A-Za-z]{5}$")
-                        .WithMessage("{PropertyName} '{PropertyValue}' is not in format 'C0xxxxx'.")
-                        .WithErrorCode("PP902");
+                codes
+                .RuleFor(x => x.FortsClientCode).SetValidator(new ClientCodeFortsC0MatrixValidator());
+                //.RuleFor(x => x.FortsClientCode)
+                //    .Matches("^C0[0-9A-Za-z]{5}$")
+                //        .WithMessage("{PropertyName} '{PropertyValue}' is not in format 'C0xxxxx'.")
+                //        .WithErrorCode("PP902");
             });
 
 
@@ -50,19 +57,19 @@ namespace DataValidationService
                     .WithMessage("{PropertyName} '{PropertyValue}' regex not match Email")
                     .WithErrorCode("PP906"); ;
 
-
-            RuleFor(x => x.Key.KeyID)
-                .Length(16)
-                    .WithMessage("{PropertyName} '{PropertyValue}' must be 16 symbols lenght")
-                    .WithErrorCode("PP907");
-            RuleFor(x => x.Key.Time)
-                .GreaterThan(0)
-                    .WithMessage("{PropertyName} '{PropertyValue}' must be Greater Than 0")
-                    .WithErrorCode("PP908");
-            RuleFor(x => x.Key.RSAKey)
-                .Length(64)
-                    .WithMessage("{PropertyName} '{PropertyValue}' must be 64 symbols lenght")
-                    .WithErrorCode("PP909");
+            RuleFor(x => x.Key).SetValidator(new QAdminPubringKeyValidator());
+            //RuleFor(x => x.Key.KeyID)
+            //    .Length(16)
+            //        .WithMessage("{PropertyName} '{PropertyValue}' must be 16 symbols lenght")
+            //        .WithErrorCode("PP907");
+            //RuleFor(x => x.Key.Time)
+            //    .GreaterThan(0)
+            //        .WithMessage("{PropertyName} '{PropertyValue}' must be Greater Than 0")
+            //        .WithErrorCode("PP908");
+            //RuleFor(x => x.Key.RSAKey)
+            //    .Length(64)
+            //        .WithMessage("{PropertyName} '{PropertyValue}' must be 64 symbols lenght")
+            //        .WithErrorCode("PP909");
 
 
             RuleFor(x => x.CodesMatrix)

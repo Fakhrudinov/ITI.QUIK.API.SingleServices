@@ -1,4 +1,5 @@
 ﻿using DataAbstraction.Models;
+using DataValidationService.SingleEntityValidation;
 using FluentValidation;
 
 namespace DataValidationService
@@ -19,10 +20,12 @@ namespace DataValidationService
 
             RuleForEach(x => x.CodesPairRF).ChildRules(codes =>
             {
-                codes.RuleFor(x => x.FortsClientCode)
-                .Matches("^C0[0-9A-Za-z]{5}$")
-                    .WithMessage("{PropertyName} '{PropertyValue}' is not in format 'C0xxxxx'.")
-                    .WithErrorCode("PP802");
+                codes
+                //.RuleFor(x => x.FortsClientCode)
+                //    .Matches("^C0[0-9A-Za-z]{5}$")
+                //        .WithMessage("{PropertyName} '{PropertyValue}' is not in format 'C0xxxxx'.")
+                //        .WithErrorCode("PP802");
+                .RuleFor(x => x.FortsClientCode).SetValidator(new ClientCodeFortsC0MatrixValidator());
             });
 
             
@@ -42,19 +45,19 @@ namespace DataValidationService
                     .WithMessage("{PropertyName} '{PropertyValue}' regex not match Email")
                     .WithErrorCode("PP806"); ;
 
-            
-            RuleFor(x => x.Key.KeyID)
-                .Length(16)
-                    .WithMessage("{PropertyName} '{PropertyValue}' must be 16 symbols lenght")
-                    .WithErrorCode("PP807");
-            RuleFor(x => x.Key.Time)
-                .GreaterThan(0)
-                    .WithMessage("{PropertyName} '{PropertyValue}' must be Greater Than 0")
-                    .WithErrorCode("PP808");
-            RuleFor(x => x.Key.RSAKey)
-                .Length(64)
-                    .WithMessage("{PropertyName} '{PropertyValue}' must be 64 symbols lenght")
-                    .WithErrorCode("PP809");
+            RuleFor(x => x.Key).SetValidator(new QAdminPubringKeyValidator());
+            //RuleFor(x => x.Key.KeyID)
+            //    .Length(16)
+            //        .WithMessage("{PropertyName} '{PropertyValue}' must be 16 symbols lenght")
+            //        .WithErrorCode("PP807");
+            //RuleFor(x => x.Key.Time)
+            //    .GreaterThan(0)
+            //        .WithMessage("{PropertyName} '{PropertyValue}' must be Greater Than 0")
+            //        .WithErrorCode("PP808");
+            //RuleFor(x => x.Key.RSAKey)
+            //    .Length(64)
+            //        .WithMessage("{PropertyName} '{PropertyValue}' must be 64 symbols lenght")
+            //        .WithErrorCode("PP809");
 
         }
     }
