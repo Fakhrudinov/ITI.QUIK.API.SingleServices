@@ -15,8 +15,8 @@ namespace DataAbstraction.Interfaces
         ListStringResponseModel SetNewPubringKeyByMatrixClientCode(MatrixCodeAndPubringKeyModel model);
         ListStringResponseModel SetNewPubringKeyByFortsClientCode(FortsCodeAndPubringKeyModel model);
         ListStringResponseModel GetResultOfXMLFileUpload(string file);
-        ListStringResponseModel RequestFileAllClients();
-        ListStringResponseModel DownloadAllClients();
+        ListStringResponseModel RequestFileCurrClnts();
+        ListStringResponseModel DownloadCurrClnts();
         ListStringResponseModel SendNewClientOptionWorkshop(NewClientOptionWorkShopModel model);
         ListStringResponseModel SendNewClient(NewClientModel model);
         ListStringResponseModel GetUIDByMatrixCode(string matrixClientCode);

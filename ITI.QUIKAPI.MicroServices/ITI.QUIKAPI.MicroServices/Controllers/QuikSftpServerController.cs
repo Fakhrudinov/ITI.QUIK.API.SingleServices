@@ -222,12 +222,12 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             }
         }
 
-        [HttpGet("RequestFile/AllClients")]
-        public IActionResult RequestAllClients()
+        [HttpGet("RequestFile/CurrClnts")]
+        public IActionResult RequestCurrClnts()
         {
-            _logger.LogInformation("HttpGet RequestFile/AllClients Call");
+            _logger.LogInformation("HttpGet RequestFile/CurrClnts Call");
 
-            var result = _serviceSFTP.RequestFileAllClients();
+            var result = _serviceSFTP.RequestFileCurrClnts();
 
             if (result.IsSuccess)
             {
@@ -239,12 +239,12 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             }
         }
 
-        [HttpGet("DownloadFile/AllClients")]
-        public IActionResult DownloadAllClients()
+        [HttpGet("DownloadFile/CurrClnts")]
+        public IActionResult DownloadCurrClnts()
         {
-            _logger.LogInformation("HttpGet DownloadFile/AllClients Call");
+            _logger.LogInformation("HttpGet DownloadFile/CurrClnts Call");
 
-            var result = _serviceSFTP.DownloadAllClients();
+            var result = _serviceSFTP.DownloadCurrClnts();
 
             if (result.IsSuccess)
             {

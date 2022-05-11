@@ -382,38 +382,12 @@ namespace QuikSftpService
             }
             comment = comment + "для Option Workshop";
 
-            //заменить в шаблоне данные из модели
             //подставить данные в шаблон
             for (int i = 0; i < stringsFromFile.Count; i++)
             {
-                if (stringsFromFile[i].Contains("**FirstName**"))
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**FirstName**", model.Client.FirstName);
-                }
-                if (stringsFromFile[i].Contains("**MiddleName**"))
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**MiddleName**", model.Client.MiddleName);
-                }
-                if (stringsFromFile[i].Contains("**LastName**"))
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**LastName**", model.Client.LastName);
-                }
                 if (stringsFromFile[i].Contains("**Comment**"))
                 {
                     stringsFromFile[i] = stringsFromFile[i].Replace("**Comment**", comment);
-                }
-                if (stringsFromFile[i].Contains("**EMail**"))
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**EMail**", model.Client.EMail);
-                }
-
-                if (stringsFromFile[i].Contains("**DateNow**"))                                  //format: 2022-05-05
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**DateNow**", DateTime.Now.ToString("yyyy-MM-dd"));
-                }
-                if (stringsFromFile[i].Contains("**ValidTo**"))                                  //format: 2022-05-05
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**ValidTo**", DateTime.Now.AddYears(2).ToString("yyyy-MM-dd"));
                 }
 
                 if (stringsFromFile[i].Contains("**CodesRF**"))
@@ -421,23 +395,8 @@ namespace QuikSftpService
                     stringsFromFile[i] = stringsFromFile[i].Replace("**CodesRF**", listRfCodes);
                 }
 
-                if (stringsFromFile[i].Contains("**Time**"))
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**Time**", model.Key.Time.ToString());
-                }
-                if (stringsFromFile[i].Contains("**KeyID**"))
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**KeyID**", model.Key.KeyID);
-                }
-                if (stringsFromFile[i].Contains("**RSAKey**"))
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**RSAKey**", model.Key.RSAKey);
-                }
-
-                if (stringsFromFile[i].Contains("**OrgName**"))
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**OrgName**", "Клиент");
-                }
+                stringsFromFile[i] = SetClientData(model.Client, stringsFromFile[i]);
+                stringsFromFile[i] = SetPubringKeyData(model.Key, stringsFromFile[i]);
             }
 
             //проверить наличие Temp
@@ -484,40 +443,15 @@ namespace QuikSftpService
 
             ClientCodesAndCommentModel codesAndComment = SetCodesByMarkets(model);            
 
-            //заменить в шаблоне данные из модели
             //подставить данные в шаблон
             for (int i = 0; i < stringsFromFile.Count; i++)
             {
-                if (stringsFromFile[i].Contains("**FirstName**"))
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**FirstName**", model.Client.FirstName);
-                }
-                if (stringsFromFile[i].Contains("**MiddleName**"))
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**MiddleName**", model.Client.MiddleName);
-                }
-                if (stringsFromFile[i].Contains("**LastName**"))
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**LastName**", model.Client.LastName);
-                }
+                stringsFromFile[i] = SetClientData(model.Client, stringsFromFile[i]);
+
                 if (stringsFromFile[i].Contains("**Comment**"))
                 {
                     stringsFromFile[i] = stringsFromFile[i].Replace("**Comment**", codesAndComment.Comment);
                 }
-                if (stringsFromFile[i].Contains("**EMail**"))
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**EMail**", model.Client.EMail);
-                }
-
-                if (stringsFromFile[i].Contains("**DateNow**"))                                  //format: 2022-05-05
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**DateNow**", DateTime.Now.ToString("yyyy-MM-dd"));
-                }
-                if (stringsFromFile[i].Contains("**ValidTo**"))                                  //format: 2022-05-05
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**ValidTo**", DateTime.Now.AddYears(2).ToString("yyyy-MM-dd"));
-                }
-
 
                 if (stringsFromFile[i].Contains("**DeleteEDP**"))
                 {
@@ -582,24 +516,7 @@ namespace QuikSftpService
                 }
 
 
-
-                if (stringsFromFile[i].Contains("**Time**"))
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**Time**", model.Key.Time.ToString());
-                }
-                if (stringsFromFile[i].Contains("**KeyID**"))
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**KeyID**", model.Key.KeyID);
-                }
-                if (stringsFromFile[i].Contains("**RSAKey**"))
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**RSAKey**", model.Key.RSAKey);
-                }
-
-                if (stringsFromFile[i].Contains("**OrgName**"))
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**OrgName**", "Клиент");
-                }
+                stringsFromFile[i] = SetPubringKeyData(model.Key, stringsFromFile[i]);
             }
 
             //проверить наличие Temp
@@ -723,20 +640,7 @@ namespace QuikSftpService
                     stringsFromFile[i] = stringsFromFile[i].Replace("**DateNow**", DateTime.Now.ToString("yyyy-MM-dd"));
                 }
 
-                if (stringsFromFile[i].Contains("**Time**"))                                  
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**Time**", model.Key.Time.ToString());
-                }
-
-                if (stringsFromFile[i].Contains("**KeyID**"))
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**KeyID**", model.Key.KeyID);
-                }
-
-                if (stringsFromFile[i].Contains("**RSAKey**"))
-                {
-                    stringsFromFile[i] = stringsFromFile[i].Replace("**RSAKey**", model.Key.RSAKey);
-                }
+                stringsFromFile[i] = SetPubringKeyData(model.Key, stringsFromFile[i]);
             }
 
             //собрать имя нового файла
@@ -787,7 +691,7 @@ namespace QuikSftpService
             return DownloadFileFromSFTP(localFilePath, _spbfutLibIniPathSFTP);
         }
 
-        public ListStringResponseModel DownloadAllClients()
+        public ListStringResponseModel DownloadCurrClnts()
         {
             _logger.LogInformation($"SFTPService DownloadAllClients Called");
 
@@ -898,7 +802,7 @@ namespace QuikSftpService
             return UploadFileToSFTP(newFilePath, _codesIniPathSFTP, true);
         }
 
-        public ListStringResponseModel RequestFileAllClients()
+        public ListStringResponseModel RequestFileCurrClnts()
         {
             _logger.LogInformation($"SFTPService GetAllClients Called");
 
@@ -1284,5 +1188,58 @@ namespace QuikSftpService
             return path;
         }
 
+        private string SetPubringKeyData(PubringKeyModel key, string incomingString)
+        {
+
+            if (incomingString.Contains("**Time**"))
+            {
+                incomingString = incomingString.Replace("**Time**", key.Time.ToString());
+            }
+            if (incomingString.Contains("**KeyID**"))
+            {
+                incomingString = incomingString.Replace("**KeyID**", key.KeyID);
+            }
+            if (incomingString.Contains("**RSAKey**"))
+            {
+                incomingString = incomingString.Replace("**RSAKey**", key.RSAKey);
+            }
+
+            if (incomingString.Contains("**OrgName**"))
+            {
+                incomingString = incomingString.Replace("**OrgName**", "Клиент");
+            }
+
+            return incomingString;
+        }
+        private string SetClientData(ClientInformationModel client, string incomingString)
+        {
+            if (incomingString.Contains("**FirstName**"))
+            {
+                incomingString = incomingString.Replace("**FirstName**", client.FirstName);
+            }
+            if (incomingString.Contains("**MiddleName**"))
+            {
+                incomingString = incomingString.Replace("**MiddleName**", client.MiddleName);
+            }
+            if (incomingString.Contains("**LastName**"))
+            {
+                incomingString = incomingString.Replace("**LastName**", client.LastName);
+            }
+            if (incomingString.Contains("**EMail**"))
+            {
+                incomingString = incomingString.Replace("**EMail**", client.EMail);
+            }
+
+            if (incomingString.Contains("**DateNow**"))
+            {
+                incomingString = incomingString.Replace("**DateNow**", DateTime.Now.ToString("yyyy-MM-dd"));
+            }
+            if (incomingString.Contains("**ValidTo**"))
+            {
+                incomingString = incomingString.Replace("**ValidTo**", DateTime.Now.AddYears(2).ToString("yyyy-MM-dd"));
+            }
+
+            return incomingString;
+        }
     }
 }
