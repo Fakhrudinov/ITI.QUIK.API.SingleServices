@@ -13,9 +13,11 @@ namespace DataValidationService
                     .WithErrorCode("PP800");
             RuleForEach(x => x.CodesPairRF).ChildRules(codes =>
             {
-                codes.RuleFor(x => x.MatrixClientCode).Matches("^B[PC][0-9]{4,6}-RF-[0-9]{2}$")
-                    .WithMessage("{PropertyName} '{PropertyValue}' is not in format 'BP12345-RF-01'. Accept only RF portfolio")
-                    .WithErrorCode("PP801");
+                codes
+                    //.RuleFor(x => x.MatrixClientCode).Matches("^B[PC][0-9]{4,6}-RF-[0-9]{2}$")
+                    //    .WithMessage("{PropertyName} '{PropertyValue}' is not in format 'BP12345-RF-01'. Accept only RF portfolio")
+                    //    .WithErrorCode("PP801");
+                    .RuleFor(x => x.MatrixClientCode).SetValidator(new ClientCodeFortsRfMatrixValidator());
             });
 
             RuleForEach(x => x.CodesPairRF).ChildRules(codes =>
@@ -28,22 +30,22 @@ namespace DataValidationService
                 .RuleFor(x => x.FortsClientCode).SetValidator(new ClientCodeFortsC0MatrixValidator());
             });
 
-            
-            RuleFor(x => x.Client.FirstName)
-                .Length(2, 127)
-                    .WithMessage("{PropertyName} '{PropertyValue}' must be minimum 2 and maximum 127 symbols lenght")
-                    .WithErrorCode("PP803");
-            RuleFor(x => x.Client.LastName)
-                .Length(2, 127)
-                    .WithMessage("{PropertyName} '{PropertyValue}' must be minimum 2 and maximum 127 symbols lenght")
-                    .WithErrorCode("PP804");
-            RuleFor(x => x.Client.EMail)
-                .Length(7, 127)
-                    .WithMessage("{PropertyName} '{PropertyValue}' must be minimum 7 and maximum 127 symbols lenght")
-                    .WithErrorCode("PP805")
-                .Matches(@"^(?("")(""[^""]+?""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9]{2,17}))$")
-                    .WithMessage("{PropertyName} '{PropertyValue}' regex not match Email")
-                    .WithErrorCode("PP806"); ;
+            RuleFor(x => x.Client).SetValidator(new NewClientNameEmailValidator());
+            //RuleFor(x => x.Client.FirstName)
+            //    .Length(2, 127)
+            //        .WithMessage("{PropertyName} '{PropertyValue}' must be minimum 2 and maximum 127 symbols lenght")
+            //        .WithErrorCode("PP803");
+            //RuleFor(x => x.Client.LastName)
+            //    .Length(2, 127)
+            //        .WithMessage("{PropertyName} '{PropertyValue}' must be minimum 2 and maximum 127 symbols lenght")
+            //        .WithErrorCode("PP804");
+            //RuleFor(x => x.Client.EMail)
+            //    .Length(7, 127)
+            //        .WithMessage("{PropertyName} '{PropertyValue}' must be minimum 7 and maximum 127 symbols lenght")
+            //        .WithErrorCode("PP805")
+            //    .Matches(@"^(?("")(""[^""]+?""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9]{2,17}))$")
+            //        .WithMessage("{PropertyName} '{PropertyValue}' regex not match Email")
+            //        .WithErrorCode("PP806");
 
             RuleFor(x => x.Key).SetValidator(new QAdminPubringKeyValidator());
             //RuleFor(x => x.Key.KeyID)
