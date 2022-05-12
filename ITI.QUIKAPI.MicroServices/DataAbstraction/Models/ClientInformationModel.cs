@@ -13,16 +13,4 @@ namespace DataAbstraction.Models
 		[DefaultValue("iii@aaa.ru")]
 		public string EMail { get; set; }
 	}
-
-	/*
-     	<UserInfo>
-			<FirstName>**FirstName**</FirstName>
-			<MiddleName>**MiddleName**</MiddleName>
-			<LastName>**LastName**</LastName>
-			<Comment>**Comment**</Comment> // собирать самому
-		</UserInfo>
-		<ContactInfo>
-			<EMail>**EMail**</EMail>
-		</ContactInfo>
-	*/
 }
