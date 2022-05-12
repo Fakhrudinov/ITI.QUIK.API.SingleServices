@@ -206,6 +206,21 @@ namespace DataValidationService
             return responseList;
         }
 
+        public static ListStringResponseModel ValidateTemplateName(string templateName)
+        {
+            QAdminTemplateNameValidator validator = new QAdminTemplateNameValidator();
+            ListStringResponseModel responseList = new ListStringResponseModel();
+
+            ValidationResult validationResult = validator.Validate(templateName);
+
+            if (!validationResult.IsValid)
+            {
+                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
+            }
+
+            return responseList;
+        }
+
         public static ListStringResponseModel ValidateNewClientModel(NewClientModel model)
         {
             NewClientValidationService validator = new NewClientValidationService();
