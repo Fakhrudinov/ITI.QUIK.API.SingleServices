@@ -1,6 +1,7 @@
 using DataAbstraction.Interfaces;
 using DataAbstraction.Models.Connections;
 using QuikAPIBrlService;
+using QuikDataBaseRepository;
 using QuikSftpService;
 
 
@@ -23,6 +24,9 @@ builder.Services.Configure<QadminLogon>(
 builder.Services.AddTransient<ISFTPService, SFTPService>();
 builder.Services.Configure<SftpConnectionConfiguration>(
     builder.Configuration.GetSection("SftpConfig"));
+
+//add QUIK MsSql Data Base connection
+builder.Services.AddTransient<IQuikDataBaseRepository, QuikDBRepository>();
 
 var app = builder.Build();
 
