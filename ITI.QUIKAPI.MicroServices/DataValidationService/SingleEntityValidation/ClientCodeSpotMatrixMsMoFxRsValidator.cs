@@ -1,15 +1,15 @@
 ﻿using FluentValidation;
 
-namespace DataValidationService
+namespace DataValidationService.SingleEntityValidation
 {
-    public class SingleMatrixCodeStringValidationService : AbstractValidator<string>
+    internal class ClientCodeSpotMatrixMsMoFxRsValidator : AbstractValidator<string>
     {
-        public SingleMatrixCodeStringValidationService()
+        internal ClientCodeSpotMatrixMsMoFxRsValidator()
         {
             RuleFor(x => x)
                 .Matches("^B[PC][0-9]{4,6}-(MS|MO|FX|RS)-[0-9]{2}$")
                     .WithMessage("{PropertyName} '{PropertyValue}' is not in format 'BP12345-XX-01'. Accept only MS|MO|FX|RS portfolio")
-                    .WithErrorCode("PP700");
+                    .WithErrorCode("MS102");
         }
     }
 }

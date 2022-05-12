@@ -91,7 +91,15 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation("HttpGet GetAllClientsFromTemplate/PoKomissii Call " + templateName);
 
-            var result = _qService.GetList(false, true, templateName);
+            //проверим корректность входных данных
+            ListStringResponseModel result = ValidateModel.ValidateTemplateName(templateName);
+            if (!result.IsSuccess)
+            {
+                _logger.LogInformation($"HttpGet GetAllClientsFromTemplate/PoKomissii Error: {result.Messages[0]}");
+                return BadRequest(result);
+            }
+
+            result = _qService.GetList(false, true, templateName);
 
             _logger.LogInformation($"HttpGet GetAllClientsFromTemplate/PoKomissii result isOK={result.IsSuccess}");
             if (result.IsSuccess)
@@ -108,7 +116,15 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation("HttpGet GetAllClientsFromTemplate/PoPlechu Call " + templateName);
 
-            var result = _qService.GetList(false, false, templateName);
+            //проверим корректность входных данных
+            ListStringResponseModel result = ValidateModel.ValidateTemplateName(templateName);
+            if (!result.IsSuccess)
+            {
+                _logger.LogInformation($"HttpGet GetAllClientsFromTemplate/PoPlechu Error: {result.Messages[0]}");
+                return BadRequest(result);
+            }
+
+            result = _qService.GetList(false, false, templateName);
 
             _logger.LogInformation($"HttpGet  GetAllClientsFromTemplate/PoPlechu result isOK={result.IsSuccess}");
             if (result.IsSuccess)

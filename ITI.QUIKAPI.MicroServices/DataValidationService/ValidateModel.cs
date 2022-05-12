@@ -1,4 +1,5 @@
 ﻿using DataAbstraction.Models;
+using DataValidationService.SingleEntityValidation;
 using FluentValidation.Results;
 
 namespace DataValidationService
@@ -28,7 +29,7 @@ namespace DataValidationService
 
         public static ListStringResponseModel ValidateMatrixSpotClientCodeModel(MatrixClientCodeModel model)
         {
-            SingleMatrixCodeStringValidationService validator = new SingleMatrixCodeStringValidationService();
+            ClientCodeSpotMatrixMsMoFxRsValidator validator = new ClientCodeSpotMatrixMsMoFxRsValidator();
             var responseList = new ListStringResponseModel();
 
             ValidationResult validationResult = validator.Validate(model.MatrixClientCode);
@@ -43,10 +44,10 @@ namespace DataValidationService
 
         public static ListStringResponseModel ValidateMatrixCDClientCodeModel(MatrixClientCodeModel model)
         {
-            CDPortfolioValidationService validator = new CDPortfolioValidationService();
+            ClientCodeSpotMatrixCdValidator validator = new ClientCodeSpotMatrixCdValidator();
             var responseList = new ListStringResponseModel();
 
-            ValidationResult validationResult = validator.Validate(model);
+            ValidationResult validationResult = validator.Validate(model.MatrixClientCode);
 
             if (!validationResult.IsValid)
             {
@@ -58,7 +59,7 @@ namespace DataValidationService
 
         public static ListStringResponseModel ValidateMatrixFortsClientCodeModel(string code)
         {
-            SingleFortsCodeStringValidationService validator = new SingleFortsCodeStringValidationService();
+            ClientCodeFortsC0MatrixValidator validator = new ClientCodeFortsC0MatrixValidator();
             var responseList = new ListStringResponseModel();
 
             ValidationResult validationResult = validator.Validate(code);
@@ -196,6 +197,21 @@ namespace DataValidationService
             ListStringResponseModel responseList = new ListStringResponseModel();
 
             ValidationResult validationResult = validator.Validate(model);
+
+            if (!validationResult.IsValid)
+            {
+                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
+            }
+
+            return responseList;
+        }
+
+        public static ListStringResponseModel ValidateTemplateName(string templateName)
+        {
+            QAdminTemplateNameValidator validator = new QAdminTemplateNameValidator();
+            ListStringResponseModel responseList = new ListStringResponseModel();
+
+            ValidationResult validationResult = validator.Validate(templateName);
 
             if (!validationResult.IsValid)
             {

@@ -1,15 +1,15 @@
 ﻿using FluentValidation;
 
-namespace DataValidationService
+namespace DataValidationService.SingleEntityValidation
 {
-    public class SingleFortsCodeStringValidationService : AbstractValidator<string>
+    internal class ClientCodeFortsC0MatrixValidator : AbstractValidator<string>
     {
-        public SingleFortsCodeStringValidationService()
+        internal ClientCodeFortsC0MatrixValidator()
         {
             RuleFor(x => x)
                 .Matches("^C0[0-9A-Za-z]{5}$")
                     .WithMessage("{PropertyName} '{PropertyValue}' is not in format 'C0xxxxx'.")
-                    .WithErrorCode("PP701");
+                    .WithErrorCode("MF100");
         }
     }
 }
