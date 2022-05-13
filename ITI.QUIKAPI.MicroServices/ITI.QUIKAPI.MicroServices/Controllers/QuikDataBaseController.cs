@@ -1,4 +1,7 @@
 ﻿using DataAbstraction.Interfaces;
+using DataAbstraction.Models;
+using DataAbstraction.Models.DataBaseModels;
+using DataAbstraction.Models.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,11 +21,28 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         }
 
         [HttpGet("CheckConnections/QuikDataBase")]
-        public IActionResult CheckConnection()
+        public async Task<IActionResult> CheckConnection()
         {
             _logger.LogInformation("HttpGet CheckConnections/QuikDataBase Call");
 
-            var result = _repository.CheckConnections();
+            ListStringResponseModel result = await _repository.CheckConnections();
+
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+
+        [HttpGet("Get/RegisteredCodes")]
+        public async Task<IActionResult> GetRegisteredCodesForts([FromQuery] IEnumerable<string> code)
+        {
+            _logger.LogInformation("HttpGet Get/RegisteredCodes/Forts Call");
+
+            DataBaseClientCodesResponse result = await _repository.GetRegisteredCodes(code);
 
             if (result.IsSuccess)
             {

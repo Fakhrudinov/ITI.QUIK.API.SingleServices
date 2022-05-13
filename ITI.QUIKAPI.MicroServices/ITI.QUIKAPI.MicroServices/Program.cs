@@ -27,6 +27,8 @@ builder.Services.Configure<SftpConnectionConfiguration>(
 
 //add QUIK MsSql Data Base connection
 builder.Services.AddTransient<IQuikDataBaseRepository, QuikDBRepository>();
+builder.Services.Configure<DataBaseConnectionConfiguration>(
+    builder.Configuration.GetSection("DataBaseConfig"));
 
 var app = builder.Build();
 
