@@ -108,7 +108,6 @@ namespace QuikDataBaseRepository
         {
             _logger.LogInformation($"QuikDBRepository GetRegisteredCodes Called");
 
-            //List<string> uniqueCodes = GetUniqueCodes(codes);
             string codesAtRequest = GetCodesString(GetUniqueCodes(codes));
 
             string suffixClientID = $" where t.ClientID in ({codesAtRequest});";
