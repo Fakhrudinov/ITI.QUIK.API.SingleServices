@@ -8,6 +8,11 @@ namespace DataAbstraction.Models.Responses
         {
             IsSuccess = true;
             Messages = new List<string>();
+
+            ClientInfo = new List<ClientInfoModel>();
+            Contracts = new List<ContractsModel>();
+            ClientAccounts = new List<ClientAccountsModel>();
+            DepoClientAccounts = new List<DepoClientAccountsModel>();
         }
 
         public List<ClientInfoModel> ClientInfo { get; set; }

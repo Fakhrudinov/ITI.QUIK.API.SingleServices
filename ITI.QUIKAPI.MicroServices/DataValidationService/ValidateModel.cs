@@ -59,7 +59,7 @@ namespace DataValidationService
                 }
                 else if (str.StartsWith("B"))
                 {
-                    ClientCodeSpotMatrixMsMoFxRsCdRfValidator validator = new ClientCodeSpotMatrixMsMoFxRsCdRfValidator();
+                    ClientCodeSpotMatrixMsMoFxRsCdValidator validator = new ClientCodeSpotMatrixMsMoFxRsCdValidator();
                     ValidationResult validationResult = validator.Validate(str);
                     if (!validationResult.IsValid)
                     {

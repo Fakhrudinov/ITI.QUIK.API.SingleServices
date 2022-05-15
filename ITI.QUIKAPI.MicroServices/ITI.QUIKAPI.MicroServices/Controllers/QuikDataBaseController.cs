@@ -1,9 +1,7 @@
 ﻿using DataAbstraction.Interfaces;
 using DataAbstraction.Models;
-using DataAbstraction.Models.DataBaseModels;
 using DataAbstraction.Models.Responses;
 using DataValidationService;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITI.QUIKAPI.MicroServices.Controllers
@@ -39,30 +37,26 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         }
 
         [HttpGet("Get/RegisteredCodes")]
-        public async Task<IActionResult> GetRegisteredCodesForts([FromQuery] IEnumerable<string> code)
+        public async Task<IActionResult> GetRegisteredCodesForts([FromQuery] IEnumerable<string> codes)
         {
             _logger.LogInformation("HttpGet Get/RegisteredCodes Call");
-
-            //проверим корректность входных данных
             ListStringResponseModel validateRresult = new ListStringResponseModel();
 
-            if (code.Count() == 0)
+            //проверим корректность входных данных
+            if (codes.Count() == 0)
             {
                 validateRresult.IsSuccess = false;
-                validateRresult.Messages.Add("Get/RegisteredCodes code must contain at least 1 code");
+                validateRresult.Messages.Add("QuikDataBase/Get/RegisteredCodes code must contain at least 1 code");
                 return BadRequest(validateRresult);
             }
-
-            validateRresult = ValidateModel.ValidateMixedClientCodesArray(code);
+            validateRresult = ValidateModel.ValidateMixedClientCodesArray(codes);
             if (!validateRresult.IsSuccess)
             {
                 _logger.LogInformation($"HttpGet GetAllClientsFromTemplate/PoKomissii Error: {validateRresult.Messages[0]}");
                 return BadRequest(validateRresult);
             }
 
-
-            DataBaseClientCodesResponse result = await _repository.GetRegisteredCodes(code);
-
+            DataBaseClientCodesResponse result = await _repository.GetRegisteredCodes(codes);
             if (result.IsSuccess)
             {
                 return Ok(result);

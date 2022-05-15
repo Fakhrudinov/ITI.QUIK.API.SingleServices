@@ -20,6 +20,11 @@ namespace QuikDataBaseRepository
         private const string _checkContracts =          "SELECT COUNT(*) FROM Contracts;";
         private const string _checkDepoClientAccounts = "SELECT COUNT(*) FROM DepoClientAccounts;";
 
+        private const string _selectClientAccounts =    "SELECT ClientID, Account, SubAccount FROM ClientAccounts t";
+        private const string _selectClientInfo =        "SELECT ClientCode, FullName, EMail, ClientType, Resident, Address FROM ClientInfo t";
+        private const string _selectContracts =         "SELECT ClientID, Number, RegisterDate, Type, Manager FROM Contracts t";
+        private const string _selectDepoClientAccounts ="SELECT ClientID,AccountNumber,Manager,Owner,Depositary,ContractNo,ContractDate FROM DepoClientAccounts t";
+
         public QuikDBRepository(IOptions<DataBaseConnectionConfiguration> connection, ILogger<QuikDBRepository> logger)
         {
             _connection = connection.Value;
@@ -99,12 +104,15 @@ namespace QuikDataBaseRepository
             return response;
         }
 
-        public async Task<DataBaseClientCodesResponse> GetRegisteredCodes(IEnumerable<string> code)
+        public async Task<DataBaseClientCodesResponse> GetRegisteredCodes(IEnumerable<string> codes)
         {
             _logger.LogInformation($"QuikDBRepository GetRegisteredCodes Called");
 
-            //string suffixClientID = GenerateRequestSuffixString(true, model);
-            //string suffixClientCode = GenerateRequestSuffixString(false, model);
+            //List<string> uniqueCodes = GetUniqueCodes(codes);
+            string codesAtRequest = GetCodesString(GetUniqueCodes(codes));
+
+            string suffixClientID = $" where t.ClientID in ({codesAtRequest});";
+            string suffixClientCode = $" where t.ClientCode in ({codesAtRequest});";
 
             DataBaseClientCodesResponse response = new DataBaseClientCodesResponse();
 
@@ -114,21 +122,103 @@ namespace QuikDataBaseRepository
                 {
                     await connect.OpenAsync();
 
-                    //using (SqlCommand command = new SqlCommand(_checkClientAccounts, connect))
-                    //{
-                    //    response.Messages.Add("Records in ClientAccounts table = " + (int)await command.ExecuteScalarAsync());
-                    //}
+                    using (SqlCommand command = new SqlCommand(_selectClientAccounts + suffixClientID, connect))
+                    {
+                        SqlDataReader reader = await command.ExecuteReaderAsync();
+                        while (await reader.ReadAsync())
+                        {
+                            ClientAccountsModel newModel = new ClientAccountsModel();
 
-                    /*
-                     * where t.ClientID like 'BP17178/%' or t.ClientID in ('SPBFUT002LP');
-                     * where t.ClientCode like 'BP17178/%' or t.ClientCode in ('SPBFUT002LP');
-                     * 
-SELECT [ClientID],[Number] ,[RegisterDate],[Type],[Manager] FROM [TEST_Instructions].[dbo].[Contracts] t where t.ClientID like 'BP17178/%' or t.ClientID in ('SPBFUT002LP');
-SELECT [ClientID] ,[AccountNumber] ,[Manager] ,[Owner] ,[Depositary] ,[ContractNo] ,[ContractDate]  FROM [TEST_Instructions].[dbo].[DepoClientAccounts] t where t.ClientID like 'BP17178/%' or t.ClientID in ('SPBFUT002LP');
-SELECT [ClientID] ,[Account] ,[SubAccount]  FROM [TEST_Instructions].[dbo].[ClientAccounts] t where t.ClientID like 'BP17178/%' or t.ClientID in ('SPBFUT002LP');
-SELECT [ClientCode],[FullName],[EMail],[ClientType],[Resident],[Address] FROM [TEST_Instructions].[dbo].[ClientInfo] t where t.ClientCode like 'BP17178/%' or t.ClientCode in ('SPBFUT002LP');
-                     * */
+                            int indexClientID = reader.GetOrdinal("ClientID");
+                            int indexAccount = reader.GetOrdinal("Account");
+                            int indexSubAccount = reader.GetOrdinal("SubAccount");
 
+                            newModel.ClientID = reader.GetString(indexClientID);
+                            newModel.Account = reader.GetString(indexAccount);
+                            newModel.SubAccount = reader.GetString(indexSubAccount);
+
+                            response.ClientAccounts.Add(newModel);
+                        }
+                        await reader.CloseAsync();
+                    }
+
+                    using (SqlCommand command = new SqlCommand(_selectClientInfo + suffixClientCode, connect))
+                    {
+                        SqlDataReader reader = await command.ExecuteReaderAsync();
+                        while (await reader.ReadAsync())
+                        {
+                            ClientInfoModel newModel= new ClientInfoModel();
+
+                            int indexClientCode = reader.GetOrdinal("ClientCode");
+                            int indexFullName = reader.GetOrdinal("FullName");
+                            int indexEMail = reader.GetOrdinal("EMail");
+                            int indexClientType = reader.GetOrdinal("ClientType");
+                            int indexResident = reader.GetOrdinal("Resident");
+                            int indexAddress = reader.GetOrdinal("Address");
+
+                            newModel.ClientCode = reader.GetString(indexClientCode);
+                            newModel.FullName = reader.IsDBNull(indexFullName) ? null : reader.GetString(indexFullName);
+                            newModel.EMail = reader.IsDBNull(indexEMail) ? null : reader.GetString(indexEMail);
+                            newModel.ClientType = reader.GetString(indexClientType);
+                            newModel.Resident = reader.GetString(indexResident);
+                            newModel.Address = reader.IsDBNull(indexAddress) ? null : reader.GetString(indexAddress);
+
+                            response.ClientInfo.Add(newModel);
+                        }
+                        await reader.CloseAsync();
+                    }
+
+                    using (SqlCommand command = new SqlCommand(_selectContracts + suffixClientID, connect))
+                    {
+                        SqlDataReader reader = await command.ExecuteReaderAsync();
+                        while (await reader.ReadAsync())
+                        {
+                            ContractsModel newModel = new ContractsModel();
+
+                            int indexClientID = reader.GetOrdinal("ClientID");
+                            int indexNumber = reader.GetOrdinal("Number");
+                            int indexRegisterDate = reader.GetOrdinal("RegisterDate");
+                            int indexType = reader.GetOrdinal("Type");
+                            int indexManager = reader.GetOrdinal("Manager");
+
+                            newModel.ClientID = reader.GetString(indexClientID);
+                            newModel.Number = reader.GetString(indexNumber);
+                            newModel.RegisterDate = reader.GetInt32(indexRegisterDate);
+                            newModel.Type = reader.GetInt32(indexType);
+                            newModel.Manager = reader.IsDBNull(indexManager) ? null : reader.GetString(indexManager);
+
+                            response.Contracts.Add(newModel);
+                        }
+                        await reader.CloseAsync();
+                    }
+;
+                    using (SqlCommand command = new SqlCommand(_selectDepoClientAccounts + suffixClientID, connect))
+                    {
+                        SqlDataReader reader = await command.ExecuteReaderAsync();
+                        while (await reader.ReadAsync())
+                        {
+                            DepoClientAccountsModel newModel = new DepoClientAccountsModel();
+
+                            int indexClientID = reader.GetOrdinal("ClientID");
+                            int indexAccountNumber = reader.GetOrdinal("AccountNumber");
+                            int indexManager = reader.GetOrdinal("Manager");
+                            int indexOwner = reader.GetOrdinal("Owner");
+                            int indexDepositary = reader.GetOrdinal("Depositary");
+                            int indexContractNo = reader.GetOrdinal("ContractNo");
+                            int indexContractDate = reader.GetOrdinal("ContractDate");
+
+                            newModel.ClientID = reader.GetString(indexClientID);
+                            newModel.AccountNumber = reader.GetString(indexAccountNumber);
+                            newModel.Manager = reader.GetString(indexManager);
+                            newModel.Owner = reader.GetString(indexOwner);
+                            newModel.Depositary = reader.GetString(indexDepositary);
+                            newModel.ContractNo = reader.GetString(indexContractNo);
+                            newModel.ContractDate = reader.GetInt32(indexContractDate);
+
+                            response.DepoClientAccounts.Add(newModel);
+                        }
+                        await reader.CloseAsync();
+                    }
                 }
             }
             catch (Exception ex)
@@ -141,64 +231,58 @@ SELECT [ClientCode],[FullName],[EMail],[ClientType],[Resident],[Address] FROM [T
             }
 
             _logger.LogInformation($"QuikDBRepository GetRegisteredCodes Success");
+
+            if (response.IsSuccess 
+                && response.ClientInfo.Count == 0 
+                && response.ClientAccounts.Count == 0 
+                && response.Contracts.Count == 0 
+                && response.DepoClientAccounts.Count == 0)
+            {
+                response.Messages.Add("Error 404: Not Found");
+            }
+
             return response;
         }
 
+        private string GetCodesString(List<string> uniqueCodes)
+        {
+            string codesAtRequest = "";
+            foreach (string uCode in uniqueCodes)
+            {
+                codesAtRequest = codesAtRequest + $"'{uCode}',";
+            }
 
-        //private string GenerateRequestSuffixString(bool isClientID, DBClientRecordsRequestModel model)
-        //{
-        //    /* result must be like
-        //    * where t.ClientID like 'BP17178/%' or t.ClientID in ('SPBFUT002LP');
-        //    * where t.ClientID like 'BP17178/%' or t.ClientID like 'BP12345/%' or t.ClientID in ('SPBFUT002LP', 'SPBFUT00abc');
-        //    * where t.ClientID like 'BP17178/%';
-        //    * where t.ClientID in ('SPBFUT002LP');
-        //    * 
-        //    * where t.ClientCode like 'BP17178/%' or t.ClientCode in ('SPBFUT002LP');
-        //    * where t.ClientCode like 'BP17178/%' or t.ClientCode like 'BP17178/%' or t.ClientCode in ('SPBFUT002LP', 'SPBFUT00abc');
-        //    * where t.ClientCode like 'BP17178/%';
-        //    * where t.ClientCode in ('SPBFUT002LP');
-        //    */
+            codesAtRequest = codesAtRequest.Substring(0, codesAtRequest.Length - 1);
 
-        //    List<string> spotCodes = new List<string>();
-        //    List<string> fortsCodes = new List<string>();
+            return codesAtRequest;
+        }
+        private List<string> GetUniqueCodes(IEnumerable<string> codes)
+        {
+            List<string> uniqueCodes = new List<string>();
+            foreach (string str in codes)
+            {
+                string quikCode = "";
 
-        //    string fieldName = "ClientID";
+                if (str.Contains("-CD-"))
+                {
+                    quikCode = CommonServices.PortfoliosConvertingService.GetQuikCdPortfolio(str);
+                }                
+                else if(str.StartsWith("C0"))
+                {
+                    quikCode = CommonServices.PortfoliosConvertingService.GetQuikFortsCode(str);
+                }
+                else
+                {
+                    quikCode = CommonServices.PortfoliosConvertingService.GetQuikSpotPortfolio(str);
+                }
 
-        //    if (!isClientID)
-        //    {
-        //        fieldName = "ClientCode";
-        //    }
+                if (!uniqueCodes.Contains(quikCode))
+                {
+                    uniqueCodes.Add(quikCode);
+                }
+            }
 
-        //    string result = " where t." + fieldName;
-
-        //    if (model.CodesMatrix is not null) 
-        //    {
-        //        foreach (var code in model.CodesMatrix)
-        //        {
-        //            string newCode = code.MatrixClientCode.Split('-').First();
-
-        //            if (!spotCodes.Contains(newCode))
-        //            {
-        //                spotCodes.Add(newCode);
-        //            }
-        //        }
-        //    }
-
-        //    if (model.CodesPairRF is not null)
-        //    {
-        //        foreach (var code in model.CodesPairRF)
-        //        {
-        //            string newCode = CommonServices.PortfoliosConvertingService.GetQuikFortsCode(code.FortsClientCode);
-
-        //            if (!fortsCodes.Contains(newCode))
-        //            {
-        //                fortsCodes.Add(newCode);
-        //            }
-        //        }
-        //    }
-
-
-        //    return result;
-        //}
+            return uniqueCodes;
+        }
     }
 }
