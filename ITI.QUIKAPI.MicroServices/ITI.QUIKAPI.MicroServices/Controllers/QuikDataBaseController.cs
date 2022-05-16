@@ -82,7 +82,8 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return BadRequest(response);
             }
 
-            //DataBaseClientCodesResponse result = await _repository.SetNewClientToMNP(model);
+            response = await _repository.SetNewClientToMNP(model);
+
             if (response.IsSuccess)
             {
                 return Ok(response);

@@ -8,5 +8,6 @@ namespace DataAbstraction.Interfaces
     {
         Task<ListStringResponseModel> CheckConnections();
         Task<DataBaseClientCodesResponse> GetRegisteredCodes(IEnumerable<string> codes);
+        Task<ListStringResponseModel> SetNewClientToMNP(NewMNPClientModel model);
     }
 }

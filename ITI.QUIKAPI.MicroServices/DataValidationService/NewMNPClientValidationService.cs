@@ -34,33 +34,33 @@ namespace DataValidationService
                 .NotEmpty()
                     .When(x => x.CodesMatrix == null)
                     .WithMessage("RF portfolios array 'CodesPairRF' must be Greater Than 0 when MO MS FX CD RS Portfolios array 'CodesMatrix' is not set")
-                    .WithErrorCode("MNP100");
+                    .WithErrorCode("MNP101");
 
 
             RuleFor(x => x.Address)
                 .NotNull()
                     .WithMessage("{PropertyName} {PropertyValue} must be not null")
-                    .WithErrorCode("MNP100")
+                    .WithErrorCode("MNP102")
                 .Length(2, 254)
                     .WithMessage("{PropertyName} '{PropertyValue}' must be minimum 2 and maximum 254 symbols lenght")
-                    .WithErrorCode("MNP100");
+                    .WithErrorCode("MNP103");
 
 
 
             RuleFor(x => x.RegisterDate)
                 .GreaterThan(19950101)
                     .WithMessage("{PropertyName} {PropertyValue} is too small. Set agreement date in format 'yyyyMMdd'")
-                    .WithErrorCode("MNP100")
+                    .WithErrorCode("MNP104")
                 .LessThan(Int32.Parse(DateTime.Now.ToString("yyyyMMdd")) + 1)
                     .WithMessage("{PropertyName} {PropertyValue} is too big. Set agreement date in format 'yyyyMMdd'")
-                    .WithErrorCode("MNP100");
+                    .WithErrorCode("MNP105");
             
             When(x => x.Number != null, () => 
             {
                 RuleFor(x => x.Number)
                     .Length(2, 32)
                         .WithMessage("{PropertyName} '{PropertyValue}' must be minimum 2 and maximum 32 symbols lenght")
-                        .WithErrorCode("MNP100");
+                        .WithErrorCode("MNP106");
             });
 
             When(x => x.SubAccount.Length > 0, () => 
@@ -68,7 +68,7 @@ namespace DataValidationService
                 RuleFor(x => x.SubAccount)
                     .Length(2, 32)
                         .WithMessage("{PropertyName} '{PropertyValue}' must be minimum 2 and maximum 32 symbols lenght")
-                        .WithErrorCode("MNP100");
+                        .WithErrorCode("MNP107");
             });
 
             When(x => x.Depositary.Length > 0, () =>
@@ -76,7 +76,7 @@ namespace DataValidationService
                 RuleFor(x => x.Depositary)
                     .Length(2, 64)
                         .WithMessage("{PropertyName} '{PropertyValue}' must be minimum 2 and maximum 64 symbols lenght")
-                        .WithErrorCode("MNP100");
+                        .WithErrorCode("MNP108");
             });
 
             When(x => x.Manager != null, () =>
@@ -84,7 +84,7 @@ namespace DataValidationService
                 RuleFor(x => x.Manager)
                     .Length(2, 255)
                         .WithMessage("{PropertyName} '{PropertyValue}' must be minimum 2 and maximum 255 symbols lenght")
-                        .WithErrorCode("MNP100");
+                        .WithErrorCode("MNP109");
             });
 
             When(x => x.DepoClientAccountsManager.Length > 0, () =>
@@ -92,7 +92,7 @@ namespace DataValidationService
                 RuleFor(x => x.DepoClientAccountsManager)
                     .Length(2, 192)
                         .WithMessage("{PropertyName} '{PropertyValue}' must be minimum 2 and maximum 192 symbols lenght")
-                        .WithErrorCode("MNP100");
+                        .WithErrorCode("MNP110");
             });
 
         }

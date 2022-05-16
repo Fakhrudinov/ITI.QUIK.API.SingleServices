@@ -283,5 +283,89 @@ namespace QuikDataBaseRepository
 
             return uniqueCodes;
         }
+
+        public async Task<ListStringResponseModel> SetNewClientToMNP(NewMNPClientModel model)
+        {
+            _logger.LogInformation($"QuikDBRepository SetNewClientToMNP Called for {model.Client.LastName} {model.Client.FirstName}");
+
+            //список всех уникальных MATRIX портфелей спот и фортс вместе
+            //список всех уникальных QUIK кодов       спот и фортс вместе
+            //сравнить список - чтобы это был только один клиент
+            List<string> uniqMatrixPortfolios = new List<string>();
+            List<string> uniqQuikCodes = new List<string>();
+
+            ListStringResponseModel response = GetUniquePortfolio(model, uniqMatrixPortfolios, uniqQuikCodes);
+            if (!response.IsSuccess)
+            {
+                return response;
+            }
+
+            //создадим массивы с моделями
+            ClientAccountsModel[] clientAccountsModels = new ClientAccountsModel[uniqMatrixPortfolios.Count];
+            ClientInfoModel[] clientInfoModels = new ClientInfoModel[uniqQuikCodes.Count];
+            ContractsModel[] contractsModels = new ContractsModel[uniqQuikCodes.Count];
+            DepoClientAccountsModel[] depoClientAccountsModels = new DepoClientAccountsModel[uniqQuikCodes.Count];
+
+            return response;
+        }
+
+        private ListStringResponseModel GetUniquePortfolio(NewMNPClientModel model, List<string> uniqMatrixPortfolios, List<string> uniqQuikCodes)
+        {
+            ListStringResponseModel response = new ListStringResponseModel();
+
+            if (model.CodesMatrix is not null)
+            {
+                foreach (MatrixClientCodeModel portfolio in model.CodesMatrix)
+                {
+                    if (!uniqMatrixPortfolios.Contains(portfolio.MatrixClientCode))
+                    {
+                        uniqMatrixPortfolios.Add(portfolio.MatrixClientCode);
+                    }
+
+                    //Добавить QUIK код
+                    string quikCode = CommonServices.PortfoliosConvertingService.GetQuikSpotPortfolio(portfolio.MatrixClientCode);
+                    if (portfolio.MatrixClientCode.Contains("-CD-"))
+                    {
+                        quikCode = CommonServices.PortfoliosConvertingService.GetQuikCdPortfolio(portfolio.MatrixClientCode);
+                    }
+
+                    if (!uniqQuikCodes.Contains(quikCode))
+                    {
+                        uniqQuikCodes.Add(quikCode);
+                    }
+                }
+            }
+
+            if (model.CodesPairRF is not null)
+            {
+                foreach (MatrixToFortsCodesMappingModel pair in model.CodesPairRF)
+                {
+                    if (!uniqMatrixPortfolios.Contains(pair.MatrixClientCode))
+                    {
+                        uniqMatrixPortfolios.Add(pair.MatrixClientCode);
+                    }
+
+                    //Добавить QUIK код
+                    string quikCode = CommonServices.PortfoliosConvertingService.GetQuikFortsCode(pair.FortsClientCode);
+                    if (!uniqQuikCodes.Contains(quikCode))
+                    {
+                        uniqQuikCodes.Add(quikCode);
+                    }
+                }
+            }
+
+            //проверить, что в портфелях только один клиент
+            string clientAgreement = uniqMatrixPortfolios[0].Split('-').First();
+            foreach (string portfolio in uniqMatrixPortfolios)
+            {
+                if (!portfolio.Split('-').First().Equals(clientAgreement))
+                {
+                    response.IsSuccess = false;
+                    response.Messages.Add($"MNP200 Portfolio {portfolio} is not belong to agreement {clientAgreement}");
+                }
+            }
+
+            return response;
+        }
     }
 }

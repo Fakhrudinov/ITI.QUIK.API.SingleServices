@@ -19,16 +19,17 @@ namespace DataAbstraction.Models.DataBaseModels
         public MatrixToFortsCodesMappingModel[]? CodesPairRF { get; set; }
 
         // not necessary:
+        [DefaultValue(null)]
+        public string? Manager { get; set; } = null;//NULL Содержит имя менеджера, соответствующего данному договору обслуживания.
         [DefaultValue("Дог.BP12345")]
         public string ? Number { get; set; } //Дог.BP17178  Номер договора.
         [DefaultValue("")]
         public string SubAccount { get; set; } = "";//   //SubAccount: Субсчёт(пустая строка при отсутствии субсчёта).
+
         [DefaultValue("НДЦ")]
         public string Depositary { get; set; } = "НДЦ";//НДЦ Депозитарий
         [DefaultValue(false)]
         public bool isClientDepo { get; set; } = false;//0  Тип договора: 0 – договор обслуживания, 1 – депозитарный договор.
-        [DefaultValue(null)]
-        public string ? Manager { get; set; } = null;//NULL Содержит имя менеджера, соответствующего данному договору обслуживания.
         [DefaultValue("ITinvest")]
         public string DepoClientAccountsManager { get; set; } = "ITinvest"; //ITinvest Распорядитель.
     }
