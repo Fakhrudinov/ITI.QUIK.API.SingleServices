@@ -306,6 +306,126 @@ namespace QuikDataBaseRepository
             ContractsModel[] contractsModels = new ContractsModel[uniqQuikCodes.Count];
             DepoClientAccountsModel[] depoClientAccountsModels = new DepoClientAccountsModel[uniqQuikCodes.Count];
 
+            //заполним [ClientAccounts]
+            for (int i = 0; i < uniqMatrixPortfolios.Count; i++)
+            {
+                clientAccountsModels[i] = new ClientAccountsModel();
+
+                clientAccountsModels[i].Account = uniqMatrixPortfolios[i];
+
+                string quikCode = "";
+                if (uniqMatrixPortfolios[i].Contains("-CD-"))
+                {
+                    quikCode = CommonServices.PortfoliosConvertingService.GetQuikCdPortfolio(uniqMatrixPortfolios[i]);
+                }
+                else if (uniqMatrixPortfolios[i].Contains("-RF-"))
+                {
+                    for (int j = 0; j < model.CodesPairRF.Length; j++)
+                    {
+                        if (model.CodesPairRF[j].MatrixClientCode.Equals(uniqMatrixPortfolios[i]))
+                        {
+                            quikCode = CommonServices.PortfoliosConvertingService.GetQuikFortsCode(model.CodesPairRF[j].FortsClientCode);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    quikCode = CommonServices.PortfoliosConvertingService.GetQuikSpotPortfolio(uniqMatrixPortfolios[i]);
+                }
+                clientAccountsModels[i].ClientID = quikCode;
+
+                clientAccountsModels[i].SubAccount = model.SubAccount;
+            }
+
+            //заполним [Contracts] [DepoClientAccounts] [ClientInfo]
+            for (int i = 0; i < uniqQuikCodes.Count; i++)
+            {
+                clientInfoModels[i] = new ClientInfoModel();
+                depoClientAccountsModels[i] = new DepoClientAccountsModel();
+                contractsModels[i] = new ContractsModel();
+
+                // первая колонка
+                clientInfoModels[i].ClientCode = uniqQuikCodes[i];
+                contractsModels[i].ClientID = uniqQuikCodes[i];
+                depoClientAccountsModels[i].ClientID = uniqQuikCodes[i];
+                
+                // Дог.BP12345
+                string number = "Дог." + uniqMatrixPortfolios[0].Split('-').First();
+                contractsModels[i].Number = number;
+                depoClientAccountsModels[i].ContractNo = number;
+
+                // 20220515
+                contractsModels[i].RegisterDate = model.RegisterDate;
+                depoClientAccountsModels[i].ContractDate = model.RegisterDate;
+
+                // Type: Тип договора: 0 – договор обслуживания, 1 – депозитарный договор.
+                if (model.isClientDepo)
+                {
+                    contractsModels[i].Type = 1;
+                }
+                else // по умолчанию должно быть 0
+                {
+                    contractsModels[i].Type = 0;
+                }
+
+                // Manager 
+                contractsModels[i].Manager = model.Manager;
+
+                // L01+00000F00
+                depoClientAccountsModels[i].AccountNumber = "L01+00000F00";
+
+                // ITinvest
+                depoClientAccountsModels[i].Manager = model.DepoClientAccountsManager;
+
+                // Иванов И.С.
+                if (model.isClientPerson) // ФИО
+                {
+                    depoClientAccountsModels[i].Owner = $"{model.Client.LastName} {model.Client.FirstName[0]}.";
+                    if (model.Client.MiddleName.Length > 0)
+                    {
+                        depoClientAccountsModels[i].Owner = depoClientAccountsModels[i].Owner + $" {model.Client.MiddleName[0]}.";
+                    }
+                }
+                else // Организация
+                {
+                    depoClientAccountsModels[i].Owner = $"{model.Client.LastName} {model.Client.FirstName} {model.Client.MiddleName}";
+                }
+
+                // НДЦ
+                depoClientAccountsModels[i].Depositary = model.Depositary;
+
+                // Full Name
+                clientInfoModels[i].FullName = $"{model.Client.LastName} {model.Client.FirstName} {model.Client.MiddleName}";
+
+                // client@domen.ru
+                clientInfoModels[i].EMail = model.Client.EMail;
+
+                // P | O
+                if (model.isClientPerson)
+                {
+                    clientInfoModels[i].ClientType = "P";
+                }
+                else
+                {
+                    clientInfoModels[i].ClientType = "O";
+                }
+
+                // Resident
+                if (model.isClientResident)
+                {
+                    clientInfoModels[i].Resident = "R";
+                }
+                else
+                {
+                    clientInfoModels[i].Resident = "N";
+                }
+
+                // Adress
+                clientInfoModels[i].Address = model.Address;
+            }
+
+
             return response;
         }
 
