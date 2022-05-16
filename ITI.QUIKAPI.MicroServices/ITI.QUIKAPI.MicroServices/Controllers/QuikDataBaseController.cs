@@ -72,27 +72,25 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         public async Task<IActionResult> SetNewClientToMNP([FromBody] NewMNPClientModel model)
         {
             _logger.LogInformation("HttpPost Set/NewClient/ToMNP Call");
-            ListStringResponseModel validateRresult = new ListStringResponseModel();
+            ListStringResponseModel response = new ListStringResponseModel();
 
-            ////проверим корректность входных данных
-            //validateRresult = ValidateModel.ValidateMixedClientCodesArray(codes);
-            //if (!validateRresult.IsSuccess)
-            //{
-            //    _logger.LogInformation($"HttpGet GetAllClientsFromTemplate/PoKomissii Error: {validateRresult.Messages[0]}");
-            //    return BadRequest(validateRresult);
-            //}
+            //проверим корректность входных данных
+            response = ValidateModel.ValidateNewMNPClientModel(model);
+            if (!response.IsSuccess)
+            {
+                _logger.LogInformation($"HttpPost Set/NewClient/ToMNP Error: {response.Messages[0]}");
+                return BadRequest(response);
+            }
 
             //DataBaseClientCodesResponse result = await _repository.SetNewClientToMNP(model);
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
-
-            return Ok(model);
+            if (response.IsSuccess)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(response);
+            }
         }
     }
 }

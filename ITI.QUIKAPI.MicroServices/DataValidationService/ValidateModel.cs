@@ -1,4 +1,5 @@
 ﻿using DataAbstraction.Models;
+using DataAbstraction.Models.DataBaseModels;
 using DataValidationService.SingleEntityValidation;
 using FluentValidation.Results;
 
@@ -71,6 +72,21 @@ namespace DataValidationService
                     responseList.IsSuccess = false;
                     responseList.Messages.Add($"VC100 '{str}' is not in expected formats 'BP12345-XX-01' or 'C0xxxxx'");
                 }
+            }
+
+            return responseList;
+        }
+
+        public static ListStringResponseModel ValidateNewMNPClientModel(NewMNPClientModel model)
+        {
+            NewMNPClientValidationService validator = new NewMNPClientValidationService();
+            ListStringResponseModel responseList = new ListStringResponseModel();
+
+            ValidationResult validationResult = validator.Validate(model);
+
+            if (!validationResult.IsValid)
+            {
+                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
             }
 
             return responseList;

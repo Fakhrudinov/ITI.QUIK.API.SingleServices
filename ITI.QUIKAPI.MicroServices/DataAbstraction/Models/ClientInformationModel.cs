@@ -9,7 +9,7 @@ namespace DataAbstraction.Models
 		[DefaultValue("Иван")]
 		public string FirstName { get; set; }
 		[DefaultValue("Семенович")]
-		public string MiddleName { get; set; }
+		public string MiddleName { get; set; } = "";
 		[DefaultValue("iii@aaa.ru")]
 		public string EMail { get; set; }
 	}

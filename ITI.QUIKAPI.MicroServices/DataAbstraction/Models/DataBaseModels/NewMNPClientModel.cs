@@ -12,17 +12,15 @@ namespace DataAbstraction.Models.DataBaseModels
         public bool isClientResident { get; set; }//N //R Тип клиента(резидент/нерезидент). Принимает значения «R» для резидентов, «N» для нерезидентов.
         [DefaultValue("РФ, 129128, Москва, Бажова, 1, 69")]
         public string? Address { get; set; } //A35E3P1, Респ. Казахстан, г. Алматы, ул. Баймагамбетова, д. 206
-        [DefaultValue("Дог.BP12345")]
-        public string Number { get; set; } //Дог.BP17178  Номер договора.
         [DefaultValue(20220515)]
         public int RegisterDate { get; set; }//20160714 Дата заключения договора.Формат: ГГГГММДД. 
-        //[DefaultValue("Иванов И. С.")]
-        //public string Owner { get; set; }//Фахрудинов А. Ю.  // Владелец  
 
         public MatrixClientCodeModel[]? CodesMatrix { get; set; }
         public MatrixToFortsCodesMappingModel[]? CodesPairRF { get; set; }
 
         // not necessary:
+        [DefaultValue("Дог.BP12345")]
+        public string ? Number { get; set; } //Дог.BP17178  Номер договора.
         [DefaultValue("")]
         public string SubAccount { get; set; } = "";//   //SubAccount: Субсчёт(пустая строка при отсутствии субсчёта).
         [DefaultValue("НДЦ")]
