@@ -25,6 +25,15 @@ namespace QuikDataBaseRepository
         private const string _selectContracts =         "SELECT ClientID, Number, RegisterDate, Type, Manager FROM Contracts t";
         private const string _selectDepoClientAccounts ="SELECT ClientID,AccountNumber,Manager,Owner,Depositary,ContractNo,ContractDate FROM DepoClientAccounts t";
 
+        private const string _insertClientAccounts = "INSERT INTO ClientAccounts (ClientID, Account, SubAccount) " +
+                                                                        " VALUES (@ClientID, @Account, @SubAccount);";
+        private const string _insertClientInfo = "INSERT INTO ClientInfo (ClientCode, FullName, EMail, ClientType, Resident, Address) " +
+                                                                " VALUES (@ClientCode, @FullName, @EMail, @ClientType, @Resident, @Address);";
+        private const string _insertContracts = "INSERT INTO Contracts (ClientID, Number, RegisterDate, Type, Manager) " +
+                                                                "VALUES (@ClientID, @Number, @RegisterDate, @Type, @Manager);";
+        private const string _insertDepoClientAccounts = "INSERT INTO DepoClientAccounts (ClientID,AccountNumber,Manager,Owner,Depositary,ContractNo,ContractDate) " +
+                                                                                "VALUES (@ClientID,@AccountNumber,@Manager,@Owner,@Depositary,@ContractNo,@ContractDate);";
+
         public QuikDBRepository(IOptions<DataBaseConnectionConfiguration> connection, ILogger<QuikDBRepository> logger)
         {
             _connection = connection.Value;
@@ -225,7 +234,7 @@ namespace QuikDataBaseRepository
                 _logger.LogWarning($"QuikDBRepository GetRegisteredCodes Failed, Exception: " + ex.Message);
 
                 response.IsSuccess = false;
-                response.Messages.Add("Exception at DataBase: " + ex.Message);
+                response.Messages.Add("Exception: Select from DataBase: " + ex.Message);
                 return response;
             }
 
@@ -425,6 +434,107 @@ namespace QuikDataBaseRepository
                 clientInfoModels[i].Address = model.Address;
             }
 
+            // запишем данные в БД
+            try
+            {
+                using (SqlConnection connect = new SqlConnection(_connection.ConnectionString))
+                {
+                    await connect.OpenAsync();
+
+                    foreach (var record in clientAccountsModels)
+                    {
+                        using (SqlCommand command = new SqlCommand(_insertClientAccounts, connect))
+                        {
+                            command.Parameters.AddWithValue("@ClientID", record.ClientID);
+                            command.Parameters.AddWithValue("@Account", record.Account);
+                            command.Parameters.AddWithValue("@SubAccount", record.SubAccount);
+                            try
+                            {
+                                await command.ExecuteNonQueryAsync();
+                            }
+                            catch (Exception cx)
+                            {
+                                response.IsSuccess = false;
+                                response.Messages.Add($"Exception Insert ClientAccount {record.ClientID} at DataBase: " + cx.Message);
+                            }                            
+                        }
+                    }
+
+                    foreach (var record in clientInfoModels)
+                    {
+                        using (SqlCommand command = new SqlCommand(_insertClientInfo, connect))
+                        {
+                            command.Parameters.AddWithValue("@ClientCode", record.ClientCode);
+                            command.Parameters.AddWithValue("@FullName", record.FullName);
+                            command.Parameters.AddWithValue("@EMail", record.EMail);
+                            command.Parameters.AddWithValue("@ClientType", record.ClientType);
+                            command.Parameters.AddWithValue("@Resident", record.Resident);
+                            command.Parameters.AddWithValue("@Address", record.Address);
+                            try
+                            {
+                                await command.ExecuteNonQueryAsync();
+                            }
+                            catch (Exception cx)
+                            {
+                                response.IsSuccess = false;
+                                response.Messages.Add($"Exception Insert ClientInfo {record.ClientCode} at DataBase: " + cx.Message);
+                            }
+                        }
+                    }
+
+                    foreach (var record in contractsModels)
+                    {
+                        using (SqlCommand command = new SqlCommand(_insertContracts, connect))
+                        {
+                            command.Parameters.AddWithValue("@ClientID", record.ClientID);
+                            command.Parameters.AddWithValue("@Number", record.Number);
+                            command.Parameters.AddWithValue("@RegisterDate", record.RegisterDate);
+                            command.Parameters.AddWithValue("@Type", record.Type);
+                            command.Parameters.AddWithValue("@Manager", record.Manager ?? Convert.DBNull);
+                            try
+                            {
+                                await command.ExecuteNonQueryAsync();
+                            }
+                            catch (Exception cx)
+                            {
+                                response.IsSuccess = false;
+                                response.Messages.Add($"Exception Insert Contracts {record.ClientID} at DataBase: " + cx.Message);
+                            }
+                        }
+                    }
+
+                    foreach (var record in depoClientAccountsModels)
+                    {
+                        using (SqlCommand command = new SqlCommand(_insertDepoClientAccounts, connect))
+                        {
+                            command.Parameters.AddWithValue("@ClientID", record.ClientID);
+                            command.Parameters.AddWithValue("@AccountNumber", record.AccountNumber);
+                            command.Parameters.AddWithValue("@Manager", record.Manager);
+                            command.Parameters.AddWithValue("@Owner", record.Owner);
+                            command.Parameters.AddWithValue("@Depositary", record.Depositary);
+                            command.Parameters.AddWithValue("@ContractNo", record.ContractNo);
+                            command.Parameters.AddWithValue("@ContractDate", record.ContractDate);
+                            try
+                            {
+                                await command.ExecuteNonQueryAsync();
+                            }
+                            catch (Exception cx)
+                            {
+                                response.IsSuccess = false;
+                                response.Messages.Add($"Exception Insert DepoClientAccounts {record.ClientID} at DataBase: " + cx.Message);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning($"QuikDBRepository SetNewClientToMNP Failed, Exception: " + ex.Message);
+
+                response.IsSuccess = false;
+                response.Messages.Add("Exception SetNewClientToMNP Connect at DataBase: " + ex.Message);
+                return response;
+            }
 
             return response;
         }
