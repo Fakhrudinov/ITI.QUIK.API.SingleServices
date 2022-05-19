@@ -449,6 +449,56 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             }
         }
 
+        [HttpPut("SetAllTrades/ByMatrixClientCode")]
+        public IActionResult SetAllTradesByMatrixClientCode([FromBody] MatrixClientCodeModel model)
+        {
+            _logger.LogInformation("HttpPut SetAllTrades/ByMatrixClientCode Call " + model.MatrixClientCode);
+
+            //проверим корректность входных данных
+            ListStringResponseModel result = ValidateModel.ValidateMatrixSpotClientCodeModel(model);
+            if (!result.IsSuccess)
+            {
+                _logger.LogWarning("HttpPut SetAllTrades/ByMatrixClientCode Failed with " + result.Messages[0]);
+                return BadRequest(result);
+            }
+
+            result = _serviceSFTP.SetAllTradesByMatrixClientCode(model);
+
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+
+        [HttpPut("SetAllTradesBy/FortsClientCode")]
+        public IActionResult SetAllTradesByFortsClientCode([FromBody] FortsClientCodeModel model)
+        {
+            _logger.LogInformation("HttpPut SetAllTradesBy/FortsClientCode Call " + model.FortsClientCode);
+
+            //проверим корректность входных данных
+            ListStringResponseModel result = ValidateModel.ValidateMatrixFortsClientCodeModel(model.FortsClientCode);
+            if (!result.IsSuccess)
+            {
+                _logger.LogWarning("HttpPut SetAllTradesBy/FortsClientCode Failed with " + result.Messages[0]);
+                return BadRequest(result);
+            }
+
+            result = _serviceSFTP.SetAllTradesByFortsClientCode(model);
+
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+
         [HttpGet("GetResultOfXMLFileUpload")]
         public IActionResult GetResultOfXMLFileUpload(string file)
         {
