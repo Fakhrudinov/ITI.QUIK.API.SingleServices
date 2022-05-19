@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonServices", "CommonSer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuikSftpService", "QuikSftpService\QuikSftpService.csproj", "{B9CB0951-E533-4C59-9D72-10F7E68ACC91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuikDataBaseRepository", "QuikDataBaseRepository\QuikDataBaseRepository.csproj", "{957CA4DF-52FC-49F9-88BA-DBC1F655252E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuikDataBaseRepository", "QuikDataBaseRepository\QuikDataBaseRepository.csproj", "{957CA4DF-52FC-49F9-88BA-DBC1F655252E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuikApiQMonitorService", "QuikApiQMonitorService\QuikApiQMonitorService.csproj", "{761ED32B-B246-4895-A6BC-FEA656FD3877}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +113,18 @@ Global
 		{957CA4DF-52FC-49F9-88BA-DBC1F655252E}.Release|x64.Build.0 = Release|Any CPU
 		{957CA4DF-52FC-49F9-88BA-DBC1F655252E}.Release|x86.ActiveCfg = Release|Any CPU
 		{957CA4DF-52FC-49F9-88BA-DBC1F655252E}.Release|x86.Build.0 = Release|Any CPU
+		{761ED32B-B246-4895-A6BC-FEA656FD3877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{761ED32B-B246-4895-A6BC-FEA656FD3877}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{761ED32B-B246-4895-A6BC-FEA656FD3877}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{761ED32B-B246-4895-A6BC-FEA656FD3877}.Debug|x64.Build.0 = Debug|Any CPU
+		{761ED32B-B246-4895-A6BC-FEA656FD3877}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{761ED32B-B246-4895-A6BC-FEA656FD3877}.Debug|x86.Build.0 = Debug|Any CPU
+		{761ED32B-B246-4895-A6BC-FEA656FD3877}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{761ED32B-B246-4895-A6BC-FEA656FD3877}.Release|Any CPU.Build.0 = Release|Any CPU
+		{761ED32B-B246-4895-A6BC-FEA656FD3877}.Release|x64.ActiveCfg = Release|Any CPU
+		{761ED32B-B246-4895-A6BC-FEA656FD3877}.Release|x64.Build.0 = Release|Any CPU
+		{761ED32B-B246-4895-A6BC-FEA656FD3877}.Release|x86.ActiveCfg = Release|Any CPU
+		{761ED32B-B246-4895-A6BC-FEA656FD3877}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
