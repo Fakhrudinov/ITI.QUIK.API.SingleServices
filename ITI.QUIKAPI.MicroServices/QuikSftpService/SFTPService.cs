@@ -299,6 +299,150 @@ namespace QuikSftpService
             return response;
         }
 
+        public ListStringResponseModel SetAllTradesByMatrixClientCode(MatrixClientCodeModel model)
+        {
+            _logger.LogInformation($"SFTPService SetAllTradesByMatrixClientCode Called, code=" + model.MatrixClientCode);
+
+            //из кода матрицы сделаем код quik
+            string quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(model.MatrixClientCode);
+
+            return SetAllTradesByQuikCode(quikCode);
+        }
+        public ListStringResponseModel SetAllTradesByFortsClientCode(FortsClientCodeModel model)
+        {
+            _logger.LogInformation($"SFTPService SetAllTradesByFortsClientCode Called, code=" + model.FortsClientCode);
+
+            //из кода матрицы сделаем код quik
+            string quikCode = PortfoliosConvertingService.GetQuikFortsCode(model.FortsClientCode);
+
+            return SetAllTradesByQuikCode(quikCode);
+        }
+        private ListStringResponseModel SetAllTradesByQuikCode(string quikCode)
+        {
+            ListStringResponseModel response = new ListStringResponseModel();
+            //сначала проверить что файл CurrClnts есть
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), _filesFolder, "CurrClnts.xml");
+            if (!File.Exists(filePath))
+            {
+                _logger.LogWarning("SFTPService SetAllTradesByQuikCode Error - file not found: " + filePath);
+                response.IsSuccess = false;
+                response.Messages.Add("Error - file not found: " + filePath);
+                return response;
+            }
+
+            //сначала проверить что файл шаблона есть
+            string filePathTempl = Path.Combine(Directory.GetCurrentDirectory(), "TemplatesXML", "UpdateClientSetAllTradesByClientCode.xml");
+            if (!File.Exists(filePathTempl))
+            {
+                _logger.LogWarning("SFTPService SetAllTradesByQuikCode Error - Template file not found: " + filePathTempl);
+                response.IsSuccess = false;
+                response.Messages.Add("Error - Template file not found: " + filePathTempl);
+                return response;
+            }
+
+            //открыть файл CurrClnts
+            XmlDocument xmlDoc = new XmlDocument();
+            XmlNamespaceManager nsmanager = new XmlNamespaceManager(xmlDoc.NameTable);
+            nsmanager.AddNamespace("qx", "urn:quik:user-rights-import");
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            xmlDoc.Load(filePath);
+
+            XmlNodeList nodeSearchResult = xmlDoc.SelectNodes("//qx:Classes[contains(@ClientCodes,'" + quikCode + "')]", nsmanager);
+            List<XmlNode> nodeResult = new List<XmlNode>();
+
+            //получим уникальные ноды
+            if (nodeSearchResult.Count > 0)
+            {
+                foreach (XmlNode node in nodeSearchResult)
+                {
+                    if (node.ParentNode is not null)
+                    {
+                        if (!nodeResult.Contains(node.ParentNode))
+                        {
+                            nodeResult.Add(node.ParentNode);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.Messages.Add("Code not found at file " + filePath);
+                return response;
+            }
+
+            if (nodeResult.Count != 1)
+            {
+                response.IsSuccess = false;
+                response.Messages.Add($"Error: Can't process request - user codes {quikCode} finded in many UID:");
+
+                foreach (XmlNode node in nodeResult)
+                {
+                    response.Messages.Add(node.OuterXml);
+                }               
+                
+                return response;
+            }
+
+            // Подгрузить в List строки из шаблона
+            List<string> stringsFromFile = GetAllStringsFromFile(filePathTempl);
+
+            //сформировать строку с классами
+            string classes = "";
+            XmlAttribute attr = xmlDoc.CreateAttribute("UpdateMode");
+            attr.Value = "replace";
+            foreach (XmlNode node in nodeResult[0])
+            {
+                if (node.Name.Equals("Classes"))
+                {
+                    node.Attributes.Append(attr);
+                    node.Attributes["Rights"].Value = node.Attributes["Rights"].Value.Replace("c", "");
+
+                    // xmlns="urn:quik:user-rights-import"
+                    classes = classes + node.OuterXml.Replace(" xmlns=\"urn:quik:user-rights-import\"", "") + "\r\n";
+                }
+            }
+
+            //подставить данные в шаблон
+            for (int i = 0; i < stringsFromFile.Count; i++)
+            {
+                if (stringsFromFile[i].Contains("**QuikClientCode**"))
+                {
+                    stringsFromFile[i] = stringsFromFile[i].Replace("**QuikClientCode**", quikCode);
+                }
+
+                if (stringsFromFile[i].Contains("**Classes**"))
+                {
+                    stringsFromFile[i] = stringsFromFile[i].Replace("**Classes**", classes);
+                }
+            }
+
+            //проверить наличие Temp
+            string localFilePath = Path.Combine(Directory.GetCurrentDirectory(), _filesFolder);
+            FilesManagementService.CheckCreateDirectory(localFilePath);
+            //сохранить файл в Temp
+            string fileName = CombineNewFileName("UpdateClientSetAllTradesByClientCode.xml", quikCode.Replace("/", ""));
+            string newFilePath = SaveFileToLocalFolder(localFilePath, fileName, stringsFromFile);
+            if (newFilePath.Contains("Error"))
+            {
+                response.IsSuccess = false;
+                response.Messages.Add(newFilePath);
+                return response;
+            }
+            //проверить наличие нового файла
+            if (!File.Exists(newFilePath))
+            {
+                _logger.LogWarning("SFTPService SendNewClientOptionWorkshop Error - file with client data not found: " + newFilePath);
+                response.IsSuccess = false;
+                response.Messages.Add("Error - file with client data not found: " + newFilePath);
+                return response;
+            }
+
+            //отправить нв сервер SFTP
+            string pathSFTP = Path.Combine(_uploadXmlFilesPathSFTP, fileName);
+            return UploadFileToSFTP(newFilePath, pathSFTP, true);
+        }
+
         public ListStringResponseModel BlockUserByUID(int uid)
         {
             _logger.LogInformation($"SFTPService BlockUserByUID Called, UID=" + uid);

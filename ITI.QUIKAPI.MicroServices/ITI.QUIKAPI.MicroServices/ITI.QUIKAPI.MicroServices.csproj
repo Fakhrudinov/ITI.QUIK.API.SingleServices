@@ -44,6 +44,9 @@
     <None Update="TemplatesXML\ReplacePubringKeyByClientCode.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TemplatesXML\UpdateClientSetAllTradesByClientCode.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
