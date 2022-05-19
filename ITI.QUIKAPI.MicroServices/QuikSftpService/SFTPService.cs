@@ -549,29 +549,6 @@ namespace QuikSftpService
             }
 
             return SaveNewFileAndUploadToSFTP(response, "PutNewClientOptionWorkshop.xml", model.CodesPairRF[0].MatrixClientCode, stringsFromFile);
-            ////проверить наличие Temp
-            //string localFilePath = Path.Combine(Directory.GetCurrentDirectory(), _filesFolder);
-            //FilesManagementService.CheckCreateDirectory(localFilePath);
-            ////сохранить файл в Temp
-            //string fileName = CombineNewFileName("PutNewClientOptionWorkshop.xml", model.CodesPairRF[0].MatrixClientCode); 
-            //string newFilePath = SaveFileToLocalFolder(localFilePath, fileName, stringsFromFile); 
-            //if (newFilePath.Contains("Error"))
-            //{
-            //    response.IsSuccess = false;
-            //    response.Messages.Add(newFilePath);
-            //    return response;
-            //}
-            ////проверить наличие нового файла
-            //if (!File.Exists(newFilePath))
-            //{
-            //    _logger.LogWarning("SFTPService SendNewClientOptionWorkshop Error - file with client data not found: " + newFilePath);
-            //    response.IsSuccess = false;
-            //    response.Messages.Add("Error - file with client data not found: " + newFilePath);
-            //    return response;
-            //}
-            ////отправить нв сервер SFTP
-            //string pathSFTP = Path.Combine(_uploadXmlFilesPathSFTP, fileName);
-            //return UploadFileToSFTP(newFilePath, pathSFTP, true);
         }
 
         public ListStringResponseModel SendNewClient(NewClientModel model)
@@ -670,30 +647,6 @@ namespace QuikSftpService
             }
 
             return SaveNewFileAndUploadToSFTP(response, "PutNewClient.xml", codesAndComment.CodesUnique[0].Replace("/", ""), stringsFromFile);
-
-            ////проверить наличие Temp
-            //string localFilePath = Path.Combine(Directory.GetCurrentDirectory(), _filesFolder);
-            //FilesManagementService.CheckCreateDirectory(localFilePath);
-            ////сохранить файл в Temp
-            //string fileName = CombineNewFileName("PutNewClient.xml", codesAndComment.CodesUnique[0].Replace("/", ""));
-            //string newFilePath = SaveFileToLocalFolder(localFilePath, fileName, stringsFromFile);
-            //if (newFilePath.Contains("Error"))
-            //{
-            //    response.IsSuccess = false;
-            //    response.Messages.Add(newFilePath);
-            //    return response;
-            //}
-            ////проверить наличие нового файла
-            //if (!File.Exists(newFilePath))
-            //{
-            //    _logger.LogWarning("SFTPService SendNewClient Error - file with client data not found: " + newFilePath);
-            //    response.IsSuccess = false;
-            //    response.Messages.Add("Error - file with client data not found: " + newFilePath);
-            //    return response;
-            //}
-            ////отправить нв сервер SFTP
-            //string pathSFTP = Path.Combine(_uploadXmlFilesPathSFTP, fileName);
-            //return UploadFileToSFTP(newFilePath, pathSFTP, true);
         }
 
         private ClientCodesAndCommentModel SetCodesByMarkets(NewClientModel model)
@@ -796,21 +749,6 @@ namespace QuikSftpService
             }
 
             return SaveNewFileAndUploadToSFTP(response, temlateFileName, code.Replace("/", ""), stringsFromFile);
-            //собрать имя нового файла
-            //string fileName = CombineNewFileName(temlateFileName, code.Replace("/", ""));           
-
-            ////запишем в новый файл
-            //string newFilePath = SaveFileToLocalFolder(_filesFolder, fileName, stringsFromFile);
-            //if (newFilePath.Contains("Error"))
-            //{
-            //    response.IsSuccess = false;
-            //    response.Messages.Add(newFilePath);
-            //    return response;
-            //}
-
-            ////отправить нв сервер SFTP
-            //string pathSFTP = Path.Combine(_uploadXmlFilesPathSFTP, fileName);
-            //return UploadFileToSFTP(newFilePath, pathSFTP, true);
         }
 
         public ListStringResponseModel BackUpFileCodesIni()
