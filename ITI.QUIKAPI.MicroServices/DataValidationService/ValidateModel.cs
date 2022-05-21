@@ -43,6 +43,19 @@ namespace DataValidationService
             return responseList;
         }
 
+        public static ListStringResponseModel ValidateDealerLibrary(string library)
+        {
+            var response = new ListStringResponseModel();
+
+            if (!DealerLibrarys.DealerLibrary.Contains(library))
+            {
+                response.Messages.Add($"Error! '{library}' is not recognised. Please use existind lib name.");
+                response.IsSuccess = false;
+            }
+
+            return response;
+        }
+
         public static ListStringResponseModel ValidateMixedClientCodesArray(IEnumerable<string> code)
         {
             var responseList = new ListStringResponseModel();

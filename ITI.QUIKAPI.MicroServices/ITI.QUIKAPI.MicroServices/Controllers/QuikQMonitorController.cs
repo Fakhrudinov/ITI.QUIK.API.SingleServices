@@ -34,5 +34,30 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return BadRequest(result);
             }
         }
+
+        [HttpGet("ReloadDealerLib/{library}")]
+        public IActionResult ReloadDealerLib(string library)
+        {
+            _logger.LogInformation($"HttpGet ReloadDealerLib/{library} Call");
+
+            //проверим корректность входных данных
+            ListStringResponseModel result = DataValidationService.ValidateModel.ValidateDealerLibrary(library);
+            if (!result.IsSuccess)
+            {
+                _logger.LogInformation($"HttpGet ReloadDealerLib/{library} Error: {result.Messages[0]}");
+                return BadRequest(result);
+            }            
+
+            result = _service.ReloadDealerLib(library);
+
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 using DataAbstraction.Interfaces;
+using DataAbstraction.Models;
 using DataAbstraction.Models.Connections;
 using QuikAPIBrlService;
 using QuikApiQMonitorService;
@@ -33,6 +34,7 @@ builder.Services.Configure<DataBaseConnectionConfiguration>(
 
 //add QUIK API QMonitor services
 builder.Services.AddTransient<IQMonitorService, QMonitorService>();
+DealerLibrarys.DealerLibrary = builder.Configuration.GetSection("DealerLibrarys").Get<List<string>>();
 
 var app = builder.Build();
 
