@@ -74,5 +74,33 @@ namespace QMonitor.API
         /// </summary>
         [DllImport("ClientApi.dll", EntryPoint = "wqctl_disconnect", CallingConvention = CallingConvention.StdCall)]
         public static extern int Disconnect(void* handle);
+
+        /// <summary>
+        /// Функция перезагружает настройки Библиотеки расчета лимитов.
+        /// </summary>
+        [DllImport("ClientApi.dll", EntryPoint = "wqctl_manage_dealerlibs", CallingConvention = CallingConvention.StdCall)]
+        public static extern int ReloadDealLib(void* handle, string dealerlib);
+
+        /// <summary>
+        /// Функция отправляет сообщение пользователю по connectID
+        /// connectID -1 = отправка всем пользователям
+        /// </summary>
+        [DllImport("ClientApi.dll", EntryPoint = "wqctl_manage_message", CallingConvention = CallingConvention.StdCall)]
+        public static extern int SendMessage(void* handle, long connectID, string message);
+
+        /// <summary>
+        /// Функция выполняет операции над подключенными пользователями
+        /// userID для action 0 и 1 = ConnectID
+        /// userID для action 2 = UID
+        /// action:
+        ///     WQCTL_USER_ENABLE  0 Разрешить торговые операции пользователю
+        ///     WQCTL_USER_DISABLE 1 Запретить торговые операции пользователю
+        ///     WQCTL_USER_LOGOFF  2 Принудительно отключить пользователя
+        /// param Тип Строка. Назначение зависит от выполняемой операции:
+        ///     * При action = WQCTL_USER_LOGOFF – сообщение при разрыве соединения;
+        ///     * При action = WQCTL_USER_ENABLE / DISABLE – идентификатор фирмы
+        /// </summary>
+        [DllImport("ClientApi.dll", EntryPoint = "wqctl_manage_user", CallingConvention = CallingConvention.StdCall)]
+        public static extern int UserControl(void* handle, short action, long userID, string param);
     };
 }
