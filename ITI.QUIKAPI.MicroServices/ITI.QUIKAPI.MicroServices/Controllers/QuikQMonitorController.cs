@@ -59,5 +59,37 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return BadRequest(result);
             }
         }
+        [HttpGet("ReloadDealerLib/Spot")]
+        public IActionResult ReloadDealerLibSpot()
+        {
+            _logger.LogInformation($"HttpGet ReloadDealerLib/Spot Call");
+
+            ListStringResponseModel result = _service.ReloadDealerLib("MC0138200000");
+
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+        [HttpGet("ReloadDealerLib/Forts")]
+        public IActionResult ReloadDealerLibForts()
+        {
+            _logger.LogInformation($"HttpGet ReloadDealerLib/Forts Call");
+
+            ListStringResponseModel result = _service.ReloadDealerLib("SPBFUT");
+
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
     }
 }
