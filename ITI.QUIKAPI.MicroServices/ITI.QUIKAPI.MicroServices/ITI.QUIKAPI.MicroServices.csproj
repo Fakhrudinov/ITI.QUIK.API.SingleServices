@@ -20,6 +20,7 @@
     <ProjectReference Include="..\CommonServices\CommonServices.csproj" />
     <ProjectReference Include="..\DataAbstraction\DataAbstraction.csproj" />
     <ProjectReference Include="..\DataValidationService\DataValidationService.csproj" />
+    <ProjectReference Include="..\QuikApiQMonitorService\QuikApiQMonitorService.csproj" />
     <ProjectReference Include="..\QuikDataBaseRepository\QuikDataBaseRepository.csproj" />
     <ProjectReference Include="..\QuikSftpService\QuikSftpService.csproj" />
     <ProjectReference Include="..\SpotBrlService\QuikAPIBrlService.csproj" />

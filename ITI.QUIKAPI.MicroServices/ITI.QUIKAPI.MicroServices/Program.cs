@@ -1,6 +1,8 @@
 using DataAbstraction.Interfaces;
+using DataAbstraction.Models;
 using DataAbstraction.Models.Connections;
 using QuikAPIBrlService;
+using QuikApiQMonitorService;
 using QuikDataBaseRepository;
 using QuikSftpService;
 
@@ -29,6 +31,10 @@ builder.Services.Configure<SftpConnectionConfiguration>(
 builder.Services.AddTransient<IQuikDataBaseRepository, QuikDBRepository>();
 builder.Services.Configure<DataBaseConnectionConfiguration>(
     builder.Configuration.GetSection("DataBaseConfig"));
+
+//add QUIK API QMonitor services
+builder.Services.AddTransient<IQMonitorService, QMonitorService>();
+DealerLibrarys.DealerLibrary = builder.Configuration.GetSection("DealerLibrarys").Get<List<string>>();
 
 var app = builder.Build();
 
