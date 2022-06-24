@@ -38,14 +38,17 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             var result = _qService.CheckConnection();
 
             _logger.LogInformation($"HttpGet CheckConnections/SpotApi result OK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
 
         [HttpPost("AddMatrixClientPortfolioTo/KomissiiTemplate/CD_portfolio")]
@@ -57,20 +60,23 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"Httppost AddMatrixClientPortfolioTo/KomissiiTemplate/CD_portfolio Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }
 
             result = _qService.AddClientPortfolioToTemplate(true, "CD_portfolio", model.MatrixClientCode);
 
             _logger.LogInformation($"Httppost AddMatrixClientPortfolioTo/KomissiiTemplate/CD_portfolio result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
         [HttpPost("AddMatrixClientPortfolioTo/PoPlechuTemplate/CD_portfolio")]
         public IActionResult AddClientPortfolioToPoPlechuCDportfolio([FromBody] MatrixClientCodeModel model)
@@ -81,20 +87,23 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"Httppost AddMatrixClientPortfolioTo/PoPlechuTemplate/CD_portfolio Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }
 
             result = _qService.AddClientPortfolioToTemplate(false, "CD_portfolio", model.MatrixClientCode);
 
             _logger.LogInformation($"Httppost AddMatrixClientPortfolioTo/PoPlechuTemplate/CD_portfolio result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
         [HttpPost("AddMatrixClientPortfolioTo/KomissiiTemplate")]
         public IActionResult AddClientPortfolioToKomissiiTemplate([FromBody] TemplateAndMatrixCodeModel model)
@@ -105,7 +114,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"HttpPost AddMatrixClientPortfolioTo/KomissiiTemplate Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }
 
             //проверим на наличие этого шаблона
@@ -115,20 +124,23 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 result.IsSuccess = false;
                 result.Messages.Add($"Httppost AddMatrixClientPortfolioTo/KomissiiTemplate Failed: Template {model.Template} not found");
 
-                return BadRequest(result);
+                return Ok(result);
             }
 
             result = _qService.AddClientPortfolioToTemplate(true, model.Template, model.ClientCode);
 
             _logger.LogInformation($"Httppost AddMatrixClientPortfolioTo/KomissiiTemplate result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
 
         [HttpPost("AddMatrixClientPortfolioTo/PoPlechuTemplate")]
@@ -140,7 +152,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"HttpPost AddMatrixClientPortfolioTo/PoPlechuTemplate Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }
 
             //проверим на наличие этого шаблона
@@ -150,20 +162,23 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 result.IsSuccess = false;
                 result.Messages.Add($"Httppost AddMatrixClientPortfolioTo/KomissiiTemplate Failed: Template {model.Template} not found");
 
-                return BadRequest(result);
+                return Ok(result);
             }
 
             result = _qService.AddClientPortfolioToTemplate(false, model.Template, model.ClientCode);
 
             _logger.LogInformation($"Httppost AddMatrixClientPortfolioTo/PoPlechuTemplate result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
 
 
@@ -175,14 +190,17 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             var result = _qService.GetList(true, true, "");
 
             _logger.LogInformation($"HttpGet GetAllTemplates/PoKomisii result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
         [HttpGet("GetAllTemplates/PoPlechu")]
         public IActionResult GetAllTemplatesPoPlechu()
@@ -192,14 +210,17 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             var result = _qService.GetList(true, false, "");
 
             _logger.LogInformation($"HttpGet GetAllTemplates/PoPlechu result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
 
 
@@ -213,20 +234,23 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"HttpGet GetAllClientsFromTemplate/PoKomissii Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }
 
             result = _qService.GetList(false, true, templateName);
 
             _logger.LogInformation($"HttpGet GetAllClientsFromTemplate/PoKomissii result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
         [HttpGet("GetAllClientsFromTemplate/PoPlechu/{templateName}")]
         public IActionResult GetAllClientsFromTemplatePoPlechu(string templateName)
@@ -238,20 +262,23 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"HttpGet GetAllClientsFromTemplate/PoPlechu Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }
 
             result = _qService.GetList(false, false, templateName);
 
             _logger.LogInformation($"HttpGet  GetAllClientsFromTemplate/PoPlechu result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
 
 
@@ -264,20 +291,23 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"HttpDelete DeleteQuikCodeFromTemplate/PoKomissii  Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }
 
             result = _qService.DeleteCodeFromTemplate(true, model.Template, model.ClientCode, false);
 
             _logger.LogInformation($"HttpDelete DeleteQuikCodeFromTemplate/PoKomissii result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
 
         [HttpDelete("Delete/MatrixCode/FromTemplate/PoKomissii")]
@@ -289,20 +319,23 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"HttpDelete DeleteMatrixCodeFromTemplate/PoKomissii  Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }
 
             result = _qService.DeleteCodeFromTemplate(true, model.Template, model.ClientCode, true);
 
             _logger.LogInformation($"HttpDelete DeleteMatrixCodeFromTemplate/PoKomissii result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
         [HttpDelete("Delete/QuikCode/FromTemplate/PoPlechu")]
         public IActionResult DeleteQuikCodeFromTemplatePoPlechu([FromBody] TemplateAndQuikCodeModel model)
@@ -313,20 +346,23 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"HttpDelete DeleteMatrixCodeFromTemplate/PoPlechu Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }
 
             result = _qService.DeleteCodeFromTemplate(false, model.Template, model.ClientCode, false);
 
             _logger.LogInformation($"HttpDelete DeleteQuikCodeFromTemplate/PoPlechu result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
         [HttpDelete("Delete/MatrixCode/FromTemplate/PoPlechu")]
         public IActionResult DeleteMatrixCodeFromTemplatePoPlechu([FromBody] TemplateAndMatrixCodeModel model)
@@ -337,20 +373,23 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"HttpDelete DeleteMatrixCodeFromTemplate/PoPlechu Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }
 
             result = _qService.DeleteCodeFromTemplate(false, model.Template, model.ClientCode, true);
 
             _logger.LogInformation($"HttpDelete DeleteMatrixCodeFromTemplate/PoPlechu result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
 
 
@@ -363,20 +402,23 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"HttpPut MoveQuikClientCodeBetweenTemplates/PoKomissii Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }
 
             result = _qService.MoveQuikClientCodeBetweenTemplates(true, moveModel);
 
             _logger.LogInformation($"HttpPut MoveQuikClientCodeBetweenTemplates/PoKomissii result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
         [HttpPut("MoveMatrixClientCodeBetweenTemplates/PoKomissii")]
         public IActionResult MoveMatrixClientCodeBetweenTemplatesPoKomissii([FromBody] MoveMatrixCodeModel moveModel)
@@ -387,20 +429,23 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"HttpPut MoveMatrixClientCodeBetweenTemplates/PoKomissii Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }
 
             result = _qService.MoveMatrixClientCodeBetweenTemplates(true, moveModel);
 
             _logger.LogInformation($"HttpPut MoveMatrixClientCodeBetweenTemplates/PoKomissii result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
         [HttpPut("MoveQuikClientCodeBetweenTemplates/PoPlechu")]
         public IActionResult MoveQuikClientCodeBetweenTemplatesPoPlechu([FromBody] MoveQuikCodeModel moveModel)
@@ -411,20 +456,23 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"HttpPut MoveQuikClientCodeBetweenTemplates/PoPlechu Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }
 
             result = _qService.MoveQuikClientCodeBetweenTemplates(false, moveModel);
 
             _logger.LogInformation($"HttpPut MoveQuikClientCodeBetweenTemplates/PoPlechu result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
         [HttpPut("MoveMatrixClientCodeBetweenTemplates/PoPlechu")]
         public IActionResult MoveMatrixClientCodeBetweenTemplatesPoPlechu([FromBody] MoveMatrixCodeModel moveModel)
@@ -435,20 +483,23 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"HttpPut MoveMatrixClientCodeBetweenTemplates/PoPlechu Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }
 
             result = _qService.MoveMatrixClientCodeBetweenTemplates(false, moveModel);
 
             _logger.LogInformation($"HttpPut MoveMatrixClientCodeBetweenTemplates/PoPlechu result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
 
 
@@ -461,20 +512,23 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"Httppost ReplaceAllCodesMatrixInTemplate/PoKomisii Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }
 
             result = _qService.ReplaceAllCodesInTemplate(true, model);
 
             _logger.LogInformation($"Httppost ReplaceAllCodesMatrixInTemplate/PoKomisii result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
         [HttpPost("ReplaceAllCodesMatrixInTemplate/PoPlechu")]
         public IActionResult ReplaceAllClientPortfoliosInPoPlechuTemplate([FromBody] TemplateAndMatrixCodesModel model)
@@ -485,20 +539,23 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"Httppost ReplaceAllClientPortfoliosInTemplate/PoPlechu Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }
 
             result = _qService.ReplaceAllCodesInTemplate(false, model);
 
             _logger.LogInformation($"Httppost ReplaceAllClientPortfoliosInTemplate/PoPlechu result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
     }
 }
