@@ -30,20 +30,23 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"HttpGet Get/EDPFortsClientCode/ByMatrixCode Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }
 
             result = _qService.GetEDPFortsClientCodeByMatrixCode(model);
 
             _logger.LogInformation($"HttpGet Get/EDPFortsClientCode/ByMatrixCode result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
         [HttpGet("Get/EDPMatrixClientCode/ByFortsCode")]
         public IActionResult GetEDPMatrixClientCodeByFortsCode([FromQuery] FortsClientCodeModel model)
@@ -55,20 +58,23 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"HttpGet Get/EDPMatrixClientCode/ByFortsCode Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }
 
             result = _qService.GetEDPMatrixClientCodeByFortsCode(model);
 
             _logger.LogInformation($"HttpGet Get/EDPMatrixClientCode/ByFortsCode  result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
 
         [HttpPost("SetNewEdpRelation")]
@@ -81,19 +87,21 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"HttpPost SetNewEdpRelation Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }
 
             result = _qService.SetNewEdpRelation(model);
 
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
 
         [HttpDelete("DeleteEdpRelation")]
@@ -106,19 +114,21 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"HttpDelete DeleteEdpRelation Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }
 
             result = _qService.DeleteEdpRelation(model);
 
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
 
         [HttpGet("Get/AllEdpRelation")]
@@ -129,14 +139,17 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             ListStringResponseModel result = _qService.GetAllEdpRelation();
 
             _logger.LogInformation($"HttpGet Get/AllEdpRelation result isOK={result.IsSuccess}");
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
     }
 }

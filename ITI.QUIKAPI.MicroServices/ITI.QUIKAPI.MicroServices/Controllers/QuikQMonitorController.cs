@@ -47,7 +47,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"HttpGet ReloadDealerLib/{library} Error: {result.Messages[0]}");
-                return BadRequest(result);
+                return Ok(result);
             }            
 
             result = _service.ReloadDealerLib(library);
