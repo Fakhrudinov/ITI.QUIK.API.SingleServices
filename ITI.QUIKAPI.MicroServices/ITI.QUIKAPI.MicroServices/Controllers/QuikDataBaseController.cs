@@ -27,14 +27,16 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
 
             ListStringResponseModel result = await _repository.CheckConnections();
 
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
 
         [HttpGet("Get/RegisteredCodes")]
@@ -48,50 +50,54 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             {
                 validateRresult.IsSuccess = false;
                 validateRresult.Messages.Add("QuikDataBase/Get/RegisteredCodes code must contain at least 1 code");
-                return BadRequest(validateRresult);
+                return Ok(validateRresult);
             }
             validateRresult = ValidateModel.ValidateMixedClientCodesArray(codes);
             if (!validateRresult.IsSuccess)
             {
                 _logger.LogInformation($"HttpGet GetAllClientsFromTemplate/PoKomissii Error: {validateRresult.Messages[0]}");
-                return BadRequest(validateRresult);
+                return Ok(validateRresult);
             }
 
             DataBaseClientCodesResponse result = await _repository.GetRegisteredCodes(codes);
-            if (result.IsSuccess)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
 
         [HttpPost("Set/NewClient/ToMNP")]
         public async Task<IActionResult> SetNewClientToMNP([FromBody] NewMNPClientModel model)
         {
             _logger.LogInformation("HttpPost Set/NewClient/ToMNP Call");
-            ListStringResponseModel response = new ListStringResponseModel();
+            ListStringResponseModel result = new ListStringResponseModel();
 
             //проверим корректность входных данных
-            response = ValidateModel.ValidateNewMNPClientModel(model);
-            if (!response.IsSuccess)
+            result = ValidateModel.ValidateNewMNPClientModel(model);
+            if (!result.IsSuccess)
             {
-                _logger.LogInformation($"HttpPost Set/NewClient/ToMNP Error: {response.Messages[0]}");
-                return BadRequest(response);
+                _logger.LogInformation($"HttpPost Set/NewClient/ToMNP Error: {result.Messages[0]}");
+                return Ok(result);
             }
 
-            response = await _repository.SetNewClientToMNP(model);
+            result = await _repository.SetNewClientToMNP(model);
 
-            if (response.IsSuccess)
-            {
-                return Ok(response);
-            }
-            else
-            {
-                return BadRequest(response);
-            }
+            return Ok(result);
+
+            //if (result.IsSuccess)
+            //{
+            //    return Ok(result);
+            //}
+            //else
+            //{
+            //    return BadRequest(result);
+            //}
         }
     }
 }
