@@ -41,15 +41,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             _logger.LogInformation($"HttpGet CheckConnections/FortsApi result OK={result.IsSuccess}");
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
 
@@ -63,15 +54,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             _logger.LogInformation($"HttpGet GetAllTemplates/PoKomisii result isOK={result.IsSuccess}");
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
         [HttpGet("GetAllTemplates/PoPlechu")]
         public IActionResult GetAllTemplatesPoPlechu()
@@ -83,15 +65,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             _logger.LogInformation($"HttpGet GetAllTemplates/PoPlechu result isOK={result.IsSuccess}");
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
 
@@ -113,15 +86,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             _logger.LogInformation($"HttpGet GetAllClientsFromTemplate/PoKomissii result isOK={result.IsSuccess}");
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
         [HttpGet("GetAllClientsFromTemplate/PoPlechu/{templateName}")]
         public IActionResult GetAllClientsFromTemplatePoPlechu(string templateName)
@@ -141,15 +105,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             _logger.LogInformation($"HttpGet  GetAllClientsFromTemplate/PoPlechu result isOK={result.IsSuccess}");
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpPost("AddMatrixFortsCode/ToTemplate/PoKomissii")]
@@ -181,15 +136,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             _logger.LogInformation($"Httppost AddMatrixFortsCode/ToTemplate/PoKomissii result isOK={result.IsSuccess}");
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpPost("AddMatrixFortsCode/ToTemplate/PoPlechu")]
@@ -221,15 +167,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             _logger.LogInformation($"Httppost AddMatrixFortsCode/ToTemplate/PoPlechu result isOK={result.IsSuccess}");
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpDelete("DeleteMatrixFortsCode/FromTemplate/PoKomissii")]
@@ -250,15 +187,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             _logger.LogInformation($"HttpDelete DeleteMatrixFortsCode/FromTemplate/PoKomissii result isOK={result.IsSuccess}");
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
         [HttpDelete("DeleteMatrixFortsCode/FromTemplate/PoPlechu")]
         public IActionResult DeleteMatrixFortsCoedFromTemplatePoPlechu([FromBody] TemplateAndFortsCodeModel model)
@@ -278,15 +206,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             _logger.LogInformation($"HttpDelete DeleteMatrixFortsCode/FromTemplate/PoPlechu result isOK={result.IsSuccess}");
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
 
@@ -307,15 +226,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             _logger.LogInformation($"HttpPut Move/MatrixFortsCode/BetweenTemplates/PoKomissii result isOK={result.IsSuccess}");
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
         [HttpPut("Move/MatrixFortsCode/BetweenTemplates/PoPlechu")]
         public IActionResult MoveMatrixFortsCodeBetweenTemplatesPoPlechu([FromBody] MoveMatrixFortsCodeModel moveModel)
@@ -334,15 +244,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             _logger.LogInformation($"HttpPut Move/MatrixFortsCode/BetweenTemplates/PoPlechu result isOK={result.IsSuccess}");
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpPost("ReplaceAll/MatrixFortsCode/InTemplate/PoKomisii")]
@@ -362,15 +263,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             _logger.LogInformation($"Httppost ReplaceAll/MatrixFortsCode/InTemplate/PoKomisii result isOK={result.IsSuccess}");
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
         [HttpPost("ReplaceAll/MatrixFortsCode/InTemplate/PoPlechu")]
         public IActionResult ReplaceAllMatrixFortsCodeInTemplatePoPlechu([FromBody] TemplateAndMatrixFortsCodesModel model)
@@ -389,15 +281,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             _logger.LogInformation($"Httppost ReplaceAll/MatrixFortsCode/InTemplate/PoPlechu result isOK={result.IsSuccess}");
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
     }
 }

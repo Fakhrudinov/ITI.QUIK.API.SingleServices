@@ -1,6 +1,5 @@
 ﻿using DataAbstraction.Interfaces;
 using DataAbstraction.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITI.QUIKAPI.MicroServices.Controllers
@@ -26,15 +25,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             ListStringResponseModel result = _service.CheckConnections();
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpGet("ReloadDealerLib/{library}")]
@@ -53,15 +43,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             result = _service.ReloadDealerLib(library);
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
         [HttpGet("ReloadDealerLib/Spot")]
         public IActionResult ReloadDealerLibSpot()
@@ -71,15 +52,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             ListStringResponseModel result = _service.ReloadDealerLib("MC0138200000");
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
         [HttpGet("ReloadDealerLib/Forts")]
         public IActionResult ReloadDealerLibForts()
@@ -89,15 +61,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             ListStringResponseModel result = _service.ReloadDealerLib("SPBFUT");
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
     }
 }

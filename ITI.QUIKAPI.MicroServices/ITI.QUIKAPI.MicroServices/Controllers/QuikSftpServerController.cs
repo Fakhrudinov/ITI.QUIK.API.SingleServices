@@ -26,15 +26,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             var result = _serviceSFTP.CheckConnections();
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
 
@@ -46,15 +37,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             var result = _serviceSFTP.GetStartMessageforAll();
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
         [HttpGet("GetStartMessage/forUID/{uid}")]
         public IActionResult GetStartMessageforUID(int uid)
@@ -64,15 +46,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             var result = _serviceSFTP.GetStartMessageforUID(uid);
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
 
@@ -84,15 +57,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             var result = _serviceSFTP.DeleteStartMessageForAll();
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpDelete("DeleteStartMessage/ForUID/{uid}")]
@@ -103,15 +67,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             var result = _serviceSFTP.DeleteStartMessageForUID(uid);
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpPost("SetStartMessage")]
@@ -122,15 +77,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             var result = _serviceSFTP.SetStartMessage(model);
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpGet("UID/byMatrixCode")]
@@ -149,15 +95,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             result = _serviceSFTP.GetUIDByMatrixCode(model.MatrixClientCode);
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpGet("UID/byFortsCode")]
@@ -176,15 +113,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             result = _serviceSFTP.GetUIDByFortsCode(model.FortsClientCode);
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
 
@@ -204,15 +132,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             result = _serviceSFTP.SendNewClientOptionWorkshop(model);
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpPost("NewClient")]
@@ -231,15 +150,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             result = _serviceSFTP.SendNewClient(model);
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpGet("RequestFile/CurrClnts")]
@@ -250,15 +160,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             var result = _serviceSFTP.RequestFileCurrClnts();
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpGet("DownloadFile/CurrClnts")]
@@ -269,15 +170,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             var result = _serviceSFTP.DownloadCurrClnts();
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpGet("BackUpFileCodesIni")]
@@ -288,15 +180,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             var result = _serviceSFTP.BackUpFileCodesIni();
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpGet("BackUpFileDealLibIni")]
@@ -307,15 +190,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             var result = _serviceSFTP.BackUpFileDealLibIni();
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpGet("BackUpFileSpbfutlibIni")]
@@ -326,15 +200,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             var result = _serviceSFTP.BackUpFileSpbfutlibIni();
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpPut("AddClientCodesToFileCodesIni")]
@@ -353,15 +218,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             result = _serviceSFTP.AddMAtrixCodesToFileCodesIni(model);
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpDelete("BlockUserBy/UID/{uid}")]
@@ -372,15 +228,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             var result = _serviceSFTP.BlockUserByUID(uid);
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpDelete("BlockUserBy/MatrixClientCode")]
@@ -399,15 +246,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             result = _serviceSFTP.BlockUserByMatrixClientCode(model.MatrixClientCode);
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpDelete("BlockUserBy/FortsClientCode")]
@@ -426,15 +264,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             result = _serviceSFTP.BlockUserByFortsClientCode(model.FortsClientCode);
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpPut("SetNewPubringKeyBy/MatrixClientCode")]
@@ -453,15 +282,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             result = _serviceSFTP.SetNewPubringKeyByMatrixClientCode(model);
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpPut("SetNewPubringKeyBy/FortsClientCode")]
@@ -480,15 +300,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             result = _serviceSFTP.SetNewPubringKeyByFortsClientCode(model);
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpPut("SetAllTrades/ByMatrixClientCode")]
@@ -507,15 +318,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             result = _serviceSFTP.SetAllTradesByMatrixClientCode(model);
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpPut("SetAllTradesBy/FortsClientCode")]
@@ -534,15 +336,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             result = _serviceSFTP.SetAllTradesByFortsClientCode(model);
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpGet("GetResultOfXMLFileUpload")]
@@ -553,16 +346,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             var result = _serviceSFTP.GetResultOfXMLFileUpload(file);
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
-
     }
 }

@@ -28,15 +28,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             ListStringResponseModel result = await _repository.CheckConnections();
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpGet("Get/RegisteredCodes")]
@@ -61,15 +52,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
 
             DataBaseClientCodesResponse result = await _repository.GetRegisteredCodes(codes);
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpPost("Set/NewClient/ToMNP")]
@@ -89,15 +71,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             result = await _repository.SetNewClientToMNP(model);
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
     }
 }

@@ -38,15 +38,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             _logger.LogInformation($"HttpGet Get/EDPFortsClientCode/ByMatrixCode result isOK={result.IsSuccess}");
             
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
         [HttpGet("Get/EDPMatrixClientCode/ByFortsCode")]
         public IActionResult GetEDPMatrixClientCodeByFortsCode([FromQuery] FortsClientCodeModel model)
@@ -66,15 +57,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             _logger.LogInformation($"HttpGet Get/EDPMatrixClientCode/ByFortsCode  result isOK={result.IsSuccess}");
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpPost("SetNewEdpRelation")]
@@ -93,15 +75,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             result = _qService.SetNewEdpRelation(model);
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpDelete("DeleteEdpRelation")]
@@ -120,15 +93,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             result = _qService.DeleteEdpRelation(model);
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
 
         [HttpGet("Get/AllEdpRelation")]
@@ -141,15 +105,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             _logger.LogInformation($"HttpGet Get/AllEdpRelation result isOK={result.IsSuccess}");
 
             return Ok(result);
-
-            //if (result.IsSuccess)
-            //{
-            //    return Ok(result);
-            //}
-            //else
-            //{
-            //    return BadRequest(result);
-            //}
         }
     }
 }
