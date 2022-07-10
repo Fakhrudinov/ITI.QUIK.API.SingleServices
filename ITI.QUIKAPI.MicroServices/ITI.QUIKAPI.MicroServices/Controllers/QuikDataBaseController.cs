@@ -23,7 +23,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpGet("CheckConnections/QuikDataBase")]
         public async Task<IActionResult> CheckConnection()
         {
-            _logger.LogInformation("HttpGet CheckConnections/QuikDataBase Call");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet CheckConnections/QuikDataBase Call");
 
             ListStringResponseModel result = await _repository.CheckConnections();
 
@@ -33,7 +33,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpGet("Get/RegisteredCodes")]
         public async Task<IActionResult> GetRegisteredCodesForts([FromQuery] IEnumerable<string> codes)
         {
-            _logger.LogInformation("HttpGet Get/RegisteredCodes Call");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet Get/RegisteredCodes Call");
             ListStringResponseModel validateRresult = new ListStringResponseModel();
 
             //проверим корректность входных данных
@@ -46,7 +46,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             validateRresult = ValidateModel.ValidateMixedClientCodesArray(codes);
             if (!validateRresult.IsSuccess)
             {
-                _logger.LogInformation($"HttpGet GetAllClientsFromTemplate/PoKomissii Error: {validateRresult.Messages[0]}");
+                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet GetAllClientsFromTemplate/PoKomissii Error: {validateRresult.Messages[0]}");
                 return Ok(validateRresult);
             }
 
@@ -57,14 +57,14 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPost("Set/NewClient/ToMNP")]
         public async Task<IActionResult> SetNewClientToMNP([FromBody] NewMNPClientModel model)
         {
-            _logger.LogInformation("HttpPost Set/NewClient/ToMNP Call");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPost Set/NewClient/ToMNP Call");
             ListStringResponseModel result = new ListStringResponseModel();
 
             //проверим корректность входных данных
             result = ValidateModel.ValidateNewMNPClientModel(model);
             if (!result.IsSuccess)
             {
-                _logger.LogInformation($"HttpPost Set/NewClient/ToMNP Error: {result.Messages[0]}");
+                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPost Set/NewClient/ToMNP Error: {result.Messages[0]}");
                 return Ok(result);
             }
 

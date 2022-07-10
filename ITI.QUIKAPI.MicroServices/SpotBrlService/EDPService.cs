@@ -22,7 +22,7 @@ namespace QuikAPIBrlService
 
         public ListStringResponseModel GetEDPFortsClientCodeByMatrixCode(MatrixClientCodeModel model)
         {
-            _logger.LogInformation($"EDPService GetEDPFortsClientCodeByMatrixCode {model.MatrixClientCode} Called");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} EDPService GetEDPFortsClientCodeByMatrixCode {model.MatrixClientCode} Called");
             ListStringResponseModel response = new ListStringResponseModel();
 
             // открыть соединение
@@ -39,7 +39,7 @@ namespace QuikAPIBrlService
             IntPtr ptr = IntPtr.Zero;
             //получение кода срочного рынка ЕДП по коду клиента
             int resultEditBrl = NativeMethods.QDAPI_GetTrdAccGlobalChangeFutClientCodesByClientCode(_spotFIRM, _fortsFIRM, quikCode, ref ptr);
-            _logger.LogInformation($"EDPService GetEDPFortsClientCodeByMatrixCode {model.MatrixClientCode} result : '{Marshal.PtrToStringAnsi(ptr)}'");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} EDPService GetEDPFortsClientCodeByMatrixCode {model.MatrixClientCode} result : '{Marshal.PtrToStringAnsi(ptr)}'");
             if (resultEditBrl == 0)
             {
                 response.Messages.Add(CommonServices.PortfoliosConvertingService.GetMatrixFortsCode(Marshal.PtrToStringAnsi(ptr)));
@@ -51,7 +51,7 @@ namespace QuikAPIBrlService
         }
         public ListStringResponseModel GetEDPMatrixClientCodeByFortsCode(FortsClientCodeModel model)
         {
-            _logger.LogInformation($"EDPService GetEDPMatrixClientCodeByFortsCode {model.FortsClientCode} Called");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} EDPService GetEDPMatrixClientCodeByFortsCode {model.FortsClientCode} Called");
             ListStringResponseModel response = new ListStringResponseModel();
 
             // открыть соединение
@@ -68,7 +68,7 @@ namespace QuikAPIBrlService
             IntPtr ptr = IntPtr.Zero;
             //получение кода клиента ЕДП по коду срочного рынка
             int resultEditBrl = NativeMethods.QDAPI_GetClientCodeGlobalChangeFutClientCodesByTrdAcc(_spotFIRM, _fortsFIRM, quikCode, ref ptr);
-            _logger.LogInformation($"EDPService GetEDPMatrixClientCodeByFortsCode {model.FortsClientCode} result : '{Marshal.PtrToStringAnsi(ptr)}'");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} EDPService GetEDPMatrixClientCodeByFortsCode {model.FortsClientCode} result : '{Marshal.PtrToStringAnsi(ptr)}'");
             if (resultEditBrl == 0)
             {
                 response.Messages.Add(CommonServices.PortfoliosConvertingService.GetMatrixMOCode(Marshal.PtrToStringAnsi(ptr)));
@@ -81,7 +81,7 @@ namespace QuikAPIBrlService
 
         public ListStringResponseModel SetNewEdpRelation(MatrixToFortsCodesMappingModel model)
         {
-            _logger.LogInformation($"EDPService SetNewEdpRelation {model.MatrixClientCode} Called");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} EDPService SetNewEdpRelation {model.MatrixClientCode} Called");
             ListStringResponseModel response = new ListStringResponseModel();
 
             // открыть соединение
@@ -99,7 +99,7 @@ namespace QuikAPIBrlService
             };
             //добавление нового соответствия ЕДП клиента
             int resultEditBrl = NativeMethods.QDAPI_AddCorrespToGlobalChangeFutClientCodes(_spotFIRM, _fortsFIRM, ref clCodeTrdAccStruct);
-            _logger.LogInformation($"EDPService SetNewEdpRelation {model.MatrixClientCode} result : '{resultEditBrl}'");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} EDPService SetNewEdpRelation {model.MatrixClientCode} result : '{resultEditBrl}'");
 
             //закрыть соединение
             return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM, response);
@@ -108,7 +108,7 @@ namespace QuikAPIBrlService
 
         public ListStringResponseModel DeleteEdpRelation(MatrixClientCodeModel model)
         {
-            _logger.LogInformation($"EDPService DeleteEdpRelation {model.MatrixClientCode} Called");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} EDPService DeleteEdpRelation {model.MatrixClientCode} Called");
             ListStringResponseModel response = new ListStringResponseModel();
 
             // открыть соединение
@@ -125,7 +125,7 @@ namespace QuikAPIBrlService
             //удаление соответствия ЕДП по коду клиента
             int resultEditBrl = NativeMethods.QDAPI_RemoveCorrespFromGlobalChangeFutClientCodesByClientCode(_spotFIRM, _fortsFIRM, quikCode);
 
-            _logger.LogInformation($"EDPService DeleteEdpRelation {model.MatrixClientCode} result : '{resultEditBrl}'");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} EDPService DeleteEdpRelation {model.MatrixClientCode} result : '{resultEditBrl}'");
 
             //закрыть соединение
             return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM, response);
@@ -133,7 +133,7 @@ namespace QuikAPIBrlService
 
         public ListStringResponseModel GetAllEdpRelation()
         {
-            _logger.LogInformation($"EDPService GetAllEdpRelation Called");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} EDPService GetAllEdpRelation Called");
             ListStringResponseModel response = new ListStringResponseModel();
 
             // открыть соединение
@@ -165,7 +165,7 @@ namespace QuikAPIBrlService
                 
             NativeMethods.QDAPI_FreeMemory(ref lsPtr);
 
-            _logger.LogInformation($"EDPService GetAllEdpRelation result : {resultEditBrl}' count={clientCodesToTrdAccs.count}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} EDPService GetAllEdpRelation result : {resultEditBrl}' count={clientCodesToTrdAccs.count}");
 
             //закрыть соединение
             return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM, response);

@@ -22,7 +22,7 @@ namespace QuikApiQMonitorService
 
         public ListStringResponseModel CheckConnections()
         {
-            _logger.LogInformation("QMonitorService CheckConnections Called");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QMonitorService CheckConnections Called");
 
             ListStringResponseModel response = new ListStringResponseModel();
 
@@ -38,7 +38,7 @@ namespace QuikApiQMonitorService
                 return ReturnError(response, handle);
             }
 
-            _logger.LogInformation("QMonitorService CheckConnections Disconnect");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QMonitorService CheckConnections Disconnect");
             QMonitorAPI.Disconnect(handle);
 
             return response;
@@ -46,7 +46,7 @@ namespace QuikApiQMonitorService
 
         public ListStringResponseModel ReloadDealerLib(string library)
         {
-            _logger.LogInformation($"QMonitorService ReloadDealerLib {library} Called");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QMonitorService ReloadDealerLib {library} Called");
 
             ListStringResponseModel response = new ListStringResponseModel();
 
@@ -65,7 +65,7 @@ namespace QuikApiQMonitorService
                 }
                 else
                 {
-                    _logger.LogInformation($"QMonitorService ReloadDealerLib {library} OK");
+                    _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QMonitorService ReloadDealerLib {library} OK");
                 }
             }
             else
@@ -73,7 +73,7 @@ namespace QuikApiQMonitorService
                 return ReturnError(response, handle);
             }
 
-            _logger.LogInformation("QMonitorService CheckConnections Disconnect");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QMonitorService CheckConnections Disconnect");
             QMonitorAPI.Disconnect(handle);
 
             return response;
@@ -135,7 +135,7 @@ namespace QuikApiQMonitorService
             while (QMonitorAPI.GetStatus(handle) == QMonitorAPI.WQCTL_STATUS_CONNECTING)
             {
                 System.Threading.Thread.Sleep(1000);
-                _logger.LogInformation("QMonitorService QMonitorConnect try to connect, attempt left = " + _tryConnect);                
+                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QMonitorService QMonitorConnect try to connect, attempt left = " + _tryConnect);                
                 if (_tryConnect == 0)
                 {
                     break;
@@ -145,7 +145,7 @@ namespace QuikApiQMonitorService
 
             if (QMonitorAPI.GetStatus(handle) == QMonitorAPI.WQCTL_STATUS_CONNECTED)
             {
-                _logger.LogInformation("QMonitorService QMonitorConnect: Connection to QMonitor OK");
+                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QMonitorService QMonitorConnect: Connection to QMonitor OK");
                 System.Threading.Thread.Sleep(2000);// нужно для корректного подключения. Без него следующий запрос зависает или не получаем данные                
             }
 

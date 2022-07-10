@@ -21,7 +21,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpGet("CheckConnections/ServerSFTP")]
         public IActionResult CheckConnection()
         {
-            _logger.LogInformation("HttpGet CheckConnections/ServerSFTP Call");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet CheckConnections/ServerSFTP Call");
 
             var result = _serviceSFTP.CheckConnections();
 
@@ -32,7 +32,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpGet("GetStartMessage/forAll")]
         public IActionResult GetStartMessageforAll()
         {
-            _logger.LogInformation("HttpGet GetStartMessage/forAll Call");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet GetStartMessage/forAll Call");
 
             var result = _serviceSFTP.GetStartMessageforAll();
 
@@ -41,7 +41,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpGet("GetStartMessage/forUID/{uid}")]
         public IActionResult GetStartMessageforUID(int uid)
         {
-            _logger.LogInformation($"HttpGet GetStartMessage/forUID/{uid} Call");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet GetStartMessage/forUID/{uid} Call");
 
             var result = _serviceSFTP.GetStartMessageforUID(uid);
 
@@ -52,7 +52,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpDelete("DeleteStartMessage/ForAll")]
         public IActionResult DeleteStartMessageForAll()
         {
-            _logger.LogInformation($"HttpDelete DeleteStartMessage/ForAll");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteStartMessage/ForAll");
 
             var result = _serviceSFTP.DeleteStartMessageForAll();
 
@@ -62,7 +62,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpDelete("DeleteStartMessage/ForUID/{uid}")]
         public IActionResult DeleteStartMessageForUID(int uid)
         {
-            _logger.LogInformation($"HttpDelete DeleteStartMessage/ForUID/{uid}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteStartMessage/ForUID/{uid}");
 
             var result = _serviceSFTP.DeleteStartMessageForUID(uid);
 
@@ -72,7 +72,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPost("SetStartMessage")]
         public IActionResult SetStartMessage([FromBody] StartMessageModel model)
         {
-            _logger.LogInformation($"HttpPost SetStartMessage Call, ToAll={model.ToAll} UID={model.UID}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPost SetStartMessage Call, ToAll={model.ToAll} UID={model.UID}");
 
             var result = _serviceSFTP.SetStartMessage(model);
 
@@ -82,13 +82,13 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpGet("UID/byMatrixCode")]
         public IActionResult GetUIDByMatrixCode([FromQuery] MatrixClientCodeModel model)
         {
-            _logger.LogInformation($"HttpGet GetUID/ByMatrixCode {model.MatrixClientCode} Call ");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet GetUID/ByMatrixCode {model.MatrixClientCode} Call ");
 
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateMatrixSpotClientCodeModel(model);//MS MO RS FX
             if (!result.IsSuccess)
             {
-                _logger.LogInformation($"HttpGet GetUID/ByMatrixCode {model.MatrixClientCode} Error: {result.Messages[0]}");
+                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet GetUID/ByMatrixCode {model.MatrixClientCode} Error: {result.Messages[0]}");
                 return Ok(result);
             }
 
@@ -100,13 +100,13 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpGet("UID/byFortsCode")]
         public IActionResult GetUIDByFortsCode([FromQuery] FortsClientCodeModel model)
         {
-            _logger.LogInformation($"HttpGet GetUID/ByFortsCode {model.FortsClientCode} Call ");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet GetUID/ByFortsCode {model.FortsClientCode} Call ");
 
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateMatrixFortsClientCodeModel(model.FortsClientCode);
             if (!result.IsSuccess)
             {
-                _logger.LogInformation($"HttpGet GetUID/ByFortsCode {model.FortsClientCode} Error: {result.Messages[0]}");
+                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet GetUID/ByFortsCode {model.FortsClientCode} Error: {result.Messages[0]}");
                 return Ok(result);
             }
 
@@ -119,13 +119,13 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPost("NewClient/OptionWorkshop")]
         public IActionResult NewClientOptionWorkshop([FromBody] NewClientOptionWorkShopModel model)
         {
-            _logger.LogInformation($"HttpPost NewClient/OptionWorkshop Call for {model.Client.FirstName} {model.Client.LastName}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPost NewClient/OptionWorkshop Call for {model.Client.FirstName} {model.Client.LastName}");
 
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateNewClientOptionWorkShopModel(model);
             if (!result.IsSuccess)
             {
-                _logger.LogWarning("HttpPost NewClient/OptionWorkshop Failed with " + result.Messages[0]);
+                _logger.LogWarning($"HttpPost NewClient/OptionWorkshop Failed with " + result.Messages[0]);
                 return Ok(result);
             }
 
@@ -137,13 +137,13 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPost("NewClient")]
         public IActionResult NewClient([FromBody] NewClientModel model)
         {
-            _logger.LogInformation($"HttpPost NewClient Call for {model.Client.FirstName} {model.Client.LastName}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPost NewClient Call for {model.Client.FirstName} {model.Client.LastName}");
 
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateNewClientModel(model);
             if (!result.IsSuccess)
             {
-                _logger.LogWarning("HttpPost NewClient Failed with " + result.Messages[0]);
+                _logger.LogWarning($"HttpPost NewClient Failed with " + result.Messages[0]);
                 return Ok(result);
             }
 
@@ -155,7 +155,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpGet("RequestFile/CurrClnts")]
         public IActionResult RequestCurrClnts()
         {
-            _logger.LogInformation("HttpGet RequestFile/CurrClnts Call");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet RequestFile/CurrClnts Call");
 
             var result = _serviceSFTP.RequestFileCurrClnts();
 
@@ -165,7 +165,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpGet("DownloadFile/CurrClnts")]
         public IActionResult DownloadCurrClnts()
         {
-            _logger.LogInformation("HttpGet DownloadFile/CurrClnts Call");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet DownloadFile/CurrClnts Call");
 
             var result = _serviceSFTP.DownloadCurrClnts();
 
@@ -175,7 +175,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpGet("BackUpFileCodesIni")]
         public IActionResult GetFileCodesIni()
         {
-            _logger.LogInformation("HttpGet BackUpFileCodesIni Call");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet BackUpFileCodesIni Call");
 
             var result = _serviceSFTP.BackUpFileCodesIni();
 
@@ -185,7 +185,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpGet("BackUpFileDealLibIni")]
         public IActionResult GetFileDealLibIni()
         {
-            _logger.LogInformation("HttpGet BackUpFileDealLibIni Call");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet BackUpFileDealLibIni Call");
 
             var result = _serviceSFTP.BackUpFileDealLibIni();
 
@@ -195,7 +195,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpGet("BackUpFileSpbfutlibIni")]
         public IActionResult GetFileSpbfutlibIni()
         {
-            _logger.LogInformation("HttpGet BackUpFileSpbfutlibIni Call");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet BackUpFileSpbfutlibIni Call");
 
             var result = _serviceSFTP.BackUpFileSpbfutlibIni();
 
@@ -205,13 +205,13 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPut("AddClientCodesToFileCodesIni")]
         public IActionResult AddMatrixCodesToFileCodesIni([FromBody] CodesArrayModel model)
         {
-            _logger.LogInformation("HttpPut AddMatrixCodesToFileCodesIni Call");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut AddMatrixCodesToFileCodesIni Call");
 
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateCodesArrayModel(model);
             if (!result.IsSuccess)
             {
-                _logger.LogWarning("HttpPut AddMatrixCodesToFileCodesIni Failed with " + result.Messages[0]);
+                _logger.LogWarning($"HttpPut AddMatrixCodesToFileCodesIni Failed with " + result.Messages[0]);
                 return Ok(result);
             }
 
@@ -223,7 +223,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpDelete("BlockUserBy/UID/{uid}")]
         public IActionResult BlockUserByUID(int uid)
         {
-            _logger.LogInformation($"HttpDelete BlockUserBy/UID/{uid} Call");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete BlockUserBy/UID/{uid} Call");
 
             var result = _serviceSFTP.BlockUserByUID(uid);
 
@@ -233,13 +233,13 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpDelete("BlockUserBy/MatrixClientCode")]
         public IActionResult BlockUserByMatrixClientCode([FromBody] MatrixClientCodeModel model)
         {
-            _logger.LogInformation($"HttpDelete BlockUserBy/MatrixClientCode/{model.MatrixClientCode} Call");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete BlockUserBy/MatrixClientCode/{model.MatrixClientCode} Call");
 
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateMatrixSpotClientCodeModel(model);//MS MO RS FX
             if (!result.IsSuccess)
             {
-                _logger.LogInformation($"HttpDelete BlockUserBy/MatrixClientCode/{model.MatrixClientCode} Error: {result.Messages[0]}");
+                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete BlockUserBy/MatrixClientCode/{model.MatrixClientCode} Error: {result.Messages[0]}");
                 return Ok(result);
             }
 
@@ -251,13 +251,13 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpDelete("BlockUserBy/FortsClientCode")]
         public IActionResult BlockUserByFortsClientCode([FromBody] FortsClientCodeModel model)
         {
-            _logger.LogInformation($"HttpDelete BlockUserBy/FortsClientCode/{model.FortsClientCode} Call");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete BlockUserBy/FortsClientCode/{model.FortsClientCode} Call");
 
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateMatrixFortsClientCodeModel(model.FortsClientCode);
             if (!result.IsSuccess)
             {
-                _logger.LogInformation($"HttpDelete BlockUserBy/FortsClientCode/{model.FortsClientCode} Error: {result.Messages[0]}");
+                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete BlockUserBy/FortsClientCode/{model.FortsClientCode} Error: {result.Messages[0]}");
                 return Ok(result);
             }
 
@@ -269,13 +269,13 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPut("SetNewPubringKeyBy/MatrixClientCode")]
         public IActionResult SetNewPubringKeyByMatrixClientCode([FromBody] MatrixCodeAndPubringKeyModel model)
         {
-            _logger.LogInformation("HttpPut SetNewPubringKey/ByMatrixClientCode Call " + model.ClientCode);
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut SetNewPubringKey/ByMatrixClientCode Call " + model.ClientCode);
 
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateMatrixCodeAndPubringKeyModel(model);
             if (!result.IsSuccess)
             {
-                _logger.LogWarning("HttpPut SetNewPubringKey/ByMatrixClientCode Failed with " + result.Messages[0]);
+                _logger.LogWarning($"HttpPut SetNewPubringKey/ByMatrixClientCode Failed with " + result.Messages[0]);
                 return Ok(result);
             }
 
@@ -287,13 +287,13 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPut("SetNewPubringKeyBy/FortsClientCode")]
         public IActionResult SetNewPubringKeyByFortsClientCode([FromBody] FortsCodeAndPubringKeyModel model)
         {
-            _logger.LogInformation("HttpPut SetNewPubringKey/ByFortsClientCode Call " + model.ClientCode);
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut SetNewPubringKey/ByFortsClientCode Call " + model.ClientCode);
 
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateFortsCodeAndPubringKeyModel(model);
             if (!result.IsSuccess)
             {
-                _logger.LogWarning("HttpPut SetNewPubringKey/ByFortsClientCode Failed with " + result.Messages[0]);
+                _logger.LogWarning($"HttpPut SetNewPubringKey/ByFortsClientCode Failed with " + result.Messages[0]);
                 return Ok(result);
             }
 
@@ -305,13 +305,13 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPut("SetAllTrades/ByMatrixClientCode")]
         public IActionResult SetAllTradesByMatrixClientCode([FromBody] MatrixClientCodeModel model)
         {
-            _logger.LogInformation("HttpPut SetAllTrades/ByMatrixClientCode Call " + model.MatrixClientCode);
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut SetAllTrades/ByMatrixClientCode Call " + model.MatrixClientCode);
 
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateMatrixSpotClientCodeModel(model);
             if (!result.IsSuccess)
             {
-                _logger.LogWarning("HttpPut SetAllTrades/ByMatrixClientCode Failed with " + result.Messages[0]);
+                _logger.LogWarning($"HttpPut SetAllTrades/ByMatrixClientCode Failed with " + result.Messages[0]);
                 return Ok(result);
             }
 
@@ -323,13 +323,13 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPut("SetAllTradesBy/FortsClientCode")]
         public IActionResult SetAllTradesByFortsClientCode([FromBody] FortsClientCodeModel model)
         {
-            _logger.LogInformation("HttpPut SetAllTradesBy/FortsClientCode Call " + model.FortsClientCode);
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut SetAllTradesBy/FortsClientCode Call " + model.FortsClientCode);
 
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateMatrixFortsClientCodeModel(model.FortsClientCode);
             if (!result.IsSuccess)
             {
-                _logger.LogWarning("HttpPut SetAllTradesBy/FortsClientCode Failed with " + result.Messages[0]);
+                _logger.LogWarning($"HttpPut SetAllTradesBy/FortsClientCode Failed with " + result.Messages[0]);
                 return Ok(result);
             }
 
@@ -341,7 +341,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpGet("GetResultOfXMLFileUpload")]
         public IActionResult GetResultOfXMLFileUpload(string file)
         {
-            _logger.LogInformation("HttpGet GetResultOfXMLFileUpload Call " + file);
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet GetResultOfXMLFileUpload Call " + file);
 
             var result = _serviceSFTP.GetResultOfXMLFileUpload(file);
 

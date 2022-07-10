@@ -20,7 +20,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpGet("CheckConnections/QMonitorAPI")]
         public IActionResult CheckConnection()
         {
-            _logger.LogInformation("HttpGet CheckConnections/QMonitorAPI Call");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet CheckConnections/QMonitorAPI Call");
 
             ListStringResponseModel result = _service.CheckConnections();
 
@@ -30,13 +30,13 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpGet("ReloadDealerLib/{library}")]
         public IActionResult ReloadDealerLib(string library)
         {
-            _logger.LogInformation($"HttpGet ReloadDealerLib/{library} Call");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet ReloadDealerLib/{library} Call");
 
             //проверим корректность входных данных
             ListStringResponseModel result = DataValidationService.ValidateModel.ValidateDealerLibrary(library);
             if (!result.IsSuccess)
             {
-                _logger.LogInformation($"HttpGet ReloadDealerLib/{library} Error: {result.Messages[0]}");
+                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet ReloadDealerLib/{library} Error: {result.Messages[0]}");
                 return Ok(result);
             }            
 
@@ -47,7 +47,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpGet("ReloadDealerLib/Spot")]
         public IActionResult ReloadDealerLibSpot()
         {
-            _logger.LogInformation($"HttpGet ReloadDealerLib/Spot Call");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet ReloadDealerLib/Spot Call");
 
             ListStringResponseModel result = _service.ReloadDealerLib("MC0138200000");
 
@@ -56,7 +56,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpGet("ReloadDealerLib/Forts")]
         public IActionResult ReloadDealerLibForts()
         {
-            _logger.LogInformation($"HttpGet ReloadDealerLib/Forts Call");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet ReloadDealerLib/Forts Call");
 
             ListStringResponseModel result = _service.ReloadDealerLib("SPBFUT");
 

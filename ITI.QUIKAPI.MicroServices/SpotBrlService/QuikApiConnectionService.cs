@@ -23,7 +23,7 @@ namespace QuikAPIBrlService
 
         public ListStringResponseModel OpenQuikQadminApiToWrite(string firm, ListStringResponseModel response)
         {
-            _logger.LogInformation("QuikAPIBrlService OpenQuikQadminApiToWrite Called");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QuikAPIBrlService OpenQuikQadminApiToWrite Called");
 
             var openResult = OpenQuikQadminAPI();
             if (!openResult.Equals("OK"))
@@ -52,7 +52,7 @@ namespace QuikAPIBrlService
 
         public ListStringResponseModel OpenQuikQadminApiToRead(string firm, ListStringResponseModel response)
         {
-            _logger.LogInformation("QuikAPIBrlService OpenQuikQadminApiToRead Called");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QuikAPIBrlService OpenQuikQadminApiToRead Called");
 
             var openResult = OpenQuikQadminAPI();
             if (!openResult.Equals("OK"))
@@ -81,7 +81,7 @@ namespace QuikAPIBrlService
 
         private string OpenQuikQadminAPI()
         {
-            _logger.LogInformation("QuikAPIBrlService OpenQuikQadminAPI Called");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QuikAPIBrlService OpenQuikQadminAPI Called");
 
             IntPtr conErrPtr = IntPtr.Zero;
             _errCode = NativeMethods.QDAPI_Connect(@"QDealerAPI.ini", _logon.Login, _logon.Password, ref conErrPtr);
@@ -92,7 +92,7 @@ namespace QuikAPIBrlService
 
                 if (conErr == null)
                 {
-                    _logger.LogWarning("QAS102 Ошибка подключения к Qadmin API - conErr is null");
+                    _logger.LogWarning($"QAS102 Ошибка подключения к Qadmin API - conErr is null");
                     return "QAS102 Ошибка подключения к Qadmin API - conErr is null";
                 }
 
@@ -101,14 +101,14 @@ namespace QuikAPIBrlService
             }
             else
             {
-                _logger.LogInformation("Соединение установлено");
+                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Соединение установлено");
                 return "OK";
             }
         }
 
         private string CloseQuikQadminAPI(string firm)
         {
-            _logger.LogInformation("QuikAPIBrlService CloseQuikQadminAPI Called");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QuikAPIBrlService CloseQuikQadminAPI Called");
 
             try
             {
@@ -128,7 +128,7 @@ namespace QuikAPIBrlService
                 }
                 else
                 {
-                    _logger.LogInformation("Настройки успешно сохранены");
+                    _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Настройки успешно сохранены");
                 }
 
                 // Закрытие файла настроек
@@ -142,7 +142,7 @@ namespace QuikAPIBrlService
                 }
                 else
                 {
-                    _logger.LogInformation("Qadmin API Файл успешно закрыт");
+                    _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Qadmin API Файл успешно закрыт");
                 }
 
                 // Отключение от Сервера Quik Administrator
@@ -156,7 +156,7 @@ namespace QuikAPIBrlService
                 }
                 else
                 {
-                    _logger.LogInformation("Отключение от сервера успешно произведено");
+                    _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Отключение от сервера успешно произведено");
                     return "OK";
                 }
             }
@@ -173,13 +173,13 @@ namespace QuikAPIBrlService
 
             if (resultClose == null)
             {
-                _logger.LogWarning("QAS109 No answer received when close QUIK BRL " + firm);
+                _logger.LogWarning($"QAS109 No answer received when close QUIK BRL " + firm);
                 response.IsSuccess = false;
                 response.Messages.Add($"QAS109 Error at close QUIK BRL {firm}, error={resultClose}");
             }
             else if (resultClose.Equals("OK"))
             {
-                _logger.LogInformation("Файл успешно закрыт");
+                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Файл успешно закрыт");
                 if (resultEditBrl == 0)
                 {
                     return response;

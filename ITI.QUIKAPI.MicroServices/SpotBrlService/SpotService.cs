@@ -25,13 +25,13 @@ namespace QuikAPIBrlService
 
         public string GetLogin()
         {
-            _logger.LogInformation("SpotService GetLogin Called");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SpotService GetLogin Called");
             return _logon.Login;
         }
 
         public ListStringResponseModel CheckConnection()
         {
-            _logger.LogInformation("SpotService CheckConnection Called");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SpotService CheckConnection Called");
             ListStringResponseModel response = new ListStringResponseModel();
 
             var openResult = _connection.OpenQuikQadminApiToRead(_spotFIRM, response);
@@ -45,7 +45,7 @@ namespace QuikAPIBrlService
 
         public ListStringResponseModel GetList(bool itIsTemplatesList, bool itIsPoKomissii, string template)
         {
-            _logger.LogInformation($"SpotService GetList Called, itIsTemplatesList={itIsTemplatesList}, itIsPoKomissii={itIsPoKomissii}, template={template}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SpotService GetList Called, itIsTemplatesList={itIsTemplatesList}, itIsPoKomissii={itIsPoKomissii}, template={template}");
             ListStringResponseModel response = new ListStringResponseModel();
 
             var openResult = _connection.OpenQuikQadminApiToRead(_spotFIRM, response);
@@ -87,7 +87,7 @@ namespace QuikAPIBrlService
             {
                 QDAPI_ArrayStrings resultArrStr = Marshal.PtrToStructure<QDAPI_ArrayStrings>(clPtr);
 
-                _logger.LogInformation($"SpotService GetList result count : {resultArrStr.count}");
+                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SpotService GetList result count : {resultArrStr.count}");
 
                 IntPtr[] resultArray = new IntPtr[resultArrStr.count];
                 Marshal.Copy(resultArrStr.elems, resultArray, 0, (int)resultArrStr.count);
@@ -109,7 +109,7 @@ namespace QuikAPIBrlService
         }
         public ListStringResponseModel MoveMatrixClientCodeBetweenTemplates(bool itIsPoKomissii, MoveMatrixCodeModel moveModel)
         {
-            _logger.LogInformation($"SpotService MoveMatrixClientCodeBetweenTemplates Called {moveModel.FromTemplate}->{moveModel.ToTemplate} {moveModel.ClientCode}" +
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SpotService MoveMatrixClientCodeBetweenTemplates Called {moveModel.FromTemplate}->{moveModel.ToTemplate} {moveModel.ClientCode}" +
                 $" itIsTemplatesList={itIsPoKomissii}");
 
             MoveQuikCodeModel moveQuikModel = new MoveQuikCodeModel();
@@ -125,7 +125,7 @@ namespace QuikAPIBrlService
         }
         public ListStringResponseModel MoveQuikClientCodeBetweenTemplates(bool itIsPoKomissii, MoveQuikCodeModel moveModel)
         {
-            _logger.LogInformation($"SpotService MoveQuikClientCodeBetweenTemplates Called {moveModel.FromTemplate}->{moveModel.ToTemplate} {moveModel.ClientCode}" +
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SpotService MoveQuikClientCodeBetweenTemplates Called {moveModel.FromTemplate}->{moveModel.ToTemplate} {moveModel.ClientCode}" +
                 $" itIsTemplatesList={itIsPoKomissii}");
             ListStringResponseModel response = new ListStringResponseModel();
 
@@ -148,14 +148,14 @@ namespace QuikAPIBrlService
             }
 
 
-            _logger.LogInformation($"MoveQuikClientCodeBetweenTemplates result is: {resultEditBrl}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} MoveQuikClientCodeBetweenTemplates result is: {resultEditBrl}");
 
             return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM, response);
         }
 
         public ListStringResponseModel ReplaceAllCodesInTemplate(bool itIsPoKomissii, TemplateAndMatrixCodesModel model)
         {
-            _logger.LogInformation($"SpotService ReplaceAllCodesInTemplate Called for {model.Template}, itIsPoKomissii={itIsPoKomissii}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SpotService ReplaceAllCodesInTemplate Called for {model.Template}, itIsPoKomissii={itIsPoKomissii}");
 
             // переделаем коды на QUIK формат
             for (int i = 0; i < model.ClientCodes.Length; i++)
@@ -202,7 +202,7 @@ namespace QuikAPIBrlService
                 resultEditBrl = NativeMethods.QDAPI_SetClientsListOfMarginTemplate(_spotFIRM, model.Template, ref clStruct);
             }
 
-            _logger.LogInformation($"ReplaceAllCodesInTemplate result is: {resultEditBrl}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} ReplaceAllCodesInTemplate result is: {resultEditBrl}");
 
             Marshal.FreeHGlobal(clStruct.elems);
             for (int i = 0; i < clPtrArray.Length; ++i)
@@ -215,7 +215,7 @@ namespace QuikAPIBrlService
 
         public ListStringResponseModel DeleteCodeFromTemplate(bool itIsPoKomissii, string template, string clientCode, bool needToConvertCode)
         {
-            _logger.LogInformation($"SpotService DeleteCode {clientCode} FromTemplate {template} Called, " +
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SpotService DeleteCode {clientCode} FromTemplate {template} Called, " +
                 $"poKomissii={itIsPoKomissii}, needConvertCodeToQuik={needToConvertCode}");
 
             // если прислан код матрицы - преобразовать в формат Quik
@@ -252,7 +252,7 @@ namespace QuikAPIBrlService
                 resultEditBrl = NativeMethods.QDAPI_RemoveClientFromMarginTemplate(_spotFIRM, template, quikCode);
             }
 
-            _logger.LogInformation($"Delete result is: {resultEditBrl}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Delete result is: {resultEditBrl}");
 
             //закрыть соединение
             return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM, response);
@@ -260,7 +260,7 @@ namespace QuikAPIBrlService
 
         public ListStringResponseModel AddClientPortfolioToTemplate(bool itIsPoKomissii, string template, string clientCode)
         {
-            _logger.LogInformation($"SpotService AddClientPortfolioToTemplate {clientCode} to {template} Called, poKomissii={itIsPoKomissii}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SpotService AddClientPortfolioToTemplate {clientCode} to {template} Called, poKomissii={itIsPoKomissii}");
 
             // код матрицы - преобразовать в формат Quik
             string quikCode = CommonServices.PortfoliosConvertingService.GetQuikSpotPortfolio(clientCode);
@@ -291,7 +291,7 @@ namespace QuikAPIBrlService
                 resultEditBrl = NativeMethods.QDAPI_AddClientToMarginTemplate(_spotFIRM, template, quikCode);
             }
 
-            _logger.LogInformation($"AddClientPortfolioToTemplate result is: {resultEditBrl}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} AddClientPortfolioToTemplate result is: {resultEditBrl}");
 
             //закрыть соединение
             return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM, response);

@@ -25,13 +25,13 @@ namespace QuikAPIBrlService
 
         public string GetLogin()
         {
-            _logger.LogInformation("FortsService GetLogin Called");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} FortsService GetLogin Called");
             return _logon.Login;
         }
 
         public ListStringResponseModel CheckConnection()
         {
-            _logger.LogInformation("FortsService CheckConnection Called");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} FortsService CheckConnection Called");
             ListStringResponseModel response = new ListStringResponseModel();
 
             // открыть соединение
@@ -47,7 +47,7 @@ namespace QuikAPIBrlService
 
         public ListStringResponseModel GetList(bool itIsTemplatesList, bool itIsPoKomissii, string template)
         {
-            _logger.LogInformation($"FortsService GetList Called, itIsTemplatesList={itIsTemplatesList}, itIsPoKomissii={itIsPoKomissii}, template={template}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} FortsService GetList Called, itIsTemplatesList={itIsTemplatesList}, itIsPoKomissii={itIsPoKomissii}, template={template}");
             ListStringResponseModel response = new ListStringResponseModel();
 
             // открыть соединение
@@ -91,7 +91,7 @@ namespace QuikAPIBrlService
             {
                 QDAPI_ArrayStrings resultArrStr = Marshal.PtrToStructure<QDAPI_ArrayStrings>(clPtr);
 
-                _logger.LogInformation($"FortsService GetList result count : {resultArrStr.count}");
+                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} FortsService GetList result count : {resultArrStr.count}");
 
                 IntPtr[] resultArray = new IntPtr[resultArrStr.count];
                 Marshal.Copy(resultArrStr.elems, resultArray, 0, (int)resultArrStr.count);
@@ -115,7 +115,7 @@ namespace QuikAPIBrlService
 
         public ListStringResponseModel AddFortsCodeToTemplate(bool itIsPoKomissii, string template, string clientCode)
         {
-            _logger.LogInformation($"FortsService AddFortsCodeToTemplate {clientCode} to {template} Called, poKomissii={itIsPoKomissii}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} FortsService AddFortsCodeToTemplate {clientCode} to {template} Called, poKomissii={itIsPoKomissii}");
 
             //// код матрицы - преобразовать в формат Quik
             string quikCode = CommonServices.PortfoliosConvertingService.GetQuikFortsCode(clientCode);
@@ -142,7 +142,7 @@ namespace QuikAPIBrlService
                 resultEditBrl = NativeMethods.QDAPI_AddClientToMarginTemplate(_fortsFIRM, template, quikCode);
             }
 
-            _logger.LogInformation($"FortsService AddFortsCodeToTemplate result is: {resultEditBrl}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} FortsService AddFortsCodeToTemplate result is: {resultEditBrl}");
 
             //закрыть соединение
             return _connection.CloseQuikAPI(resultEditBrl, _fortsFIRM, response);
@@ -150,7 +150,7 @@ namespace QuikAPIBrlService
 
         public ListStringResponseModel DeleteCodeFromTemplate(bool itIsPoKomissii, string template, string clientCode, bool needToConvertCode)
         {
-            _logger.LogInformation($"FortsService DeleteCode {clientCode} FromTemplate {template} Called, " +
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} FortsService DeleteCode {clientCode} FromTemplate {template} Called, " +
                 $"poKomissii={itIsPoKomissii}, needConvertCodeToQuik={needToConvertCode}");
 
             // если прислан код матрицы - преобразовать в формат Quik
@@ -182,7 +182,7 @@ namespace QuikAPIBrlService
                 resultEditBrl = NativeMethods.QDAPI_RemoveClientFromMarginTemplate(_fortsFIRM, template, quikCode);
             }
 
-            _logger.LogInformation($"FortsService DeleteCode result is: {resultEditBrl}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} FortsService DeleteCode result is: {resultEditBrl}");
 
             //закрыть соединение
             return _connection.CloseQuikAPI(resultEditBrl, _fortsFIRM, response);
@@ -190,7 +190,7 @@ namespace QuikAPIBrlService
 
         public ListStringResponseModel MoveMatrixFortsCodeBetweenTemplates(bool itIsPoKomissii, MoveMatrixFortsCodeModel moveModel)
         {
-            _logger.LogInformation($"SpotService MoveMatrixFortsCodeBetweenTemplates Called {moveModel.FromTemplate}->{moveModel.ToTemplate} {moveModel.ClientCode}" +
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SpotService MoveMatrixFortsCodeBetweenTemplates Called {moveModel.FromTemplate}->{moveModel.ToTemplate} {moveModel.ClientCode}" +
                 $" itIsTemplatesList={itIsPoKomissii}");
             ListStringResponseModel response = new ListStringResponseModel();
 
@@ -216,7 +216,7 @@ namespace QuikAPIBrlService
                 //перемещение кода клиента из одного шаблона "по Плечу" в другой  шаблон "по Плечу".
                 resultEditBrl = NativeMethods.QDAPI_MoveClientBetweenMarginTemplates(_fortsFIRM, moveModel.FromTemplate, moveModel.ToTemplate, quikCode);
             }
-            _logger.LogInformation($"MoveMatrixFortsCodeBetweenTemplates result is: {resultEditBrl}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} MoveMatrixFortsCodeBetweenTemplates result is: {resultEditBrl}");
             
             //закрыть соединение
             return _connection.CloseQuikAPI(resultEditBrl, _fortsFIRM, response);
@@ -225,7 +225,7 @@ namespace QuikAPIBrlService
 
         public ListStringResponseModel ReplaceAllMatrixFortsCodesInTemplate(bool itIsPoKomissii, TemplateAndMatrixFortsCodesModel model)
         {
-            _logger.LogInformation($"SpotService ReplaceAllMatrixFortsCodesInTemplate Called for {model.Template}, itIsPoKomissii={itIsPoKomissii}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SpotService ReplaceAllMatrixFortsCodesInTemplate Called for {model.Template}, itIsPoKomissii={itIsPoKomissii}");
 
             // код матрицы - преобразовать в формат Quik
             for (int i = 0; i < model.ClientCodes.Length; i++)
@@ -267,7 +267,7 @@ namespace QuikAPIBrlService
                 resultEditBrl = NativeMethods.QDAPI_SetClientsListOfMarginTemplate(_fortsFIRM, model.Template, ref clStruct);
             }
 
-            _logger.LogInformation($"ReplaceAllMatrixFortsCodesInTemplate result is: {resultEditBrl}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} ReplaceAllMatrixFortsCodesInTemplate result is: {resultEditBrl}");
 
             Marshal.FreeHGlobal(clStruct.elems);
             for (int i = 0; i < clPtrArray.Length; ++i)

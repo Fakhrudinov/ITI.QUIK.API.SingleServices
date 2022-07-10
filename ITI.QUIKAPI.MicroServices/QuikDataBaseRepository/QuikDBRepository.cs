@@ -72,7 +72,7 @@ namespace QuikDataBaseRepository
 
         public async Task<ListStringResponseModel> CheckConnections()
         {
-            _logger.LogInformation($"QuikDBRepository CheckConnections Called");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QuikDBRepository CheckConnections Called");
 
             ListStringResponseModel response = new ListStringResponseModel();
 
@@ -109,13 +109,13 @@ namespace QuikDataBaseRepository
                 return response;
             }
 
-            _logger.LogInformation($"QuikDBRepository CheckConnections Success");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QuikDBRepository CheckConnections Success");
             return response;
         }
 
         public async Task<DataBaseClientCodesResponse> GetRegisteredCodes(IEnumerable<string> codes)
         {
-            _logger.LogInformation($"QuikDBRepository GetRegisteredCodes Called");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QuikDBRepository GetRegisteredCodes Called");
 
             string codesAtRequest = GetCodesString(GetUniqueCodes(codes));
 
@@ -238,7 +238,7 @@ namespace QuikDataBaseRepository
                 return response;
             }
 
-            _logger.LogInformation($"QuikDBRepository GetRegisteredCodes Success");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QuikDBRepository GetRegisteredCodes Success");
 
             if (response.IsSuccess 
                 && response.ClientInfo.Count == 0 
@@ -295,7 +295,7 @@ namespace QuikDataBaseRepository
 
         public async Task<ListStringResponseModel> SetNewClientToMNP(NewMNPClientModel model)
         {
-            _logger.LogInformation($"QuikDBRepository SetNewClientToMNP Called for {model.Client.LastName} {model.Client.FirstName}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QuikDBRepository SetNewClientToMNP Called for {model.Client.LastName} {model.Client.FirstName}");
 
             //список всех уникальных MATRIX портфелей спот и фортс вместе
             //список всех уникальных QUIK кодов       спот и фортс вместе
