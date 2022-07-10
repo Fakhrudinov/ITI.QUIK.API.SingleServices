@@ -15,15 +15,15 @@ namespace QuikDataBaseRepository
         private DataBaseConnectionConfiguration _connection;
 
         //check connection requests
-        private const string _checkClientAccounts =     "SELECT COUNT(*) FROM ClientAccounts;";
-        private const string _checkClientInfo =         "SELECT COUNT(*) FROM ClientInfo;";
-        private const string _checkContracts =          "SELECT COUNT(*) FROM Contracts;";
-        private const string _checkDepoClientAccounts = "SELECT COUNT(*) FROM DepoClientAccounts;";
+        //private const string _checkClientAccounts =     "SELECT COUNT(*) FROM ClientAccounts;";
+        //private const string _checkClientInfo = "SELECT COUNT(*) FROM ClientInfo;";
+        //private const string _checkContracts = "SELECT COUNT(*) FROM Contracts;";
+        //private const string _checkDepoClientAccounts = "SELECT COUNT(*) FROM DepoClientAccounts;";
 
-        private const string _selectClientAccounts =    "SELECT ClientID, Account, SubAccount FROM ClientAccounts t";
-        private const string _selectClientInfo =        "SELECT ClientCode, FullName, EMail, ClientType, Resident, Address FROM ClientInfo t";
-        private const string _selectContracts =         "SELECT ClientID, Number, RegisterDate, Type, Manager FROM Contracts t";
-        private const string _selectDepoClientAccounts ="SELECT ClientID,AccountNumber,Manager,Owner,Depositary,ContractNo,ContractDate FROM DepoClientAccounts t";
+        private const string _selectClientAccounts = "SELECT ClientID, Account, SubAccount FROM ClientAccounts t";
+        private const string _selectClientInfo = "SELECT ClientCode, FullName, EMail, ClientType, Resident, Address FROM ClientInfo t";
+        private const string _selectContracts = "SELECT ClientID, Number, RegisterDate, Type, Manager FROM Contracts t";
+        private const string _selectDepoClientAccounts = "SELECT ClientID,AccountNumber,Manager,Owner,Depositary,ContractNo,ContractDate FROM DepoClientAccounts t";
 
         private const string _insertClientAccounts = "INSERT INTO ClientAccounts (ClientID, Account, SubAccount) " +
                                                                         " VALUES (@ClientID, @Account, @SubAccount);";
@@ -76,25 +76,69 @@ namespace QuikDataBaseRepository
 
             ListStringResponseModel response = new ListStringResponseModel();
 
+            string filePathCheckClientAccounts = Path.Combine(Directory.GetCurrentDirectory(), "SqlQuerys", "queryCheckClientAccounts.sql");
+            if (!File.Exists(filePathCheckClientAccounts))
+            {
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Error! File with SQL script not found at {filePathCheckClientAccounts}");
+
+                response.IsSuccess = false;
+                response.Messages.Add("Error! File with SQL script not found at " + filePathCheckClientAccounts);
+                return response;
+            }
+            string queryCheckClientAccounts = File.ReadAllText(filePathCheckClientAccounts);
+
+            string filePathCheckClientInfo = Path.Combine(Directory.GetCurrentDirectory(), "SqlQuerys", "queryCheckClientInfo.sql");
+            if (!File.Exists(filePathCheckClientInfo))
+            {
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Error! File with SQL script not found at {filePathCheckClientInfo}");
+
+                response.IsSuccess = false;
+                response.Messages.Add("Error! File with SQL script not found at " + filePathCheckClientInfo);
+                return response;
+            }
+            string queryCheckClientInfo = File.ReadAllText(filePathCheckClientInfo);
+
+            string filePathCheckContracts = Path.Combine(Directory.GetCurrentDirectory(), "SqlQuerys", "queryCheckContracts.sql");
+            if (!File.Exists(filePathCheckContracts))
+            {
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Error! File with SQL script not found at {filePathCheckContracts}");
+
+                response.IsSuccess = false;
+                response.Messages.Add("Error! File with SQL script not found at " + filePathCheckContracts);
+                return response;
+            }
+            string queryCheckContracts = File.ReadAllText(filePathCheckContracts);
+
+            string filePathCheckDepoClientAccounts = Path.Combine(Directory.GetCurrentDirectory(), "SqlQuerys", "queryCheckDepoClientAccounts.sql");
+            if (!File.Exists(filePathCheckDepoClientAccounts))
+            {
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Error! File with SQL script not found at {filePathCheckDepoClientAccounts}");
+
+                response.IsSuccess = false;
+                response.Messages.Add("Error! File with SQL script not found at " + filePathCheckDepoClientAccounts);
+                return response;
+            }
+            string queryCheckDepoClientAccounts = File.ReadAllText(filePathCheckDepoClientAccounts);
+
             try
             {
                 using (SqlConnection connect = new SqlConnection(_connection.ConnectionString))
                 {
                     await connect.OpenAsync();
 
-                    using (SqlCommand command = new SqlCommand(_checkClientAccounts, connect))
+                    using (SqlCommand command = new SqlCommand(queryCheckClientAccounts, connect))
                     {
                         response.Messages.Add("Records in ClientAccounts table = " + (int)await command.ExecuteScalarAsync());
                     }
-                    using (SqlCommand command = new SqlCommand(_checkClientInfo, connect))
+                    using (SqlCommand command = new SqlCommand(queryCheckClientInfo, connect))
                     {
                         response.Messages.Add("Records in ClientInfo table = " + (int)await command.ExecuteScalarAsync());
                     }
-                    using (SqlCommand command = new SqlCommand(_checkContracts, connect))
+                    using (SqlCommand command = new SqlCommand(queryCheckContracts, connect))
                     {
                         response.Messages.Add("Records in Contracts table = " + (int)await command.ExecuteScalarAsync());
                     }
-                    using (SqlCommand command = new SqlCommand(_checkDepoClientAccounts, connect))
+                    using (SqlCommand command = new SqlCommand(queryCheckDepoClientAccounts, connect))
                     {
                         response.Messages.Add("Records in DepoClientAccounts table = " + (int)await command.ExecuteScalarAsync());
                     }

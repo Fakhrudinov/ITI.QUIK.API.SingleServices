@@ -1,0 +1,1 @@
+SELECT ClientID, Account, SubAccount FROM ClientAccounts t
