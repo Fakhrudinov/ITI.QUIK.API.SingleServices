@@ -125,7 +125,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             ListStringResponseModel result = ValidateModel.ValidateNewClientOptionWorkShopModel(model);
             if (!result.IsSuccess)
             {
-                _logger.LogWarning($"HttpPost NewClient/OptionWorkshop Failed with " + result.Messages[0]);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPost NewClient/OptionWorkshop Failed with " + result.Messages[0]);
                 return Ok(result);
             }
 
@@ -143,7 +143,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             ListStringResponseModel result = ValidateModel.ValidateNewClientModel(model);
             if (!result.IsSuccess)
             {
-                _logger.LogWarning($"HttpPost NewClient Failed with " + result.Messages[0]);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPost NewClient Failed with " + result.Messages[0]);
                 return Ok(result);
             }
 
@@ -211,7 +211,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             ListStringResponseModel result = ValidateModel.ValidateCodesArrayModel(model);
             if (!result.IsSuccess)
             {
-                _logger.LogWarning($"HttpPut AddMatrixCodesToFileCodesIni Failed with " + result.Messages[0]);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut AddMatrixCodesToFileCodesIni Failed with " + result.Messages[0]);
                 return Ok(result);
             }
 
@@ -275,7 +275,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             ListStringResponseModel result = ValidateModel.ValidateMatrixCodeAndPubringKeyModel(model);
             if (!result.IsSuccess)
             {
-                _logger.LogWarning($"HttpPut SetNewPubringKey/ByMatrixClientCode Failed with " + result.Messages[0]);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut SetNewPubringKey/ByMatrixClientCode Failed with " + result.Messages[0]);
                 return Ok(result);
             }
 
@@ -293,7 +293,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             ListStringResponseModel result = ValidateModel.ValidateFortsCodeAndPubringKeyModel(model);
             if (!result.IsSuccess)
             {
-                _logger.LogWarning($"HttpPut SetNewPubringKey/ByFortsClientCode Failed with " + result.Messages[0]);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut SetNewPubringKey/ByFortsClientCode Failed with " + result.Messages[0]);
                 return Ok(result);
             }
 
@@ -311,7 +311,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             ListStringResponseModel result = ValidateModel.ValidateMatrixSpotClientCodeModel(model);
             if (!result.IsSuccess)
             {
-                _logger.LogWarning($"HttpPut SetAllTrades/ByMatrixClientCode Failed with " + result.Messages[0]);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut SetAllTrades/ByMatrixClientCode Failed with " + result.Messages[0]);
                 return Ok(result);
             }
 
@@ -329,7 +329,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             ListStringResponseModel result = ValidateModel.ValidateMatrixFortsClientCodeModel(model.FortsClientCode);
             if (!result.IsSuccess)
             {
-                _logger.LogWarning($"HttpPut SetAllTradesBy/FortsClientCode Failed with " + result.Messages[0]);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut SetAllTradesBy/FortsClientCode Failed with " + result.Messages[0]);
                 return Ok(result);
             }
 

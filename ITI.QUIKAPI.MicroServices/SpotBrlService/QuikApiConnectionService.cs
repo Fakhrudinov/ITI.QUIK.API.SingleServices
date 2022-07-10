@@ -40,7 +40,7 @@ namespace QuikAPIBrlService
             if (_errCode != (int)QDAPI_Errors.QDAPI_ERROR_SUCCESS)
             {
                 string errorText = CommonServices.QuikService.GetErrorDescription(_errCode);
-                _logger.LogWarning($"QAS100 Ошибка подключения к Qadmin API. Файл БРЛ {firm} не был открыт. Код ошибки: {_errCode} {errorText}");
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QAS100 Ошибка подключения к Qadmin API. Файл БРЛ {firm} не был открыт. Код ошибки: {_errCode} {errorText}");
 
                 response.IsSuccess = false;
                 response.Messages.Add($"QAS100 Ошибка подключения к Qadmin API. Файл БРЛ {firm} не был открыт. Код ошибки: {_errCode} {errorText}");
@@ -69,7 +69,7 @@ namespace QuikAPIBrlService
             if (_errCode != (int)QDAPI_Errors.QDAPI_ERROR_SUCCESS)
             {
                 string errorText = CommonServices.QuikService.GetErrorDescription(_errCode);
-                _logger.LogWarning($"QAS101 Ошибка подключения к Qadmin API. Файл БРЛ {firm} не был открыт. Код ошибки: {_errCode} {errorText}");
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QAS101 Ошибка подключения к Qadmin API. Файл БРЛ {firm} не был открыт. Код ошибки: {_errCode} {errorText}");
 
                 response.IsSuccess = false;
                 response.Messages.Add($"QAS101 Ошибка подключения к Qadmin API. Файл БРЛ {firm} не был открыт. Код ошибки: {_errCode} {errorText}");
@@ -92,11 +92,11 @@ namespace QuikAPIBrlService
 
                 if (conErr == null)
                 {
-                    _logger.LogWarning($"QAS102 Ошибка подключения к Qadmin API - conErr is null");
+                    _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QAS102 Ошибка подключения к Qadmin API - conErr is null");
                     return "QAS102 Ошибка подключения к Qadmin API - conErr is null";
                 }
 
-                _logger.LogWarning($"QAS103 Ошибка подключения к Qadmin API: {conErr}");
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QAS103 Ошибка подключения к Qadmin API: {conErr}");
                 return $"QAS103 Ошибка подключения к Qadmin API: {conErr}";
             }
             else
@@ -118,11 +118,11 @@ namespace QuikAPIBrlService
                 if (_errCode != (int)QDAPI_Errors.QDAPI_ERROR_SUCCESS)
                 {
                     string errorText = CommonServices.QuikService.GetErrorDescription(_errCode);
-                    _logger.LogWarning($"QAS104 Qadmin API Настройки не были сохранены. Код ошибки: {_errCode}");
+                    _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QAS104 Qadmin API Настройки не были сохранены. Код ошибки: {_errCode}");
                     //12 = Текущий доступ к настройкам БРЛ не допускает их изменения. ОК при "1" в подключении
                     if (_errCode != 12)
                     {
-                        _logger.LogWarning($"QAS105 Qadmin API Ошибка в CloseQuikQadminAPI. Настройки не были сохранены, код ошибки: {_errCode} {errorText}");
+                        _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QAS105 Qadmin API Ошибка в CloseQuikQadminAPI. Настройки не были сохранены, код ошибки: {_errCode} {errorText}");
                         return $"QAS105 Qadmin API Ошибка в CloseQuikQadminAPI. Настройки не были сохранены, код ошибки: {_errCode} {errorText}";
                     }
                 }
@@ -137,7 +137,7 @@ namespace QuikAPIBrlService
                 if (_errCode != (int)QDAPI_Errors.QDAPI_ERROR_SUCCESS)
                 {
                     string errorText = CommonServices.QuikService.GetErrorDescription(_errCode);
-                    _logger.LogWarning($"QAS106 Qadmin API Файл не был закрыт. Код ошибки: {_errCode} {errorText}");
+                    _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QAS106 Qadmin API Файл не был закрыт. Код ошибки: {_errCode} {errorText}");
                     return $"QAS106 Qadmin API Файл не был закрыт. Код ошибки: {_errCode} {errorText}";
                 }
                 else
@@ -151,7 +151,7 @@ namespace QuikAPIBrlService
                 if (_errCode != (int)QDAPI_Errors.QDAPI_ERROR_SUCCESS)
                 {
                     string errorText = CommonServices.QuikService.GetErrorDescription(_errCode);
-                    _logger.LogWarning($"QAS107 Ошибка отключения от сервера. Код ошибки: {_errCode} {errorText}");
+                    _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QAS107 Ошибка отключения от сервера. Код ошибки: {_errCode} {errorText}");
                     return $"QAS107 Ошибка отключения от сервера. Код ошибки: {_errCode} {errorText}";
                 }
                 else
@@ -162,7 +162,7 @@ namespace QuikAPIBrlService
             }
             catch (Exception ex)
             {
-                _logger.LogWarning($"QAS108 CheckConnectionQadmin Error {ex.Message}");
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QAS108 CheckConnectionQadmin Error {ex.Message}");
                 return $"QAS108 CheckConnectionQadmin Error {ex.Message}";
             }
         }
@@ -173,7 +173,7 @@ namespace QuikAPIBrlService
 
             if (resultClose == null)
             {
-                _logger.LogWarning($"QAS109 No answer received when close QUIK BRL " + firm);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QAS109 No answer received when close QUIK BRL " + firm);
                 response.IsSuccess = false;
                 response.Messages.Add($"QAS109 Error at close QUIK BRL {firm}, error={resultClose}");
             }
@@ -188,7 +188,7 @@ namespace QuikAPIBrlService
                 {
                     string errorText = CommonServices.QuikService.GetErrorDescription(resultEditBrl);
 
-                    _logger.LogWarning($"QAS110 Error! при выполнении задачи = {resultEditBrl} {errorText}");
+                    _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QAS110 Error! при выполнении задачи = {resultEditBrl} {errorText}");
 
                     response.IsSuccess = false;
                     response.Messages.Add($"QAS110 Error! при выполнении задачи = {resultEditBrl} {errorText}");
@@ -196,7 +196,7 @@ namespace QuikAPIBrlService
             }
             else
             {
-                _logger.LogWarning($"QAS111 Error at close QUIK BRL {firm}, error={resultClose}");
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QAS111 Error at close QUIK BRL {firm}, error={resultClose}");
 
                 response.IsSuccess = false;
                 response.Messages.Add($"QAS111 Error at close QUIK BRL {firm}, error={resultClose}");

@@ -59,7 +59,7 @@ namespace QuikApiQMonitorService
                 
                 if (reloadResult != 0)
                 {
-                    _logger.LogWarning($"Error! QMonitorService ReloadDealerLib {library} failed, result={reloadResult}");
+                    _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Error! QMonitorService ReloadDealerLib {library} failed, result={reloadResult}");
                     response.Messages.Add($"Error! QMonitorService ReloadDealerLib {library} failed, result={reloadResult}");
                     response.IsSuccess = false;
                 }
@@ -112,7 +112,7 @@ namespace QuikApiQMonitorService
                     break;
             }
 
-            _logger.LogWarning($"QMonitorService connection failed, status={status} ({statusDescription})");
+            _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QMonitorService connection failed, status={status} ({statusDescription})");
             response.Messages.Add($"QMonitorService connection failed, status={status} ({statusDescription})");
             response.IsSuccess = false;
 

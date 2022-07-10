@@ -25,14 +25,14 @@ namespace QuikDataBaseRepository
         //private const string _selectContracts = "SELECT ClientID, Number, RegisterDate, Type, Manager FROM Contracts t";
         //private const string _selectDepoClientAccounts = "SELECT ClientID,AccountNumber,Manager,Owner,Depositary,ContractNo,ContractDate FROM DepoClientAccounts t";
 
-        private const string _insertClientAccounts = "INSERT INTO ClientAccounts (ClientID, Account, SubAccount) " +
-                                                                        " VALUES (@ClientID, @Account, @SubAccount);";
-        private const string _insertClientInfo = "INSERT INTO ClientInfo (ClientCode, FullName, EMail, ClientType, Resident, Address) " +
-                                                                " VALUES (@ClientCode, @FullName, @EMail, @ClientType, @Resident, @Address);";
-        private const string _insertContracts = "INSERT INTO Contracts (ClientID, Number, RegisterDate, Type, Manager) " +
-                                                                "VALUES (@ClientID, @Number, @RegisterDate, @Type, @Manager);";
-        private const string _insertDepoClientAccounts = "INSERT INTO DepoClientAccounts (ClientID,AccountNumber,Manager,Owner,Depositary,ContractNo,ContractDate) " +
-                                                                                "VALUES (@ClientID,@AccountNumber,@Manager,@Owner,@Depositary,@ContractNo,@ContractDate);";
+        //private const string _insertClientAccounts = "INSERT INTO ClientAccounts (ClientID, Account, SubAccount) " +
+        //                                                                " VALUES (@ClientID, @Account, @SubAccount);";
+        //private const string _insertClientInfo = "INSERT INTO ClientInfo (ClientCode, FullName, EMail, ClientType, Resident, Address) " +
+        //                                                        " VALUES (@ClientCode, @FullName, @EMail, @ClientType, @Resident, @Address);";
+        //private const string _insertContracts = "INSERT INTO Contracts (ClientID, Number, RegisterDate, Type, Manager) " +
+        //                                                        "VALUES (@ClientID, @Number, @RegisterDate, @Type, @Manager);";
+        //private const string _insertDepoClientAccounts = "INSERT INTO DepoClientAccounts (ClientID,AccountNumber,Manager,Owner,Depositary,ContractNo,ContractDate) " +
+        //                                                                        "VALUES (@ClientID,@AccountNumber,@Manager,@Owner,@Depositary,@ContractNo,@ContractDate);";
 
         public QuikDBRepository(IOptions<DataBaseConnectionConfiguration> connection, ILogger<QuikDBRepository> logger)
         {
@@ -146,7 +146,7 @@ namespace QuikDataBaseRepository
             }
             catch (Exception ex)
             {
-                _logger.LogWarning($"QuikDBRepository CheckConnections Failed, Exception: " + ex.Message);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QuikDBRepository CheckConnections Failed, Exception: " + ex.Message);
 
                 response.IsSuccess = false;
                 response.Messages.Add("Exception at DataBase: " + ex.Message);
@@ -333,7 +333,7 @@ namespace QuikDataBaseRepository
             }
             catch (Exception ex)
             {
-                _logger.LogWarning($"QuikDBRepository GetRegisteredCodes Failed, Exception: " + ex.Message);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QuikDBRepository GetRegisteredCodes Failed, Exception: " + ex.Message);
 
                 response.IsSuccess = false;
                 response.Messages.Add("Exception: Select from DataBase: " + ex.Message);
@@ -536,6 +536,51 @@ namespace QuikDataBaseRepository
                 clientInfoModels[i].Address = model.Address;
             }
 
+            //проверим наличие файлов с sql запросами
+            string filePathInsertClientInfo = Path.Combine(Directory.GetCurrentDirectory(), "SqlQuerys", "queryInsertClientInfo.sql");
+            if (!File.Exists(filePathInsertClientInfo))
+            {
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Error! File with SQL script not found at {filePathInsertClientInfo}");
+
+                response.IsSuccess = false;
+                response.Messages.Add("Error! File with SQL script not found at " + filePathInsertClientInfo);
+                return response;
+            }
+            string queryInsertClientInfo = File.ReadAllText(filePathInsertClientInfo);
+
+            string filePathInsertContracts = Path.Combine(Directory.GetCurrentDirectory(), "SqlQuerys", "queryInsertContracts.sql");
+            if (!File.Exists(filePathInsertContracts))
+            {
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Error! File with SQL script not found at {filePathInsertContracts}");
+
+                response.IsSuccess = false;
+                response.Messages.Add("Error! File with SQL script not found at " + filePathInsertContracts);
+                return response;
+            }
+            string queryInsertContracts = File.ReadAllText(filePathInsertContracts);
+
+            string filePathInsertDepoClientAccounts = Path.Combine(Directory.GetCurrentDirectory(), "SqlQuerys", "queryInsertDepoClientAccounts.sql");
+            if (!File.Exists(filePathInsertDepoClientAccounts))
+            {
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Error! File with SQL script not found at {filePathInsertDepoClientAccounts}");
+
+                response.IsSuccess = false;
+                response.Messages.Add("Error! File with SQL script not found at " + filePathInsertDepoClientAccounts);
+                return response;
+            }
+            string queryInsertDepoClientAccounts = File.ReadAllText(filePathInsertDepoClientAccounts);
+
+            string filePathInsertClientAccounts = Path.Combine(Directory.GetCurrentDirectory(), "SqlQuerys", "queryInsertClientAccounts.sql");
+            if (!File.Exists(filePathInsertClientAccounts))
+            {
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Error! File with SQL script not found at {filePathInsertClientAccounts}");
+
+                response.IsSuccess = false;
+                response.Messages.Add("Error! File with SQL script not found at " + filePathInsertClientAccounts);
+                return response;
+            }
+            string queryInsertClientAccounts = File.ReadAllText(filePathInsertClientAccounts);
+
             // запишем данные в БД
             try
             {
@@ -545,7 +590,7 @@ namespace QuikDataBaseRepository
 
                     foreach (var record in clientAccountsModels)
                     {
-                        using (SqlCommand command = new SqlCommand(_insertClientAccounts, connect))
+                        using (SqlCommand command = new SqlCommand(queryInsertClientAccounts, connect))
                         {
                             command.Parameters.AddWithValue("@ClientID", record.ClientID);
                             command.Parameters.AddWithValue("@Account", record.Account);
@@ -556,6 +601,8 @@ namespace QuikDataBaseRepository
                             }
                             catch (Exception cx)
                             {
+                                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Exception Insert ClientAccount {record.ClientID} at DataBase: " + cx.Message);
+
                                 response.IsSuccess = false;
                                 response.Messages.Add($"Exception Insert ClientAccount {record.ClientID} at DataBase: " + cx.Message);
                             }                            
@@ -564,7 +611,7 @@ namespace QuikDataBaseRepository
 
                     foreach (var record in clientInfoModels)
                     {
-                        using (SqlCommand command = new SqlCommand(_insertClientInfo, connect))
+                        using (SqlCommand command = new SqlCommand(queryInsertClientInfo, connect))
                         {
                             command.Parameters.AddWithValue("@ClientCode", record.ClientCode);
                             command.Parameters.AddWithValue("@FullName", record.FullName);
@@ -578,6 +625,8 @@ namespace QuikDataBaseRepository
                             }
                             catch (Exception cx)
                             {
+                                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Exception Insert ClientInfo {record.ClientCode} at DataBase: " + cx.Message);
+
                                 response.IsSuccess = false;
                                 response.Messages.Add($"Exception Insert ClientInfo {record.ClientCode} at DataBase: " + cx.Message);
                             }
@@ -586,7 +635,7 @@ namespace QuikDataBaseRepository
 
                     foreach (var record in contractsModels)
                     {
-                        using (SqlCommand command = new SqlCommand(_insertContracts, connect))
+                        using (SqlCommand command = new SqlCommand(queryInsertContracts, connect))
                         {
                             command.Parameters.AddWithValue("@ClientID", record.ClientID);
                             command.Parameters.AddWithValue("@Number", record.Number);
@@ -599,6 +648,8 @@ namespace QuikDataBaseRepository
                             }
                             catch (Exception cx)
                             {
+                                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Exception Insert Contracts {record.ClientID} at DataBase: " + cx.Message);
+
                                 response.IsSuccess = false;
                                 response.Messages.Add($"Exception Insert Contracts {record.ClientID} at DataBase: " + cx.Message);
                             }
@@ -607,7 +658,7 @@ namespace QuikDataBaseRepository
 
                     foreach (var record in depoClientAccountsModels)
                     {
-                        using (SqlCommand command = new SqlCommand(_insertDepoClientAccounts, connect))
+                        using (SqlCommand command = new SqlCommand(queryInsertDepoClientAccounts, connect))
                         {
                             command.Parameters.AddWithValue("@ClientID", record.ClientID);
                             command.Parameters.AddWithValue("@AccountNumber", record.AccountNumber);
@@ -622,6 +673,8 @@ namespace QuikDataBaseRepository
                             }
                             catch (Exception cx)
                             {
+                                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Exception Insert DepoClientAccounts {record.ClientID} at DataBase: " + cx.Message);
+
                                 response.IsSuccess = false;
                                 response.Messages.Add($"Exception Insert DepoClientAccounts {record.ClientID} at DataBase: " + cx.Message);
                             }
@@ -631,7 +684,7 @@ namespace QuikDataBaseRepository
             }
             catch (Exception ex)
             {
-                _logger.LogWarning($"QuikDBRepository SetNewClientToMNP Failed, Exception: " + ex.Message);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} QuikDBRepository SetNewClientToMNP Failed, Exception: " + ex.Message);
 
                 response.IsSuccess = false;
                 response.Messages.Add("Exception SetNewClientToMNP Connect at DataBase: " + ex.Message);
@@ -692,6 +745,8 @@ namespace QuikDataBaseRepository
             {
                 if (!portfolio.Split('-').First().Equals(clientAgreement))
                 {
+                    _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} MNP200 Portfolio {portfolio} is not belong to agreement {clientAgreement}");
+
                     response.IsSuccess = false;
                     response.Messages.Add($"MNP200 Portfolio {portfolio} is not belong to agreement {clientAgreement}");
                 }

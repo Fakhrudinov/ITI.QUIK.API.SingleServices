@@ -76,7 +76,7 @@ namespace QuikSftpService
                 {
                     if (!client.Exists(remoteDirPath))
                     {
-                        _logger.LogWarning($"SFTP GetStartMessage/forUID/{uid} Failed: Message not found by path {remoteDirPath}");
+                        _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP GetStartMessage/forUID/{uid} Failed: Message not found by path {remoteDirPath}");
 
                         response.IsSuccess = false;
                         response.Messages.Add($"SFTP GetStartMessage/forUID/{uid} Failed: Message not found by path {remoteDirPath}");
@@ -103,7 +103,7 @@ namespace QuikSftpService
             }
             catch (Exception exception)
             {
-                _logger.LogWarning($"SFTP GetStartMessage/forAll/{forAll} {uid} Failed with Error: {exception.Message}");
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP GetStartMessage/forAll/{forAll} {uid} Failed with Error: {exception.Message}");
 
                 response.IsSuccess = false;
                 response.Messages.Add($"SFTP GetStartMessage/forAll/{forAll} {uid} Failed with Error: {exception.Message}");
@@ -158,7 +158,7 @@ namespace QuikSftpService
                     }
                     else
                     {
-                        _logger.LogWarning($"SFTP DeleteStartMessage/{forAll} {uid} Failed: Dir not found by path {remoteDirPath}");
+                        _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP DeleteStartMessage/{forAll} {uid} Failed: Dir not found by path {remoteDirPath}");
 
                         response.IsSuccess = false;
                         response.Messages.Add($"SFTP DeleteStartMessage/forAll/{forAll} {uid} Failed: Dir not found by path {remoteDirPath}");
@@ -169,7 +169,7 @@ namespace QuikSftpService
             }
             catch (Exception exception)
             {
-                _logger.LogWarning($"SFTP DeleteStartMessage/forAll/{forAll} {uid} Failed with Error: {exception.Message}");
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP DeleteStartMessage/forAll/{forAll} {uid} Failed with Error: {exception.Message}");
 
                 response.IsSuccess = false;
                 response.Messages.Add($"SFTP DeleteStartMessage/forAll/{forAll} {uid} Failed with Error: {exception.Message}");
@@ -214,7 +214,7 @@ namespace QuikSftpService
             }
             catch (Exception exception)
             {
-                _logger.LogWarning($"SFTP WriteAllText to file Failed with Error: " + exception.Message);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP WriteAllText to file Failed with Error: " + exception.Message);
 
                 response.IsSuccess = false;
                 response.Messages.Add("SFTP WriteAllText to file Failed with Error: " + exception.Message);
@@ -256,7 +256,7 @@ namespace QuikSftpService
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), _filesFolder, "CurrClnts.xml");
             if (!File.Exists(filePath))
             {
-                _logger.LogWarning($"SFTPService GetUIDFromCurrClnts Error - file not found: " + filePath);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService GetUIDFromCurrClnts Error - file not found: " + filePath);
                 response.IsSuccess = false;
                 response.Messages.Add("Error - file not found: " + filePath);
                 return response;
@@ -324,7 +324,7 @@ namespace QuikSftpService
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), _filesFolder, "CurrClnts.xml");
             if (!File.Exists(filePath))
             {
-                _logger.LogWarning($"SFTPService SetAllTradesByQuikCode Error - file not found: " + filePath);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService SetAllTradesByQuikCode Error - file not found: " + filePath);
                 response.IsSuccess = false;
                 response.Messages.Add("Error - file not found: " + filePath);
                 return response;
@@ -334,7 +334,7 @@ namespace QuikSftpService
             string filePathTempl = Path.Combine(Directory.GetCurrentDirectory(), "TemplatesXML", "UpdateClientSetAllTradesByClientCode.xml");
             if (!File.Exists(filePathTempl))
             {
-                _logger.LogWarning($"SFTPService SetAllTradesByQuikCode Error - Template file not found: " + filePathTempl);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService SetAllTradesByQuikCode Error - Template file not found: " + filePathTempl);
                 response.IsSuccess = false;
                 response.Messages.Add("Error - Template file not found: " + filePathTempl);
                 return response;
@@ -437,7 +437,7 @@ namespace QuikSftpService
             //проверить наличие нового файла
             if (!File.Exists(newFilePath))
             {
-                _logger.LogWarning($"SFTPService SaveNewFileAndUploadToSFTP Error - file not found: " + newFilePath);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService SaveNewFileAndUploadToSFTP Error - file not found: " + newFilePath);
                 response.IsSuccess = false;
                 response.Messages.Add("Error SaveNewFileAndUploadToSFTP - file not found: " + newFilePath);
                 return response;
@@ -513,7 +513,7 @@ namespace QuikSftpService
             string templateFile = Path.Combine(Directory.GetCurrentDirectory(), "TemplatesXML", "PutNewClientOptionWorkshop.xml");
             if (!File.Exists(templateFile))
             {
-                _logger.LogWarning($"SFTPService SendNewClientOptionWorkshop Error - Template file not found: " + templateFile);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService SendNewClientOptionWorkshop Error - Template file not found: " + templateFile);
                 response.IsSuccess = false;
                 response.Messages.Add("Error - Template file not found: " + templateFile);
                 return response;
@@ -561,7 +561,7 @@ namespace QuikSftpService
             string templateFile = Path.Combine(Directory.GetCurrentDirectory(), "TemplatesXML", "PutNewClient.xml");
             if (!File.Exists(templateFile))
             {
-                _logger.LogWarning($"SFTPService SendNewClient Error - Template file not found: " + templateFile);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService SendNewClient Error - Template file not found: " + templateFile);
                 response.IsSuccess = false;
                 response.Messages.Add("Error - Template file not found: " + templateFile);
                 return response;
@@ -720,7 +720,7 @@ namespace QuikSftpService
             string templateFile = Path.Combine(Directory.GetCurrentDirectory(), "TemplatesXML", temlateFileName);
             if (!File.Exists(templateFile))
             {
-                _logger.LogWarning($"SFTPService BlockUserByCode Error - Template file not found: " + templateFile);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService BlockUserByCode Error - Template file not found: " + templateFile);
                 response.IsSuccess = false;
                 response.Messages.Add("Error - Template file not found: " + templateFile);
                 return response;
@@ -833,14 +833,14 @@ namespace QuikSftpService
 
             if (downloadResult.Messages.Contains("Error"))
             {
-                _logger.LogWarning(downloadResult.Messages[0]);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} {downloadResult.Messages[0]}");
 
                 response.IsSuccess = false;
                 return response;
             }
             if (!File.Exists(downloadResult.Messages[0]))
             {
-                _logger.LogWarning($"SFTPService AddMAtrixCodesToFileCodesIni Error - Downloaded file not found: " + downloadResult.Messages[0]);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService AddMAtrixCodesToFileCodesIni Error - Downloaded file not found: " + downloadResult.Messages[0]);
 
                 response.IsSuccess = false;
                 response.Messages.Add("Error - Downloaded file not found: " + downloadResult.Messages[0]);
@@ -903,7 +903,7 @@ namespace QuikSftpService
             string templateFile = Path.Combine(Directory.GetCurrentDirectory(), "TemplatesXML", "GetAllClients.xml");
             if (!File.Exists(templateFile))
             {
-                _logger.LogWarning($"SFTPService GetAllClients Error - Template file not found: " + templateFile);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService GetAllClients Error - Template file not found: " + templateFile);
                 response.IsSuccess = false;
                 response.Messages.Add("Error - Template file not found: " + templateFile);
                 return response;
@@ -920,7 +920,7 @@ namespace QuikSftpService
             File.Copy(templateFile, localFilePath);
             if (!File.Exists(localFilePath))
             {
-                _logger.LogWarning($"SFTPService GetAllClients Error - Renamed Template file not found: " + localFilePath);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService GetAllClients Error - Renamed Template file not found: " + localFilePath);
                 response.IsSuccess = false;
                 response.Messages.Add("Error - Renamed Template file not found: " + localFilePath);
                 return response;
@@ -1119,7 +1119,7 @@ namespace QuikSftpService
             }
             catch (Exception exception)
             {
-                _logger.LogWarning($"SFTP Read catalog {uploadXmlFilesPathSFTP} Failed with Error: {exception.Message}");
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP Read catalog {uploadXmlFilesPathSFTP} Failed with Error: {exception.Message}");
 
                 result.Add($"SFTP Read catalog {uploadXmlFilesPathSFTP} Failed with Error: {exception.Message}");
                 return result;
@@ -1156,13 +1156,13 @@ namespace QuikSftpService
 
             if (!File.Exists(newFileName))
             {
-                _logger.LogWarning($"SFTPService Error - New file not found: " + newFileName);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService Error - New file not found: " + newFileName);
                 return "Error - New file not found: " + newFileName;
             }
             FileInfo fi = new FileInfo(newFileName);
             if (fi.Length < 300)
             {
-                _logger.LogWarning($"SFTPService Error - New file size({fi.Length}) is too small: " + newFileName);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService Error - New file size({fi.Length}) is too small: " + newFileName);
                 return $"Error - New file size({fi.Length}) is too small: " + newFileName;
             }
 
@@ -1201,7 +1201,7 @@ namespace QuikSftpService
             }
             catch (Exception exception)
             {
-                _logger.LogWarning($"SFTP Upload Failed with Error: " + exception.Message);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP Upload Failed with Error: " + exception.Message);
 
                 response.IsSuccess = false;
                 response.Messages.Add("SFTPService Upload Failed with Error: " + exception.Message);
@@ -1232,7 +1232,7 @@ namespace QuikSftpService
             }
             catch (Exception exception)
             {
-                _logger.LogWarning($"SFTP BackUpFileCodesIni Download File Failed with Error: " + exception.Message);
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP BackUpFileCodesIni Download File Failed with Error: " + exception.Message);
 
                 response.IsSuccess = false;
                 response.Messages.Add("SFTP Download File Failed with Error: " + exception.Message);
