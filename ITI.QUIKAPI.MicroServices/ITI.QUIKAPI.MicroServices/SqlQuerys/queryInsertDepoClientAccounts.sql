@@ -1,0 +1,1 @@
+INSERT INTO DepoClientAccounts (ClientID,AccountNumber,Manager,Owner,Depositary,ContractNo,ContractDate) VALUES (@ClientID,@AccountNumber,@Manager,@Owner,@Depositary,@ContractNo,@ContractDate);

@@ -1,0 +1,1 @@
+INSERT INTO ClientAccounts (ClientID, Account, SubAccount) VALUES (@ClientID, @Account, @SubAccount);

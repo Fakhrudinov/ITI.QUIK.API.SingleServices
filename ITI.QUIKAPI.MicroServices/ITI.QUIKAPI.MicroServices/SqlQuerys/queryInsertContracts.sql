@@ -1,0 +1,1 @@
+INSERT INTO Contracts (ClientID, Number, RegisterDate, Type, Manager) VALUES (@ClientID, @Number, @RegisterDate, @Type, @Manager);

@@ -1,0 +1,1 @@
+INSERT INTO ClientInfo (ClientCode, FullName, EMail, ClientType, Resident, Address) VALUES (@ClientCode, @FullName, @EMail, @ClientType, @Resident, @Address);
