@@ -1,0 +1,1 @@
+SELECT ClientID, Number, RegisterDate, Type, Manager FROM Contracts t where t.ClientID in (@UniqueCodes);

@@ -20,10 +20,10 @@ namespace QuikDataBaseRepository
         //private const string _checkContracts = "SELECT COUNT(*) FROM Contracts;";
         //private const string _checkDepoClientAccounts = "SELECT COUNT(*) FROM DepoClientAccounts;";
 
-        private const string _selectClientAccounts = "SELECT ClientID, Account, SubAccount FROM ClientAccounts t";
-        private const string _selectClientInfo = "SELECT ClientCode, FullName, EMail, ClientType, Resident, Address FROM ClientInfo t";
-        private const string _selectContracts = "SELECT ClientID, Number, RegisterDate, Type, Manager FROM Contracts t";
-        private const string _selectDepoClientAccounts = "SELECT ClientID,AccountNumber,Manager,Owner,Depositary,ContractNo,ContractDate FROM DepoClientAccounts t";
+        //private const string _selectClientAccounts = "SELECT ClientID, Account, SubAccount FROM ClientAccounts t";
+        //private const string _selectClientInfo = "SELECT ClientCode, FullName, EMail, ClientType, Resident, Address FROM ClientInfo t";
+        //private const string _selectContracts = "SELECT ClientID, Number, RegisterDate, Type, Manager FROM Contracts t";
+        //private const string _selectDepoClientAccounts = "SELECT ClientID,AccountNumber,Manager,Owner,Depositary,ContractNo,ContractDate FROM DepoClientAccounts t";
 
         private const string _insertClientAccounts = "INSERT INTO ClientAccounts (ClientID, Account, SubAccount) " +
                                                                         " VALUES (@ClientID, @Account, @SubAccount);";
@@ -163,10 +163,23 @@ namespace QuikDataBaseRepository
 
             string codesAtRequest = GetCodesString(GetUniqueCodes(codes));
 
-            string suffixClientID = $" where t.ClientID in ({codesAtRequest});";
-            string suffixClientCode = $" where t.ClientCode in ({codesAtRequest});";
+            //string suffixClientID = $" where t.ClientID in ({codesAtRequest});";
+            //string suffixClientCode = $" where t.ClientCode in ({codesAtRequest});";
 
             DataBaseClientCodesResponse response = new DataBaseClientCodesResponse();
+
+
+            //SelectClientAccounts
+            string filePathClientAccounts = Path.Combine(Directory.GetCurrentDirectory(), "SqlQuerys", "querySelectClientAccounts.sql");
+            if (!File.Exists(filePathClientAccounts))
+            {
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Error! File with SQL script not found at {filePathClientAccounts}");
+
+                response.IsSuccess = false;
+                response.Messages.Add("Error! File with SQL script not found at " + filePathClientAccounts);
+                return response;
+            }
+            string queryClientAccounts = File.ReadAllText(filePathClientAccounts);
 
             try
             {
@@ -174,7 +187,9 @@ namespace QuikDataBaseRepository
                 {
                     await connect.OpenAsync();
 
-                    using (SqlCommand command = new SqlCommand(_selectClientAccounts + suffixClientID, connect))
+                    queryClientAccounts = queryClientAccounts.Replace("@UniqueCodes", codesAtRequest);
+
+                    using (SqlCommand command = new SqlCommand(queryClientAccounts, connect))
                     {
                         SqlDataReader reader = await command.ExecuteReaderAsync();
                         while (await reader.ReadAsync())
@@ -194,7 +209,22 @@ namespace QuikDataBaseRepository
                         await reader.CloseAsync();
                     }
 
-                    using (SqlCommand command = new SqlCommand(_selectClientInfo + suffixClientCode, connect))
+
+                    //SelectClientInfo
+                    string filePathSelectClientInfo = Path.Combine(Directory.GetCurrentDirectory(), "SqlQuerys", "querySelectClientInfo.sql");
+                    if (!File.Exists(filePathSelectClientInfo))
+                    {
+                        _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Error! File with SQL script not found at {filePathSelectClientInfo}");
+
+                        response.IsSuccess = false;
+                        response.Messages.Add("Error! File with SQL script not found at " + filePathSelectClientInfo);
+                        return response;
+                    }
+                    string querySelectClientInfo = File.ReadAllText(filePathSelectClientInfo);
+
+                    querySelectClientInfo = querySelectClientInfo.Replace("@UniqueCodes", codesAtRequest);
+
+                    using (SqlCommand command = new SqlCommand(querySelectClientInfo, connect))
                     {
                         SqlDataReader reader = await command.ExecuteReaderAsync();
                         while (await reader.ReadAsync())
@@ -220,7 +250,21 @@ namespace QuikDataBaseRepository
                         await reader.CloseAsync();
                     }
 
-                    using (SqlCommand command = new SqlCommand(_selectContracts + suffixClientID, connect))
+                    //SelectContracts
+                    string filePathSelectContracts = Path.Combine(Directory.GetCurrentDirectory(), "SqlQuerys", "querySelectContracts.sql");
+                    if (!File.Exists(filePathSelectContracts))
+                    {
+                        _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Error! File with SQL script not found at {filePathSelectContracts}");
+
+                        response.IsSuccess = false;
+                        response.Messages.Add("Error! File with SQL script not found at " + filePathSelectContracts);
+                        return response;
+                    }
+                    string querySelectContracts = File.ReadAllText(filePathSelectContracts);
+
+                    querySelectContracts = querySelectContracts.Replace("@UniqueCodes", codesAtRequest);
+
+                    using (SqlCommand command = new SqlCommand(querySelectContracts, connect))
                     {
                         SqlDataReader reader = await command.ExecuteReaderAsync();
                         while (await reader.ReadAsync())
@@ -243,8 +287,22 @@ namespace QuikDataBaseRepository
                         }
                         await reader.CloseAsync();
                     }
-;
-                    using (SqlCommand command = new SqlCommand(_selectDepoClientAccounts + suffixClientID, connect))
+
+                    //SelectDepoClientAccounts
+                    string filePathDepoClientAccounts = Path.Combine(Directory.GetCurrentDirectory(), "SqlQuerys", "querySelectDepoClientAccounts.sql");
+                    if (!File.Exists(filePathDepoClientAccounts))
+                    {
+                        _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Error! File with SQL script not found at {filePathDepoClientAccounts}");
+
+                        response.IsSuccess = false;
+                        response.Messages.Add("Error! File with SQL script not found at " + filePathDepoClientAccounts);
+                        return response;
+                    }
+                    string querySelectDepoClientAccounts = File.ReadAllText(filePathDepoClientAccounts);
+
+                    querySelectDepoClientAccounts = querySelectDepoClientAccounts.Replace("@UniqueCodes", codesAtRequest);
+
+                    using (SqlCommand command = new SqlCommand(querySelectDepoClientAccounts, connect))
                     {
                         SqlDataReader reader = await command.ExecuteReaderAsync();
                         while (await reader.ReadAsync())

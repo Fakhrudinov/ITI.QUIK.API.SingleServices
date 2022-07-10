@@ -1,0 +1,1 @@
+SELECT ClientCode, FullName, EMail, ClientType, Resident, Address FROM ClientInfo t where t.ClientCode in (@UniqueCodes);
