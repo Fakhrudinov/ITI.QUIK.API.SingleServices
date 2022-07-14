@@ -19,7 +19,7 @@ namespace DataValidationService
                 responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
             }
 
-            if (model.ClientCode.Contains("RF"))// наверно лишнее но пусть пока будет. Rf коды проверяются в Fluent validator
+            if (model.MatrixClientPortfolio.Contains("RF"))// наверно лишнее но пусть пока будет. Rf коды проверяются в Fluent validator
             {
                 responseList.IsSuccess = false;
                 responseList.Messages.Add("RF portfolio not allowed in SPOT BRL");
@@ -28,12 +28,12 @@ namespace DataValidationService
             return responseList;
         }
 
-        public static ListStringResponseModel ValidateMatrixSpotClientCodeModel(MatrixClientCodeModel model)
+        public static ListStringResponseModel ValidateMatrixSpotClientCodeModel(MatrixClientPortfolioModel model)
         {
             ClientCodeSpotMatrixMsMoFxRsValidator validator = new ClientCodeSpotMatrixMsMoFxRsValidator();
             var responseList = new ListStringResponseModel();
 
-            ValidationResult validationResult = validator.Validate(model.MatrixClientCode);
+            ValidationResult validationResult = validator.Validate(model.MatrixClientPortfolio);
 
             if (!validationResult.IsValid)
             {
@@ -105,12 +105,12 @@ namespace DataValidationService
             return responseList;
         }
 
-        public static ListStringResponseModel ValidateMatrixCDClientCodeModel(MatrixClientCodeModel model)
+        public static ListStringResponseModel ValidateMatrixCDClientCodeModel(MatrixClientPortfolioModel model)
         {
             ClientCodeSpotMatrixCdValidator validator = new ClientCodeSpotMatrixCdValidator();
             var responseList = new ListStringResponseModel();
 
-            ValidationResult validationResult = validator.Validate(model.MatrixClientCode);
+            ValidationResult validationResult = validator.Validate(model.MatrixClientPortfolio);
 
             if (!validationResult.IsValid)
             {

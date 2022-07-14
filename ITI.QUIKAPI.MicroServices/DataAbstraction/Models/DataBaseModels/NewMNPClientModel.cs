@@ -15,7 +15,7 @@ namespace DataAbstraction.Models.DataBaseModels
         [DefaultValue(20220515)]
         public int RegisterDate { get; set; }//20160714 Дата заключения договора.Формат: ГГГГММДД. 
 
-        public MatrixClientCodeModel[]? CodesMatrix { get; set; }
+        public MatrixClientPortfolioModel[]? MatrixClientPortfolios { get; set; }
         public MatrixToFortsCodesMappingModel[]? CodesPairRF { get; set; }
 
         // not necessary:

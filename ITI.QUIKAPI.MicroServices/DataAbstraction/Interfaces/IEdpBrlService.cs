@@ -4,10 +4,10 @@ namespace DataAbstraction.Interfaces
 {
     public interface IEdpBrlService
     {
-        ListStringResponseModel GetEDPFortsClientCodeByMatrixCode(MatrixClientCodeModel model);
+        ListStringResponseModel GetEDPFortsClientCodeByMatrixCode(MatrixClientPortfolioModel model);
         ListStringResponseModel GetEDPMatrixClientCodeByFortsCode(FortsClientCodeModel model);
         ListStringResponseModel SetNewEdpRelation(MatrixToFortsCodesMappingModel model);
-        ListStringResponseModel DeleteEdpRelation(MatrixClientCodeModel model);
+        ListStringResponseModel DeleteEdpRelation(MatrixClientPortfolioModel model);
         ListStringResponseModel GetAllEdpRelation();
     }
 }

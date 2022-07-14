@@ -698,20 +698,20 @@ namespace QuikDataBaseRepository
         {
             ListStringResponseModel response = new ListStringResponseModel();
 
-            if (model.CodesMatrix is not null)
+            if (model.MatrixClientPortfolios is not null)
             {
-                foreach (MatrixClientCodeModel portfolio in model.CodesMatrix)
+                foreach (MatrixClientPortfolioModel portfolio in model.MatrixClientPortfolios)
                 {
-                    if (!uniqMatrixPortfolios.Contains(portfolio.MatrixClientCode))
+                    if (!uniqMatrixPortfolios.Contains(portfolio.MatrixClientPortfolio))
                     {
-                        uniqMatrixPortfolios.Add(portfolio.MatrixClientCode);
+                        uniqMatrixPortfolios.Add(portfolio.MatrixClientPortfolio);
                     }
 
                     //Добавить QUIK код
-                    string quikCode = CommonServices.PortfoliosConvertingService.GetQuikSpotPortfolio(portfolio.MatrixClientCode);
-                    if (portfolio.MatrixClientCode.Contains("-CD-"))
+                    string quikCode = CommonServices.PortfoliosConvertingService.GetQuikSpotPortfolio(portfolio.MatrixClientPortfolio);
+                    if (portfolio.MatrixClientPortfolio.Contains("-CD-"))
                     {
-                        quikCode = CommonServices.PortfoliosConvertingService.GetQuikCdPortfolio(portfolio.MatrixClientCode);
+                        quikCode = CommonServices.PortfoliosConvertingService.GetQuikCdPortfolio(portfolio.MatrixClientPortfolio);
                     }
 
                     if (!uniqQuikCodes.Contains(quikCode))

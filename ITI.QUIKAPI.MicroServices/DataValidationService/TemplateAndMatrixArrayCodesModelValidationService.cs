@@ -9,9 +9,9 @@ namespace DataValidationService
     {
         public TemplateAndMatrixArrayCodesModelValidationService()
         {
-            RuleForEach(x => x.ClientCodes).ChildRules(codes =>
+            RuleForEach(x => x.MatrixClientPortfolio).ChildRules(codes =>
             {
-                codes.RuleFor(x => x.MatrixClientCode).SetValidator(new ClientCodeSpotMatrixMsMoFxRsCdValidator());
+                codes.RuleFor(x => x.MatrixClientPortfolio).SetValidator(new ClientCodeSpotMatrixMsMoFxRsCdValidator());
             });
 
             RuleFor(x => x.Template).SetValidator(new QAdminTemplateNameValidator());

@@ -6,6 +6,6 @@ namespace DataAbstraction.Models
     {
         public string Template { get; set; }
         [DefaultValue("BP12345/01")]
-        public string ClientCode { get; set; }
+        public string QuikClientCode { get; set; }
     }
 }

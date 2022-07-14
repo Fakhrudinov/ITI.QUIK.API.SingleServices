@@ -8,6 +8,6 @@ namespace DataAbstraction.Models
         public string FromTemplate { get; set; }
         public string ToTemplate { get; set; }
         [DefaultValue("C000abc")]
-        public string ClientCode { get; set; }
+        public string FortsClientCode { get; set; }
     }
 }

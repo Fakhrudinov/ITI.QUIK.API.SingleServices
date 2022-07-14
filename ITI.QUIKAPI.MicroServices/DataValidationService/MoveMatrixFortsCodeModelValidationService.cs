@@ -8,7 +8,7 @@ namespace DataValidationService
     {
         public MoveMatrixFortsCodeModelValidationService()
         {
-            RuleFor(x => x.ClientCode).SetValidator(new ClientCodeFortsC0MatrixValidator());
+            RuleFor(x => x.FortsClientCode).SetValidator(new ClientCodeFortsC0MatrixValidator());
             RuleFor(x => x.FromTemplate).SetValidator(new QAdminTemplateNameValidator());
             RuleFor(x => x.ToTemplate).SetValidator(new QAdminTemplateNameValidator());
         }

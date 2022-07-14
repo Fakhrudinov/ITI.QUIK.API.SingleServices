@@ -80,19 +80,19 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         }
 
         [HttpGet("UID/byMatrixCode")]
-        public IActionResult GetUIDByMatrixCode([FromQuery] MatrixClientCodeModel model)
+        public IActionResult GetUIDByMatrixCode([FromQuery] MatrixClientPortfolioModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet GetUID/ByMatrixCode {model.MatrixClientCode} Call ");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet GetUID/ByMatrixCode {model.MatrixClientPortfolio} Call ");
 
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateMatrixSpotClientCodeModel(model);//MS MO RS FX
             if (!result.IsSuccess)
             {
-                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet GetUID/ByMatrixCode {model.MatrixClientCode} Error: {result.Messages[0]}");
+                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet GetUID/ByMatrixCode {model.MatrixClientPortfolio} Error: {result.Messages[0]}");
                 return Ok(result);
             }
 
-            result = _serviceSFTP.GetUIDByMatrixCode(model.MatrixClientCode);
+            result = _serviceSFTP.GetUIDByMatrixCode(model.MatrixClientPortfolio);
 
             return Ok(result);
         }
@@ -231,19 +231,19 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         }
 
         [HttpDelete("BlockUserBy/MatrixClientCode")]
-        public IActionResult BlockUserByMatrixClientCode([FromBody] MatrixClientCodeModel model)
+        public IActionResult BlockUserByMatrixClientCode([FromBody] MatrixClientPortfolioModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete BlockUserBy/MatrixClientCode/{model.MatrixClientCode} Call");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete BlockUserBy/MatrixClientCode/{model.MatrixClientPortfolio} Call");
 
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateMatrixSpotClientCodeModel(model);//MS MO RS FX
             if (!result.IsSuccess)
             {
-                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete BlockUserBy/MatrixClientCode/{model.MatrixClientCode} Error: {result.Messages[0]}");
+                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete BlockUserBy/MatrixClientCode/{model.MatrixClientPortfolio} Error: {result.Messages[0]}");
                 return Ok(result);
             }
 
-            result = _serviceSFTP.BlockUserByMatrixClientCode(model.MatrixClientCode);
+            result = _serviceSFTP.BlockUserByMatrixClientCode(model.MatrixClientPortfolio);
 
             return Ok(result);
         }
@@ -303,9 +303,9 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         }
 
         [HttpPut("SetAllTrades/ByMatrixClientCode")]
-        public IActionResult SetAllTradesByMatrixClientCode([FromBody] MatrixClientCodeModel model)
+        public IActionResult SetAllTradesByMatrixClientCode([FromBody] MatrixClientPortfolioModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut SetAllTrades/ByMatrixClientCode Call " + model.MatrixClientCode);
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut SetAllTrades/ByMatrixClientCode Call " + model.MatrixClientPortfolio);
 
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateMatrixSpotClientCodeModel(model);

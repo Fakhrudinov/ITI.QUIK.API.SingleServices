@@ -8,9 +8,9 @@ namespace DataValidationService
     {
         public MatrixArrayCodesValidationService()
         {
-            RuleForEach(x => x.ClientCodes).ChildRules(codes =>
+            RuleForEach(x => x.MatrixClientPortfolios).ChildRules(codes =>
             {
-                codes.RuleFor(x => x.MatrixClientCode).SetValidator(new ClientCodeSpotMatrixMsMoFxRsCdValidator());
+                codes.RuleFor(x => x.MatrixClientPortfolio).SetValidator(new ClientCodeSpotMatrixMsMoFxRsCdValidator());
             });
         }
     }

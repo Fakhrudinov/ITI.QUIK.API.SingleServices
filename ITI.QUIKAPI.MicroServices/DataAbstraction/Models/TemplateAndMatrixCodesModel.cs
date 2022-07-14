@@ -4,6 +4,6 @@
     {
         public string Template { get; set; }
 
-        public MatrixClientCodeModel[] ClientCodes { get; set; }
+        public MatrixClientPortfolioModel[] MatrixClientPortfolio { get; set; }
     }
 }

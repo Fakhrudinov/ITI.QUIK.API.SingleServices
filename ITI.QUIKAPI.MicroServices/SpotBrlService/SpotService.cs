@@ -109,23 +109,23 @@ namespace QuikAPIBrlService
         }
         public ListStringResponseModel MoveMatrixClientCodeBetweenTemplates(bool itIsPoKomissii, MoveMatrixCodeModel moveModel)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SpotService MoveMatrixClientCodeBetweenTemplates Called {moveModel.FromTemplate}->{moveModel.ToTemplate} {moveModel.ClientCode}" +
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SpotService MoveMatrixClientCodeBetweenTemplates Called {moveModel.FromTemplate}->{moveModel.ToTemplate} {moveModel.MatrixClientPortfolio}" +
                 $" itIsTemplatesList={itIsPoKomissii}");
 
             MoveQuikCodeModel moveQuikModel = new MoveQuikCodeModel();
             moveQuikModel.FromTemplate = moveModel.FromTemplate;
             moveQuikModel.ToTemplate = moveModel.ToTemplate;
-            moveQuikModel.ClientCode = CommonServices.PortfoliosConvertingService.GetQuikSpotPortfolio(moveModel.ClientCode);
-            if (moveModel.ClientCode.Contains("-CD-"))
+            moveQuikModel.QuikClientCode = CommonServices.PortfoliosConvertingService.GetQuikSpotPortfolio(moveModel.MatrixClientPortfolio);
+            if (moveModel.MatrixClientPortfolio.Contains("-CD-"))
             {
-                moveQuikModel.ClientCode = CommonServices.PortfoliosConvertingService.GetQuikCdPortfolio(moveModel.ClientCode);
+                moveQuikModel.QuikClientCode = CommonServices.PortfoliosConvertingService.GetQuikCdPortfolio(moveModel.MatrixClientPortfolio);
             }
 
             return MoveQuikClientCodeBetweenTemplates(itIsPoKomissii, moveQuikModel);
         }
         public ListStringResponseModel MoveQuikClientCodeBetweenTemplates(bool itIsPoKomissii, MoveQuikCodeModel moveModel)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SpotService MoveQuikClientCodeBetweenTemplates Called {moveModel.FromTemplate}->{moveModel.ToTemplate} {moveModel.ClientCode}" +
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SpotService MoveQuikClientCodeBetweenTemplates Called {moveModel.FromTemplate}->{moveModel.ToTemplate} {moveModel.QuikClientCode}" +
                 $" itIsTemplatesList={itIsPoKomissii}");
             ListStringResponseModel response = new ListStringResponseModel();
 
@@ -139,12 +139,12 @@ namespace QuikAPIBrlService
             if (itIsPoKomissii)
             {
                 //перемещения кода клиента из одного шаблона «По комиссии». в другой  шаблон «По комиссии».
-                resultEditBrl = NativeMethods.QDAPI_MoveClientBetweenClientTemplates(_spotFIRM, moveModel.FromTemplate, moveModel.ToTemplate, moveModel.ClientCode);
+                resultEditBrl = NativeMethods.QDAPI_MoveClientBetweenClientTemplates(_spotFIRM, moveModel.FromTemplate, moveModel.ToTemplate, moveModel.QuikClientCode);
             }
             else
             {
                 //перемещение кода клиента из одного шаблона "по Плечу" в другой  шаблон "по Плечу".
-                resultEditBrl = NativeMethods.QDAPI_MoveClientBetweenMarginTemplates(_spotFIRM, moveModel.FromTemplate, moveModel.ToTemplate, moveModel.ClientCode);
+                resultEditBrl = NativeMethods.QDAPI_MoveClientBetweenMarginTemplates(_spotFIRM, moveModel.FromTemplate, moveModel.ToTemplate, moveModel.QuikClientCode);
             }
 
 
@@ -158,15 +158,15 @@ namespace QuikAPIBrlService
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SpotService ReplaceAllCodesInTemplate Called for {model.Template}, itIsPoKomissii={itIsPoKomissii}");
 
             // переделаем коды на QUIK формат
-            for (int i = 0; i < model.ClientCodes.Length; i++)
+            for (int i = 0; i < model.MatrixClientPortfolio.Length; i++)
             {
-                if (model.ClientCodes[i].MatrixClientCode.Contains("CD"))
+                if (model.MatrixClientPortfolio[i].MatrixClientPortfolio.Contains("CD"))
                 {
-                    model.ClientCodes[i].MatrixClientCode = CommonServices.PortfoliosConvertingService.GetQuikCdPortfolio(model.ClientCodes[i].MatrixClientCode);
+                    model.MatrixClientPortfolio[i].MatrixClientPortfolio = CommonServices.PortfoliosConvertingService.GetQuikCdPortfolio(model.MatrixClientPortfolio[i].MatrixClientPortfolio);
                 }
                 else
                 {
-                    model.ClientCodes[i].MatrixClientCode = CommonServices.PortfoliosConvertingService.GetQuikSpotPortfolio(model.ClientCodes[i].MatrixClientCode);
+                    model.MatrixClientPortfolio[i].MatrixClientPortfolio = CommonServices.PortfoliosConvertingService.GetQuikSpotPortfolio(model.MatrixClientPortfolio[i].MatrixClientPortfolio);
                 }
             }
 
@@ -180,13 +180,13 @@ namespace QuikAPIBrlService
 
             QDAPI_ArrayStrings clStruct = new QDAPI_ArrayStrings
             {
-                count = (uint)model.ClientCodes.Length,
-                elems = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(IntPtr)) * model.ClientCodes.Length)
+                count = (uint)model.MatrixClientPortfolio.Length,
+                elems = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(IntPtr)) * model.MatrixClientPortfolio.Length)
             };
-            IntPtr[] clPtrArray = new IntPtr[model.ClientCodes.Length];
-            for (int i = 0; i < model.ClientCodes.Length; ++i)
+            IntPtr[] clPtrArray = new IntPtr[model.MatrixClientPortfolio.Length];
+            for (int i = 0; i < model.MatrixClientPortfolio.Length; ++i)
             {
-                clPtrArray[i] = Marshal.StringToHGlobalAnsi(model.ClientCodes[i].MatrixClientCode);
+                clPtrArray[i] = Marshal.StringToHGlobalAnsi(model.MatrixClientPortfolio[i].MatrixClientPortfolio);
             }
             Marshal.Copy(clPtrArray, 0, clStruct.elems, clPtrArray.Length);
 

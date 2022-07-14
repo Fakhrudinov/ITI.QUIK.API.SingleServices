@@ -2,9 +2,9 @@
 
 namespace DataAbstraction.Models
 {
-    public class MatrixClientCodeModel
+    public class MatrixClientPortfolioModel
     {
         [DefaultValue("BP12345-MO-01")]
-        public string MatrixClientCode { get; set; }
+        public string MatrixClientPortfolio { get; set; }
     }
 }

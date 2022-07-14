@@ -299,12 +299,12 @@ namespace QuikSftpService
             return response;
         }
 
-        public ListStringResponseModel SetAllTradesByMatrixClientCode(MatrixClientCodeModel model)
+        public ListStringResponseModel SetAllTradesByMatrixClientCode(MatrixClientPortfolioModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService SetAllTradesByMatrixClientCode Called, code=" + model.MatrixClientCode);
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService SetAllTradesByMatrixClientCode Called, code=" + model.MatrixClientPortfolio);
 
             //из кода матрицы сделаем код quik
-            string quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(model.MatrixClientCode);
+            string quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(model.MatrixClientPortfolio);
 
             return SetAllTradesByQuikCode(quikCode);
         }
@@ -484,7 +484,7 @@ namespace QuikSftpService
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService SetNewPubringKeyByMatrixClientCode Called, code=" + model.ClientCode);
 
             //из кода матрицы сделаем код quik
-            string quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(model.ClientCode.MatrixClientCode);
+            string quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(model.ClientCode.MatrixClientPortfolio);
 
             FortsCodeAndPubringKeyModel fortsModel = new FortsCodeAndPubringKeyModel();
             fortsModel.Key = model.Key;
@@ -653,29 +653,29 @@ namespace QuikSftpService
         {
             ClientCodesAndCommentModel result = new ClientCodesAndCommentModel();
 
-            if (model.CodesMatrix is not null)
+            if (model.MatrixClientPortfolios is not null)
             {
-                foreach (MatrixClientCodeModel code in model.CodesMatrix)
+                foreach (MatrixClientPortfolioModel code in model.MatrixClientPortfolios)
                 {
                     string quikCode = "";
-                    if (code.MatrixClientCode.Contains("MS"))
+                    if (code.MatrixClientPortfolio.Contains("MS"))
                     {
-                        quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientCode);
+                        quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientPortfolio);
                         result.CodesMS = result.CodesMS + $"{quikCode},";
                     }
-                    if (code.MatrixClientCode.Contains("FX"))
+                    if (code.MatrixClientPortfolio.Contains("FX"))
                     {
-                        quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientCode);
+                        quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientPortfolio);
                         result.CodesFX = result.CodesFX +$"{quikCode},";
                     }
-                    if (code.MatrixClientCode.Contains("RS"))
+                    if (code.MatrixClientPortfolio.Contains("RS"))
                     {
-                        quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientCode);
+                        quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientPortfolio);
                         result.CodesRS = result.CodesRS + $"{quikCode},";
                     }
-                    if (code.MatrixClientCode.Contains("CD"))
+                    if (code.MatrixClientPortfolio.Contains("CD"))
                     {
-                        quikCode = PortfoliosConvertingService.GetQuikCdPortfolio(code.MatrixClientCode);
+                        quikCode = PortfoliosConvertingService.GetQuikCdPortfolio(code.MatrixClientPortfolio);
                         result.CodesCD = result.CodesCD + $"{quikCode},";
                     }
 
@@ -803,21 +803,21 @@ namespace QuikSftpService
             List<string> codesMoMsFxCd = new List<string>();
             List<string> codesRs = new List<string>();
 
-            foreach (MatrixClientCodeModel code in model.ClientCodes)
+            foreach (MatrixClientPortfolioModel code in model.MatrixClientPortfolios)
             {
-                if (code.MatrixClientCode.Contains("-RS-"))
+                if (code.MatrixClientPortfolio.Contains("-RS-"))
                 {
-                    string codeForCodesIni = GenerateRSClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientCode));
+                    string codeForCodesIni = GenerateRSClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientPortfolio));
                     codesRs.Add(codeForCodesIni);
                 }
-                else if (code.MatrixClientCode.Contains("-CD-"))
+                else if (code.MatrixClientPortfolio.Contains("-CD-"))
                 {
-                    string codeForCodesIni = GenerateCDClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikCdPortfolio(code.MatrixClientCode));
+                    string codeForCodesIni = GenerateCDClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikCdPortfolio(code.MatrixClientPortfolio));
                     codesMoMsFxCd.Add(codeForCodesIni);
                 }
                 else
                 {
-                    string codeForCodesIni = GenerateClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientCode));
+                    string codeForCodesIni = GenerateClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientPortfolio));
                     codesMoMsFxCd.Add(codeForCodesIni);
                 }
             }

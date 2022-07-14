@@ -8,7 +8,7 @@ namespace DataValidationService
     {
         public TemplateAndQuikCodeModelValidationService()
         {
-            RuleFor(x => x.ClientCode).SetValidator(new ClientCodeSpotQuikValidator());
+            RuleFor(x => x.QuikClientCode).SetValidator(new ClientCodeSpotQuikValidator());
             RuleFor(x => x.Template).SetValidator(new QAdminTemplateNameValidator());
         }
     }

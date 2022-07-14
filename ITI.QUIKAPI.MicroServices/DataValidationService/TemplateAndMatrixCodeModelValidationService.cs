@@ -8,7 +8,7 @@ namespace DataValidationService
     {
         public TemplateAndMatrixCodeModelValidationService()
         {
-            RuleFor(x => x.ClientCode).SetValidator(new ClientCodeSpotMatrixMsMoFxRsCdValidator());
+            RuleFor(x => x.MatrixClientPortfolio).SetValidator(new ClientCodeSpotMatrixMsMoFxRsCdValidator());
             RuleFor(x => x.Template).SetValidator(new QAdminTemplateNameValidator());
         }
     }

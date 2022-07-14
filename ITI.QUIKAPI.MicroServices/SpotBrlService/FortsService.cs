@@ -190,12 +190,12 @@ namespace QuikAPIBrlService
 
         public ListStringResponseModel MoveMatrixFortsCodeBetweenTemplates(bool itIsPoKomissii, MoveMatrixFortsCodeModel moveModel)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SpotService MoveMatrixFortsCodeBetweenTemplates Called {moveModel.FromTemplate}->{moveModel.ToTemplate} {moveModel.ClientCode}" +
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SpotService MoveMatrixFortsCodeBetweenTemplates Called {moveModel.FromTemplate}->{moveModel.ToTemplate} {moveModel.FortsClientCode}" +
                 $" itIsTemplatesList={itIsPoKomissii}");
             ListStringResponseModel response = new ListStringResponseModel();
 
             // код матрицы - преобразовать в формат Quik
-            string quikCode = CommonServices.PortfoliosConvertingService.GetQuikFortsCode(moveModel.ClientCode);
+            string quikCode = CommonServices.PortfoliosConvertingService.GetQuikFortsCode(moveModel.FortsClientCode);
 
             // открыть соединение
             var openResult = _connection.OpenQuikQadminApiToWrite(_fortsFIRM, response);
@@ -228,9 +228,9 @@ namespace QuikAPIBrlService
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SpotService ReplaceAllMatrixFortsCodesInTemplate Called for {model.Template}, itIsPoKomissii={itIsPoKomissii}");
 
             // код матрицы - преобразовать в формат Quik
-            for (int i = 0; i < model.ClientCodes.Length; i++)
+            for (int i = 0; i < model.FortsClientCodes.Length; i++)
             {
-                model.ClientCodes[i].FortsClientCode = CommonServices.PortfoliosConvertingService.GetQuikFortsCode(model.ClientCodes[i].FortsClientCode);
+                model.FortsClientCodes[i].FortsClientCode = CommonServices.PortfoliosConvertingService.GetQuikFortsCode(model.FortsClientCodes[i].FortsClientCode);
             }
 
             ListStringResponseModel response = new ListStringResponseModel();
@@ -245,13 +245,13 @@ namespace QuikAPIBrlService
             //выполнить работу
             QDAPI_ArrayStrings clStruct = new QDAPI_ArrayStrings
             {
-                count = (uint)model.ClientCodes.Length,
-                elems = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(IntPtr)) * model.ClientCodes.Length)
+                count = (uint)model.FortsClientCodes.Length,
+                elems = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(IntPtr)) * model.FortsClientCodes.Length)
             };
-            IntPtr[] clPtrArray = new IntPtr[model.ClientCodes.Length];
-            for (int i = 0; i < model.ClientCodes.Length; ++i)
+            IntPtr[] clPtrArray = new IntPtr[model.FortsClientCodes.Length];
+            for (int i = 0; i < model.FortsClientCodes.Length; ++i)
             {
-                clPtrArray[i] = Marshal.StringToHGlobalAnsi(model.ClientCodes[i].FortsClientCode);
+                clPtrArray[i] = Marshal.StringToHGlobalAnsi(model.FortsClientCodes[i].FortsClientCode);
             }
             Marshal.Copy(clPtrArray, 0, clStruct.elems, clPtrArray.Length);
 

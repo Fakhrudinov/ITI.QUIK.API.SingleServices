@@ -8,7 +8,7 @@ namespace DataValidationService
     {
         public MatrixCodeAndPubringKeyModelValidationService()
         {
-            RuleFor(x => x.ClientCode.MatrixClientCode).SetValidator(new ClientCodeSpotMatrixMsMoFxRsValidator());
+            RuleFor(x => x.ClientCode.MatrixClientPortfolio).SetValidator(new ClientCodeSpotMatrixMsMoFxRsValidator());
             RuleFor(x => x.Key).SetValidator(new QAdminPubringKeyValidator());
         }
     }

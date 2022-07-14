@@ -2,7 +2,7 @@
 {
     public class MatrixCodeAndPubringKeyModel
     {
-        public MatrixClientCodeModel ClientCode { get; set; }
+        public MatrixClientPortfolioModel ClientCode { get; set; }
 
         public PubringKeyModel Key { get; set; }
     }

@@ -110,7 +110,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPost("AddMatrixFortsCode/ToTemplate/PoKomissii")]
         public IActionResult AddMatrixFortsCodeToTemplatePoKomissii([FromBody] TemplateAndFortsCodeModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost AddMatrixFortsCode/ToTemplate/PoKomissii Call {model.Template} {model.ClientCode}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost AddMatrixFortsCode/ToTemplate/PoKomissii Call {model.Template} {model.FortsClientCode}");
 
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateTemplateAndFortsCodeModel(model);
@@ -131,7 +131,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             }
 
             //выполним
-            result = _qService.AddFortsCodeToTemplate(true, model.Template, model.ClientCode);
+            result = _qService.AddFortsCodeToTemplate(true, model.Template, model.FortsClientCode);
 
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost AddMatrixFortsCode/ToTemplate/PoKomissii result isOK={result.IsSuccess}");
 
@@ -141,7 +141,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPost("AddMatrixFortsCode/ToTemplate/PoPlechu")]
         public IActionResult AddMatrixFortsCodeToTemplatePoPlechu([FromBody] TemplateAndFortsCodeModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost AddMatrixFortsCode/ToTemplate/PoPlechu Call {model.Template} {model.ClientCode}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost AddMatrixFortsCode/ToTemplate/PoPlechu Call {model.Template} {model.FortsClientCode}");
 
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateTemplateAndFortsCodeModel(model);
@@ -162,7 +162,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             }
 
             //выполним
-            result = _qService.AddFortsCodeToTemplate(false, model.Template, model.ClientCode);
+            result = _qService.AddFortsCodeToTemplate(false, model.Template, model.FortsClientCode);
 
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost AddMatrixFortsCode/ToTemplate/PoPlechu result isOK={result.IsSuccess}");
 
@@ -172,7 +172,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpDelete("DeleteMatrixFortsCode/FromTemplate/PoKomissii")]
         public IActionResult DeleteMatrixFortsCoedFromTemplatePoKomissii([FromBody] TemplateAndFortsCodeModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteMatrixFortsCode/FromTemplate/PoKomissii Call {model.Template} {model.ClientCode}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteMatrixFortsCode/FromTemplate/PoKomissii Call {model.Template} {model.FortsClientCode}");
 
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateTemplateAndFortsCodeModel(model);
@@ -182,7 +182,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return Ok(result);
             }
 
-            result = _qService.DeleteCodeFromTemplate(true, model.Template, model.ClientCode, true);
+            result = _qService.DeleteCodeFromTemplate(true, model.Template, model.FortsClientCode, true);
 
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteMatrixFortsCode/FromTemplate/PoKomissii result isOK={result.IsSuccess}");
 
@@ -191,7 +191,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpDelete("DeleteMatrixFortsCode/FromTemplate/PoPlechu")]
         public IActionResult DeleteMatrixFortsCoedFromTemplatePoPlechu([FromBody] TemplateAndFortsCodeModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteMatrixFortsCode/FromTemplate/PoPlechu Call {model.Template} {model.ClientCode}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteMatrixFortsCode/FromTemplate/PoPlechu Call {model.Template} {model.FortsClientCode}");
 
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateTemplateAndFortsCodeModel(model);
@@ -201,7 +201,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return Ok(result);
             }
 
-            result = _qService.DeleteCodeFromTemplate(false, model.Template, model.ClientCode, true);
+            result = _qService.DeleteCodeFromTemplate(false, model.Template, model.FortsClientCode, true);
 
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteMatrixFortsCode/FromTemplate/PoPlechu result isOK={result.IsSuccess}");
 
@@ -212,7 +212,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPut("Move/MatrixFortsCode/BetweenTemplates/PoKomissii")]
         public IActionResult MoveMatrixFortsCodeBetweenTemplatesPoKomissii([FromBody] MoveMatrixFortsCodeModel moveModel)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut Move/MatrixFortsCode/BetweenTemplates/PoKomissii Call {moveModel.FromTemplate} -> {moveModel.ToTemplate} {moveModel.ClientCode}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut Move/MatrixFortsCode/BetweenTemplates/PoKomissii Call {moveModel.FromTemplate} -> {moveModel.ToTemplate} {moveModel.FortsClientCode}");
 
             ListStringResponseModel result = ValidateModel.ValidateMatrixFortsCodeModel(moveModel);
             if (!result.IsSuccess)
@@ -230,7 +230,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPut("Move/MatrixFortsCode/BetweenTemplates/PoPlechu")]
         public IActionResult MoveMatrixFortsCodeBetweenTemplatesPoPlechu([FromBody] MoveMatrixFortsCodeModel moveModel)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut Move/MatrixFortsCode/BetweenTemplates/PoPlechu Call {moveModel.FromTemplate} -> {moveModel.ToTemplate} {moveModel.ClientCode}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut Move/MatrixFortsCode/BetweenTemplates/PoPlechu Call {moveModel.FromTemplate} -> {moveModel.ToTemplate} {moveModel.FortsClientCode}");
 
             ListStringResponseModel result = ValidateModel.ValidateMatrixFortsCodeModel(moveModel);
             if (!result.IsSuccess)
@@ -249,7 +249,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPost("ReplaceAll/MatrixFortsCode/InTemplate/PoKomisii")]
         public IActionResult ReplaceAllMatrixFortsCodeInTemplatePoKomisii([FromBody] TemplateAndMatrixFortsCodesModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost ReplaceAll/MatrixFortsCode/InTemplate/PoKomisii Call, {model.Template} with {model.ClientCodes.Length} codes");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost ReplaceAll/MatrixFortsCode/InTemplate/PoKomisii Call, {model.Template} with {model.FortsClientCodes.Length} codes");
 
             ListStringResponseModel result = ValidateModel.ValidateTemplateAnMatrixFortsCodesModel(model);
             if (!result.IsSuccess)
@@ -267,7 +267,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPost("ReplaceAll/MatrixFortsCode/InTemplate/PoPlechu")]
         public IActionResult ReplaceAllMatrixFortsCodeInTemplatePoPlechu([FromBody] TemplateAndMatrixFortsCodesModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost ReplaceAll/MatrixFortsCode/InTemplate/PoPlechu Call, {model.Template} with {model.ClientCodes.Length} codes");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost ReplaceAll/MatrixFortsCode/InTemplate/PoPlechu Call, {model.Template} with {model.FortsClientCodes.Length} codes");
 
             ListStringResponseModel result = ValidateModel.ValidateTemplateAnMatrixFortsCodesModel(model);
             if (!result.IsSuccess)

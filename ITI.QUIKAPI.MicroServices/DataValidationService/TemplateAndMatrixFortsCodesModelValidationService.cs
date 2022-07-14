@@ -8,7 +8,7 @@ namespace DataValidationService
     {
         public TemplateAndMatrixFortsCodesModelValidationService()
         {
-            RuleForEach(x => x.ClientCodes).ChildRules(codes =>
+            RuleForEach(x => x.FortsClientCodes).ChildRules(codes =>
             {
                 codes.RuleFor(x => x.FortsClientCode).SetValidator(new ClientCodeFortsC0MatrixValidator());
             });

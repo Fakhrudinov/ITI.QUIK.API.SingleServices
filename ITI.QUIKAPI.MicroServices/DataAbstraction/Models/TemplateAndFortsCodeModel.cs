@@ -6,6 +6,6 @@ namespace DataAbstraction.Models
     {
         public string Template { get; set; }
         [DefaultValue("C000abc")]
-        public string ClientCode { get; set; }
+        public string FortsClientCode { get; set; }
     }
 }

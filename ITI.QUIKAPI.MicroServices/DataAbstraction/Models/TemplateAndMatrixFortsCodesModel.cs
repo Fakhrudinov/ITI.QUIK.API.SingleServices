@@ -4,6 +4,6 @@
     {
         public string Template { get; set; }
 
-        public FortsClientCodeModel[] ClientCodes { get; set; }
+        public FortsClientCodeModel[] FortsClientCodes { get; set; }
     }
 }

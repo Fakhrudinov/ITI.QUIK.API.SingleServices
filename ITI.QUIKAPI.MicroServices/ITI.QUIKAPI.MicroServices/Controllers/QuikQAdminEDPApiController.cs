@@ -21,9 +21,9 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
 
 
         [HttpGet("Get/EDPFortsClientCode/ByMatrixCode")]
-        public IActionResult GetEDPFortsClientCodeByMatrixCode([FromQuery] MatrixClientCodeModel model)
+        public IActionResult GetEDPFortsClientCodeByMatrixCode([FromQuery] MatrixClientPortfolioModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet Get/EDPFortsClientCode/ByMatrixCode {model.MatrixClientCode}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet Get/EDPFortsClientCode/ByMatrixCode {model.MatrixClientPortfolio}");
 
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateMatrixSpotClientCodeModel(model);//MS MO RS FX
@@ -78,9 +78,9 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         }
 
         [HttpDelete("DeleteEdpRelation")]
-        public IActionResult DeleteEdpRelation([FromQuery] MatrixClientCodeModel model)
+        public IActionResult DeleteEdpRelation([FromQuery] MatrixClientPortfolioModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteEdpRelation Call for {model.MatrixClientCode}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteEdpRelation Call for {model.MatrixClientPortfolio}");
             
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateMatrixSpotClientCodeModel(model);//MS MO RS FX

@@ -43,9 +43,9 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         }
 
         [HttpPost("AddMatrixClientPortfolioTo/KomissiiTemplate/CD_portfolio")]
-        public IActionResult AddClientPortfolioToKomissiiCDportfolio([FromBody] MatrixClientCodeModel model)
+        public IActionResult AddClientPortfolioToKomissiiCDportfolio([FromBody] MatrixClientPortfolioModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost AddMatrixClientPortfolioTo/KomissiiTemplate/CD_portfolio Call, " + model.MatrixClientCode);
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost AddMatrixClientPortfolioTo/KomissiiTemplate/CD_portfolio Call, " + model.MatrixClientPortfolio);
 
             ListStringResponseModel result = ValidateModel.ValidateMatrixCDClientCodeModel(model);
             if (!result.IsSuccess)
@@ -54,16 +54,16 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return Ok(result);
             }
 
-            result = _qService.AddClientPortfolioToTemplate(true, "CD_portfolio", model.MatrixClientCode);
+            result = _qService.AddClientPortfolioToTemplate(true, "CD_portfolio", model.MatrixClientPortfolio);
 
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost AddMatrixClientPortfolioTo/KomissiiTemplate/CD_portfolio result isOK={result.IsSuccess}");
 
             return Ok(result);
         }
         [HttpPost("AddMatrixClientPortfolioTo/PoPlechuTemplate/CD_portfolio")]
-        public IActionResult AddClientPortfolioToPoPlechuCDportfolio([FromBody] MatrixClientCodeModel model)
+        public IActionResult AddClientPortfolioToPoPlechuCDportfolio([FromBody] MatrixClientPortfolioModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost AddMatrixClientPortfolioTo/PoPlechuTemplate/CD_portfolio Call, " + model.MatrixClientCode);
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost AddMatrixClientPortfolioTo/PoPlechuTemplate/CD_portfolio Call, " + model.MatrixClientPortfolio);
 
             ListStringResponseModel result = ValidateModel.ValidateMatrixCDClientCodeModel(model);
             if (!result.IsSuccess)
@@ -72,7 +72,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return Ok(result);
             }
 
-            result = _qService.AddClientPortfolioToTemplate(false, "CD_portfolio", model.MatrixClientCode);
+            result = _qService.AddClientPortfolioToTemplate(false, "CD_portfolio", model.MatrixClientPortfolio);
 
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost AddMatrixClientPortfolioTo/PoPlechuTemplate/CD_portfolio result isOK={result.IsSuccess}");
             
@@ -81,7 +81,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPost("AddMatrixClientPortfolioTo/KomissiiTemplate")]
         public IActionResult AddClientPortfolioToKomissiiTemplate([FromBody] TemplateAndMatrixCodeModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost AddMatrixClientPortfolioTo/KomissiiTemplate Call {model.Template} {model.ClientCode}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost AddMatrixClientPortfolioTo/KomissiiTemplate Call {model.Template} {model.MatrixClientPortfolio}");
 
             ListStringResponseModel result = ValidateModel.ValidateTemplateAndMatrixCodeModel(model);
             if (!result.IsSuccess)
@@ -100,7 +100,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return Ok(result);
             }
 
-            result = _qService.AddClientPortfolioToTemplate(true, model.Template, model.ClientCode);
+            result = _qService.AddClientPortfolioToTemplate(true, model.Template, model.MatrixClientPortfolio);
 
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost AddMatrixClientPortfolioTo/KomissiiTemplate result isOK={result.IsSuccess}");
             
@@ -110,7 +110,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPost("AddMatrixClientPortfolioTo/PoPlechuTemplate")]
         public IActionResult AddClientPortfolioToPoPlechuTemplate([FromBody] TemplateAndMatrixCodeModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPost AddMatrixClientPortfolioTo/PoPlechuTemplate Call {model.Template} {model.ClientCode}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPost AddMatrixClientPortfolioTo/PoPlechuTemplate Call {model.Template} {model.MatrixClientPortfolio}");
 
             ListStringResponseModel result = ValidateModel.ValidateTemplateAndMatrixCodeModel(model);
             if (!result.IsSuccess)
@@ -129,7 +129,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return Ok(result);
             }
 
-            result = _qService.AddClientPortfolioToTemplate(false, model.Template, model.ClientCode);
+            result = _qService.AddClientPortfolioToTemplate(false, model.Template, model.MatrixClientPortfolio);
 
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost AddMatrixClientPortfolioTo/PoPlechuTemplate result isOK={result.IsSuccess}");
             
@@ -204,7 +204,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpDelete("Delete/QuikCode/FromTemplate/PoKomissii")]
         public IActionResult DeleteQuikCodeFromTemplatePoKomissii([FromBody] TemplateAndQuikCodeModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteQuikCodeFromTemplate/PoKomissii Call {model.Template} {model.ClientCode}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteQuikCodeFromTemplate/PoKomissii Call {model.Template} {model.QuikClientCode}");
 
             ListStringResponseModel result = ValidateModel.ValidateTemplateAndQuikCodeModel(model);
             if (!result.IsSuccess)
@@ -213,7 +213,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return Ok(result);
             }
 
-            result = _qService.DeleteCodeFromTemplate(true, model.Template, model.ClientCode, false);
+            result = _qService.DeleteCodeFromTemplate(true, model.Template, model.QuikClientCode, false);
 
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteQuikCodeFromTemplate/PoKomissii result isOK={result.IsSuccess}");
             
@@ -223,7 +223,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpDelete("Delete/MatrixCode/FromTemplate/PoKomissii")]
         public IActionResult DeleteMatrixCodeFromTemplatePoKomissii([FromBody] TemplateAndMatrixCodeModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteMatrixCodeFromTemplate/PoKomissii Call {model.Template} {model.ClientCode}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteMatrixCodeFromTemplate/PoKomissii Call {model.Template} {model.MatrixClientPortfolio}");
 
             ListStringResponseModel result = ValidateModel.ValidateTemplateAndMatrixCodeModel(model);
             if (!result.IsSuccess)
@@ -232,7 +232,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return Ok(result);
             }
 
-            result = _qService.DeleteCodeFromTemplate(true, model.Template, model.ClientCode, true);
+            result = _qService.DeleteCodeFromTemplate(true, model.Template, model.MatrixClientPortfolio, true);
 
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteMatrixCodeFromTemplate/PoKomissii result isOK={result.IsSuccess}");
             
@@ -241,7 +241,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpDelete("Delete/QuikCode/FromTemplate/PoPlechu")]
         public IActionResult DeleteQuikCodeFromTemplatePoPlechu([FromBody] TemplateAndQuikCodeModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteQuikCodeFromTemplate/PoPlechu Call {model.Template} {model.ClientCode}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteQuikCodeFromTemplate/PoPlechu Call {model.Template} {model.QuikClientCode}");
 
             ListStringResponseModel result = ValidateModel.ValidateTemplateAndQuikCodeModel(model);
             if (!result.IsSuccess)
@@ -250,7 +250,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return Ok(result);
             }
 
-            result = _qService.DeleteCodeFromTemplate(false, model.Template, model.ClientCode, false);
+            result = _qService.DeleteCodeFromTemplate(false, model.Template, model.QuikClientCode, false);
 
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteQuikCodeFromTemplate/PoPlechu result isOK={result.IsSuccess}");
             
@@ -259,7 +259,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpDelete("Delete/MatrixCode/FromTemplate/PoPlechu")]
         public IActionResult DeleteMatrixCodeFromTemplatePoPlechu([FromBody] TemplateAndMatrixCodeModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteMatrixCodeFromTemplate/PoPlechu Call {model.Template} {model.ClientCode}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteMatrixCodeFromTemplate/PoPlechu Call {model.Template} {model.MatrixClientPortfolio}");
 
             ListStringResponseModel result = ValidateModel.ValidateTemplateAndMatrixCodeModel(model);
             if (!result.IsSuccess)
@@ -268,7 +268,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
                 return Ok(result);
             }
 
-            result = _qService.DeleteCodeFromTemplate(false, model.Template, model.ClientCode, true);
+            result = _qService.DeleteCodeFromTemplate(false, model.Template, model.MatrixClientPortfolio, true);
 
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteMatrixCodeFromTemplate/PoPlechu result isOK={result.IsSuccess}");
             
@@ -279,7 +279,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPut("MoveQuikClientCodeBetweenTemplates/PoKomissii")]
         public IActionResult MoveQuikClientCodeBetweenTemplatesPoKomissii([FromBody] MoveQuikCodeModel moveModel)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut MoveQuikClientCodeBetweenTemplates/PoKomissii Call {moveModel.FromTemplate} -> {moveModel.ToTemplate} {moveModel.ClientCode}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut MoveQuikClientCodeBetweenTemplates/PoKomissii Call {moveModel.FromTemplate} -> {moveModel.ToTemplate} {moveModel.QuikClientCode}");
 
             ListStringResponseModel result = ValidateModel.ValidateQuikMoveCodeModel(moveModel);
             if (!result.IsSuccess)
@@ -297,7 +297,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPut("MoveMatrixClientCodeBetweenTemplates/PoKomissii")]
         public IActionResult MoveMatrixClientCodeBetweenTemplatesPoKomissii([FromBody] MoveMatrixCodeModel moveModel)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut MoveMatrixClientCodeBetweenTemplates/PoKomissii Call {moveModel.FromTemplate} -> {moveModel.ToTemplate} {moveModel.ClientCode}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut MoveMatrixClientCodeBetweenTemplates/PoKomissii Call {moveModel.FromTemplate} -> {moveModel.ToTemplate} {moveModel.MatrixClientPortfolio}");
 
             ListStringResponseModel result = ValidateModel.ValidateMatrixMoveCodeModel(moveModel);
             if (!result.IsSuccess)
@@ -315,7 +315,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPut("MoveQuikClientCodeBetweenTemplates/PoPlechu")]
         public IActionResult MoveQuikClientCodeBetweenTemplatesPoPlechu([FromBody] MoveQuikCodeModel moveModel)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut MoveQuikClientCodeBetweenTemplates/PoPlechu Call {moveModel.FromTemplate} -> {moveModel.ToTemplate} {moveModel.ClientCode}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut MoveQuikClientCodeBetweenTemplates/PoPlechu Call {moveModel.FromTemplate} -> {moveModel.ToTemplate} {moveModel.QuikClientCode}");
 
             ListStringResponseModel result = ValidateModel.ValidateQuikMoveCodeModel(moveModel);
             if (!result.IsSuccess)
@@ -333,7 +333,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPut("MoveMatrixClientCodeBetweenTemplates/PoPlechu")]
         public IActionResult MoveMatrixClientCodeBetweenTemplatesPoPlechu([FromBody] MoveMatrixCodeModel moveModel)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut MoveMatrixClientCodeBetweenTemplates/PoPlechu Call {moveModel.FromTemplate} -> {moveModel.ToTemplate} {moveModel.ClientCode}");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut MoveMatrixClientCodeBetweenTemplates/PoPlechu Call {moveModel.FromTemplate} -> {moveModel.ToTemplate} {moveModel.MatrixClientPortfolio}");
 
             ListStringResponseModel result = ValidateModel.ValidateMatrixMoveCodeModel(moveModel);
             if (!result.IsSuccess)
@@ -353,7 +353,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPost("ReplaceAllCodesMatrixInTemplate/PoKomisii")]
         public IActionResult ReplaceAllClientPortfoliosInPoKomisiiTemplate([FromBody] TemplateAndMatrixCodesModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost ReplaceAllCodesMatrixInTemplate/PoKomisii Call, {model.Template} with {model.ClientCodes.Length} codes");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost ReplaceAllCodesMatrixInTemplate/PoKomisii Call, {model.Template} with {model.MatrixClientPortfolio.Length} codes");
 
             ListStringResponseModel result = ValidateModel.ValidateTemplateAndMatrixCodesModel(model);
             if (!result.IsSuccess)
@@ -371,7 +371,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPost("ReplaceAllCodesMatrixInTemplate/PoPlechu")]
         public IActionResult ReplaceAllClientPortfoliosInPoPlechuTemplate([FromBody] TemplateAndMatrixCodesModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost ReplaceAllClientPortfoliosInTemplate/PoPlechu Call, {model.Template} with {model.ClientCodes.Length} codes");
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost ReplaceAllClientPortfoliosInTemplate/PoPlechu Call, {model.Template} with {model.MatrixClientPortfolio.Length} codes");
             
             ListStringResponseModel result = ValidateModel.ValidateTemplateAndMatrixCodesModel(model);
             if (!result.IsSuccess)

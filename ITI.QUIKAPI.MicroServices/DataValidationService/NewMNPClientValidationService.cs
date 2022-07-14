@@ -8,9 +8,9 @@ namespace DataValidationService
     {
         public NewMNPClientValidationService()
         {
-            RuleForEach(x => x.CodesMatrix).ChildRules(codes =>
+            RuleForEach(x => x.MatrixClientPortfolios).ChildRules(codes =>
             {
-                codes.RuleFor(x => x.MatrixClientCode).SetValidator(new ClientCodeSpotMatrixMsMoFxRsCdValidator());
+                codes.RuleFor(x => x.MatrixClientPortfolio).SetValidator(new ClientCodeSpotMatrixMsMoFxRsCdValidator());
             });
 
             RuleForEach(x => x.CodesPairRF).ChildRules(codes =>
@@ -25,14 +25,14 @@ namespace DataValidationService
 
             RuleFor(x => x.Client).SetValidator(new NewClientNameEmailValidator());
 
-            RuleFor(x => x.CodesMatrix)
+            RuleFor(x => x.MatrixClientPortfolios)
                .NotEmpty()
                    .When(x => x.CodesPairRF == null)
                    .WithMessage("MO MS FX CD RS Portfolios array 'CodesMatrix' must be Greater Than 0 when RF portfolios array 'CodesPairRF' is not set")
                    .WithErrorCode("MNP100");
             RuleFor(x => x.CodesPairRF)
                 .NotEmpty()
-                    .When(x => x.CodesMatrix == null)
+                    .When(x => x.MatrixClientPortfolios == null)
                     .WithMessage("RF portfolios array 'CodesPairRF' must be Greater Than 0 when MO MS FX CD RS Portfolios array 'CodesMatrix' is not set")
                     .WithErrorCode("MNP101");
 
