@@ -229,6 +229,13 @@ namespace QuikSftpService
             return response;
         }
 
+        public ListStringResponseModel GetUIDByMatrixClientAccount(string matrixClientAccount)
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService GetUIDByMatrixClientAccount Called, ClientAcc=" + matrixClientAccount);
+
+            return GetUIDFromCurrClnts(matrixClientAccount);
+        }
+
         public ListStringResponseModel GetUIDByMatrixCode(string code)
         {
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService GetUIDByMatrixCode Called, code=" + code);
@@ -481,10 +488,10 @@ namespace QuikSftpService
 
         public ListStringResponseModel SetNewPubringKeyByMatrixClientCode(MatrixCodeAndPubringKeyModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService SetNewPubringKeyByMatrixClientCode Called, code=" + model.ClientCode);
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService SetNewPubringKeyByMatrixClientCode Called, code=" + model.MatrixClientPortfolio);
 
             //из кода матрицы сделаем код quik
-            string quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(model.ClientCode.MatrixClientPortfolio);
+            string quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(model.MatrixClientPortfolio.MatrixClientPortfolio);
 
             FortsCodeAndPubringKeyModel fortsModel = new FortsCodeAndPubringKeyModel();
             fortsModel.Key = model.Key;

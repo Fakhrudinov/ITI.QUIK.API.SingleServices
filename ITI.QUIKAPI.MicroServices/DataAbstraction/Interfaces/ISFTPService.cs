@@ -28,5 +28,6 @@ namespace DataAbstraction.Interfaces
         ListStringResponseModel GetStartMessageforUID(int uid);
         ListStringResponseModel SetAllTradesByMatrixClientCode(MatrixClientPortfolioModel model);
         ListStringResponseModel SetAllTradesByFortsClientCode(FortsClientCodeModel model);
+        ListStringResponseModel GetUIDByMatrixClientAccount(string matrixClientAccount);
     }
 }

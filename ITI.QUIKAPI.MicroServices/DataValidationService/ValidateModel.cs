@@ -105,6 +105,21 @@ namespace DataValidationService
             return responseList;
         }
 
+        public static ListStringResponseModel ValidateMatrixClientAccountModel(MatrixClientAccountModel model)
+        {
+            MatrixClientAccountValidator validator = new MatrixClientAccountValidator();
+            var responseList = new ListStringResponseModel();
+
+            ValidationResult validationResult = validator.Validate(model.MatrixClientAccount);
+
+            if (!validationResult.IsValid)
+            {
+                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
+            }
+
+            return responseList;
+        }
+
         public static ListStringResponseModel ValidateMatrixCDClientCodeModel(MatrixClientPortfolioModel model)
         {
             ClientCodeSpotMatrixCdValidator validator = new ClientCodeSpotMatrixCdValidator();

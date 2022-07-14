@@ -79,6 +79,24 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             return Ok(result);
         }
 
+        [HttpGet("UID/byMatrixClientAccount")]
+        public IActionResult GetUIDByMatrixClientAccount([FromQuery] MatrixClientAccountModel model)
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet GetUID/byMatrixClientAccount {model.MatrixClientAccount} Call ");
+
+            //проверим корректность входных данных
+            ListStringResponseModel result = ValidateModel.ValidateMatrixClientAccountModel(model);
+            if (!result.IsSuccess)
+            {
+                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet GetUID/byMatrixClientAccount {model.MatrixClientAccount} Error: {result.Messages[0]}");
+                return Ok(result);
+            }
+
+            result = _serviceSFTP.GetUIDByMatrixClientAccount(model.MatrixClientAccount);
+
+            return Ok(result);
+        }
+
         [HttpGet("UID/byMatrixCode")]
         public IActionResult GetUIDByMatrixCode([FromQuery] MatrixClientPortfolioModel model)
         {
@@ -269,7 +287,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         [HttpPut("SetNewPubringKeyBy/MatrixClientCode")]
         public IActionResult SetNewPubringKeyByMatrixClientCode([FromBody] MatrixCodeAndPubringKeyModel model)
         {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut SetNewPubringKey/ByMatrixClientCode Call " + model.ClientCode);
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut SetNewPubringKey/ByMatrixClientCode Call " + model.MatrixClientPortfolio);
 
             //проверим корректность входных данных
             ListStringResponseModel result = ValidateModel.ValidateMatrixCodeAndPubringKeyModel(model);
