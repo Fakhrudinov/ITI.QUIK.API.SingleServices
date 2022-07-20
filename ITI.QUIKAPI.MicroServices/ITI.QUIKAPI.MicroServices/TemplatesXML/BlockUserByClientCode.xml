@@ -5,7 +5,7 @@
 			<ClientCode>**QuikClientCode**</ClientCode>
 		</UID>
 		<Permission>
-			<ValidTo>**DateBloced**</ValidTo>
+			<ValidTo>**DateNow**</ValidTo>
 		</Permission>
 		<GlobalRights>
 			<Blocked>1</Blocked>

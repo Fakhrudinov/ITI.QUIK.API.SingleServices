@@ -29,5 +29,6 @@ namespace DataAbstraction.Interfaces
         ListStringResponseModel SetAllTradesByMatrixClientCode(MatrixClientPortfolioModel model);
         ListStringResponseModel SetAllTradesByFortsClientCode(FortsClientCodeModel model);
         ListStringResponseModel GetUIDByMatrixClientAccount(string matrixClientAccount);
+        ListStringResponseModel GetUIDByMatrixCodesArray(string[] codesArray);
     }
 }

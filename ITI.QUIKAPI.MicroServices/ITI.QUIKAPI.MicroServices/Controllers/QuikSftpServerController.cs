@@ -79,6 +79,24 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             return Ok(result);
         }
 
+        [HttpGet("UID/byMatrixCodesArray")]
+        public IActionResult GetUIDByMatrixCodesArray([FromQuery] string[] codesArray)
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet GetUID/byMatrixCodesArray {codesArray[0]} Call ");
+
+            //проверим корректность входных данных
+            ListStringResponseModel result = ValidateModel.ValidateMixedClientCodesArray(codesArray);
+            if (!result.IsSuccess)
+            {
+                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet GetUID/byMatrixCodesArray Error: {result.Messages[0]}");
+                return Ok(result);
+            }
+
+            result = _serviceSFTP.GetUIDByMatrixCodesArray(codesArray);
+
+            return Ok(result);
+        }
+
         [HttpGet("UID/byMatrixClientAccount")]
         public IActionResult GetUIDByMatrixClientAccount([FromQuery] MatrixClientAccountModel model)
         {

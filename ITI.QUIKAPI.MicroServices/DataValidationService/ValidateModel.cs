@@ -71,7 +71,7 @@ namespace DataValidationService
                         responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
                     }
                 }
-                else if (str.StartsWith("B"))
+                else if (str.StartsWith("B") || str.StartsWith("A"))
                 {
                     ClientCodeSpotMatrixMsMoFxRsCdValidator validator = new ClientCodeSpotMatrixMsMoFxRsCdValidator();
                     ValidationResult validationResult = validator.Validate(str);
