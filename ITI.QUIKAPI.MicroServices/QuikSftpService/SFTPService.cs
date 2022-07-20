@@ -233,7 +233,10 @@ namespace QuikSftpService
         {
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService GetUIDByMatrixClientAccount Called, ClientAcc=" + matrixClientAccount);
 
-            return GetUIDFromCurrClnts(matrixClientAccount);
+            List<string> uniqueCodes = new List<string>();
+            uniqueCodes.Add(matrixClientAccount);
+
+            return GetUIDFromCurrClnts(uniqueCodes);
         }
 
         public ListStringResponseModel GetUIDByMatrixCode(string code)
@@ -243,7 +246,10 @@ namespace QuikSftpService
             //из кода матрицы сделаем код quik
             string quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(code);
 
-            return GetUIDFromCurrClnts(quikCode);
+            List<string> uniqueCodes = new List<string>();
+            uniqueCodes.Add(quikCode);
+
+            return GetUIDFromCurrClnts(uniqueCodes);
         }
 
         public ListStringResponseModel GetUIDByFortsCode(string code)
@@ -253,12 +259,50 @@ namespace QuikSftpService
             //из кода матрицы сделаем код quik
             string quikCode = PortfoliosConvertingService.GetQuikFortsCode(code);
 
-            return GetUIDFromCurrClnts(quikCode);
+            List<string> uniqueCodes = new List<string>();
+            uniqueCodes.Add(quikCode);
+
+            return GetUIDFromCurrClnts(uniqueCodes);
         }
 
-        private ListStringResponseModel GetUIDFromCurrClnts(string quikCode)
+        public ListStringResponseModel GetUIDByMatrixCodesArray(string[] codesArray)
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService GetUIDByMatrixCodesArray Called, first code=" + codesArray[0]);
+
+            ListStringResponseModel response = new ListStringResponseModel();
+
+            //create array with unique quik codes
+            List<string> uniqueCodes = new List<string>();
+
+            foreach (string code in codesArray)
+            {
+                string quikCode = "";
+
+                if (code.Contains('-'))//matrix spot portfolio
+                {
+                    //из портфеля клиента матрицы сделаем код quik
+                    quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(code);
+                }
+                else if (code.Contains("C0"))//matrix forts client code
+                {
+                    //из кода фортс матрицы сделаем код quik
+                    quikCode = PortfoliosConvertingService.GetQuikFortsCode(code);
+                }
+
+                if (quikCode.Length > 1 && !uniqueCodes.Contains(quikCode))//если преобразование успешно и такого кода нет
+                {
+                    uniqueCodes.Add(quikCode);
+                }
+            }
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService GetUIDByMatrixCodesArray Unique codes count is " + uniqueCodes.Count);
+
+            return GetUIDFromCurrClnts(uniqueCodes);
+        }
+
+        private ListStringResponseModel GetUIDFromCurrClnts(List<string> quikCodes)
         {
             ListStringResponseModel response = new ListStringResponseModel();
+            
             //сначала проверить что файл есть
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), _filesFolder, "CurrClnts.xml");
             if (!File.Exists(filePath))
@@ -275,24 +319,32 @@ namespace QuikSftpService
             nsmanager.AddNamespace("qx", "urn:quik:user-rights-import");
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             xmlConfig.Load(filePath);
-            
-            XmlNodeList nodeSearchResult = xmlConfig.SelectNodes("//qx:Classes[contains(@ClientCodes,'" + quikCode + "')]", nsmanager);
-            if (nodeSearchResult.Count > 0)
+
+            List<XmlNode> nodeResult = new List<XmlNode>();//уникальные ноды с результатами поиска
+
+            //по каждому коду ищем
+            foreach(string quikCode in quikCodes)
             {
-                List<XmlNode> nodeResult = new List<XmlNode>();
-
-                foreach (XmlNode node in nodeSearchResult)
+                XmlNodeList nodeSearchResult = xmlConfig.SelectNodes("//qx:Classes[contains(@ClientCodes,'" + quikCode + "')]", nsmanager);
+                if (nodeSearchResult.Count > 0)
                 {
-                    response.IsSuccess = true;
-                    if (node.ParentNode is not null)
+                    foreach (XmlNode node in nodeSearchResult)
                     {
-                        if (!nodeResult.Contains(node.ParentNode))
+                        response.IsSuccess = true;
+                        if (node.ParentNode is not null)
                         {
-                            nodeResult.Add(node.ParentNode);
+                            if (!nodeResult.Contains(node.ParentNode))
+                            {
+                                nodeResult.Add(node.ParentNode);
+                            }
                         }
-                    }                    
+                    }
                 }
+            }
 
+            if (nodeResult.Count > 0)
+            {
+                //результаты поиска в ответ
                 foreach (XmlNode node in nodeResult)
                 {
                     response.Messages.Add(node.OuterXml);
@@ -303,6 +355,7 @@ namespace QuikSftpService
                 response.IsSuccess = false;
                 response.Messages.Add("Code not found at file " + filePath);
             }
+
             return response;
         }
 
