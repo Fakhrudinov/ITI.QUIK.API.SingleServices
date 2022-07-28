@@ -1,14 +1,14 @@
-﻿using DataAbstraction.Interfaces;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Logging;
+﻿using CommonServices;
+using DataAbstraction.Interfaces;
+using DataAbstraction.Models;
 using DataAbstraction.Models.Connections;
+using DataAbstraction.Models.Responses;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Renci.SshNet;
 using Renci.SshNet.Sftp;
-using CommonServices;
-using DataAbstraction.Models;
-using System.Xml;
 using System.Text;
-using DataAbstraction.Models.Responses;
+using System.Xml;
 
 namespace QuikSftpService
 {
@@ -860,28 +860,28 @@ namespace QuikSftpService
 
             ListStringResponseModel response = new ListStringResponseModel();
 
-            // разделим коды по спискам
-            List<string> codesMoMsFxCd = new List<string>();
-            List<string> codesRs = new List<string>();
+            //// разделим коды по спискам
+            //List<string> codesMoMsFxCd = new List<string>();
+            //List<string> codesRs = new List<string>();
 
-            foreach (MatrixClientPortfolioModel code in model.MatrixClientPortfolios)
-            {
-                if (code.MatrixClientPortfolio.Contains("-RS-"))
-                {
-                    string codeForCodesIni = GenerateRSClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientPortfolio));
-                    codesRs.Add(codeForCodesIni);
-                }
-                else if (code.MatrixClientPortfolio.Contains("-CD-"))
-                {
-                    string codeForCodesIni = GenerateCDClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikCdPortfolio(code.MatrixClientPortfolio));
-                    codesMoMsFxCd.Add(codeForCodesIni);
-                }
-                else
-                {
-                    string codeForCodesIni = GenerateClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientPortfolio));
-                    codesMoMsFxCd.Add(codeForCodesIni);
-                }
-            }
+            //foreach (MatrixClientPortfolioModel code in model.MatrixClientPortfolios)
+            //{
+            //    if (code.MatrixClientPortfolio.Contains("-RS-"))
+            //    {
+            //        string codeForCodesIni = GenerateRSClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientPortfolio));
+            //        codesRs.Add(codeForCodesIni);
+            //    }
+            //    else if (code.MatrixClientPortfolio.Contains("-CD-"))
+            //    {
+            //        string codeForCodesIni = GenerateCDClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikCdPortfolio(code.MatrixClientPortfolio));
+            //        codesMoMsFxCd.Add(codeForCodesIni);
+            //    }
+            //    else
+            //    {
+            //        string codeForCodesIni = GenerateClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientPortfolio));
+            //        codesMoMsFxCd.Add(codeForCodesIni);
+            //    }
+            //}
 
             //скачаем файл codes.ini
             string localFilePath = Path.Combine(Directory.GetCurrentDirectory(), _filesFolder);
@@ -910,6 +910,40 @@ namespace QuikSftpService
 
             //все строки из файла в список
             List<string> stringsFromFile = GetAllStringsFromFile(downloadResult.Messages[0]);
+
+            //проверим наличие кодов в файле
+            List<string> portfoliosNotInFile = new List<string>();
+
+            foreach (var matrixPortfolio in model.MatrixClientPortfolios)
+            {
+                if (!SearchPortfolioInListStringFileCodesIni(stringsFromFile, matrixPortfolio.MatrixClientPortfolio))//if not present
+                {
+                    portfoliosNotInFile.Add(matrixPortfolio.MatrixClientPortfolio);
+                }
+            }
+
+            // разделим коды по спискам
+            List<string> codesMoMsFxCd = new List<string>();
+            List<string> codesRs = new List<string>();
+
+            foreach (string portfolios in portfoliosNotInFile)
+            {
+                if (portfolios.Contains("-RS-"))
+                {
+                    string codeForCodesIni = GenerateRSClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikSpotPortfolio(portfolios));
+                    codesRs.Add(codeForCodesIni);
+                }
+                else if (portfolios.Contains("-CD-"))
+                {
+                    string codeForCodesIni = GenerateCDClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikCdPortfolio(portfolios));
+                    codesMoMsFxCd.Add(codeForCodesIni);
+                }
+                else
+                {
+                    string codeForCodesIni = GenerateClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikSpotPortfolio(portfolios));
+                    codesMoMsFxCd.Add(codeForCodesIni);
+                }
+            }
 
             //добавим новые строки в список - сначала EQTV - оно ниже в файле
             if (codesMoMsFxCd.Count > 0)
@@ -987,8 +1021,6 @@ namespace QuikSftpService
             //все строки из файла в список
             List<string> stringsFromFile = GetAllStringsFromFile(downloadResult.Messages[0]);
 
-            //int indexEQTV = FindIndexinArrayByText(stringsFromFile, "[EQTV]");
-            //int indexSPBEX = FindIndexinArrayByText(stringsFromFile, "[SPBEX]");
             bool isFoundedTotal = true;
 
             // по одному проверяем портфели - есть или нет
@@ -1006,61 +1038,6 @@ namespace QuikSftpService
                     response.Messages.Add($"{matrixPortfolio} - not found");
                     _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService GetClientCodesIsPresentInFileCodesIni {matrixPortfolio} - not found");
                 }
-
-                //if (matrixPortfolio.Contains("-RS-"))
-                //{
-                //    string searchInFile = GenerateRSClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikSpotPortfolio(matrixPortfolio)).Replace("\r\n", "");
-
-                //    bool isFoundedSingle = false;
-
-                //    for (int i = indexSPBEX; i < indexEQTV; i++)
-                //    {
-                //        if (stringsFromFile[i].Equals(searchInFile))
-                //        {
-                //            isFoundedSingle = true;
-                //            response.Messages.Add($"{matrixPortfolio} - ok, found: {searchInFile}");
-                //            break;
-                //        }
-                //    }
-
-                //    if (!isFoundedSingle)
-                //    {
-                //        isFoundedTotal = false;
-                //        response.Messages.Add($"{matrixPortfolio} - not found");
-                //        _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService GetClientCodesIsPresentInFileCodesIni {matrixPortfolio} - not found");
-                //    }
-                //}
-                //else
-                //{
-                //    string searchInFile = "";
-                //    bool isFoundedSingle = false;
-
-                //    if (matrixPortfolio.Contains("-CD-"))
-                //    {
-                //        searchInFile = GenerateCDClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikCdPortfolio(matrixPortfolio)).Replace("\r\n", "");
-                //    }
-                //    else
-                //    {
-                //        searchInFile = GenerateClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikSpotPortfolio(matrixPortfolio)).Replace("\r\n", "");
-                //    }
-
-                //    for (int i = indexEQTV; i < stringsFromFile.Count; i++)
-                //    {
-                //        if (stringsFromFile[i].Equals(searchInFile))
-                //        {
-                //            isFoundedSingle = true;
-                //            response.Messages.Add($"{matrixPortfolio} - ok, found: {searchInFile}");
-                //            break;
-                //        }
-                //    }
-
-                //    if (!isFoundedSingle)
-                //    {
-                //        isFoundedTotal = false;
-                //        response.Messages.Add($"{matrixPortfolio} - not found");
-                //        _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService GetClientCodesIsPresentInFileCodesIni {matrixPortfolio} - not found");
-                //    }
-                //}
             }
 
             if (isFoundedTotal)
