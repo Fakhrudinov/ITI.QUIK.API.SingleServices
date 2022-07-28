@@ -1,4 +1,5 @@
 ﻿using DataAbstraction.Models;
+using DataAbstraction.Models.Responses;
 
 namespace DataAbstraction.Interfaces
 {
@@ -30,5 +31,6 @@ namespace DataAbstraction.Interfaces
         ListStringResponseModel SetAllTradesByFortsClientCode(FortsClientCodeModel model);
         ListStringResponseModel GetUIDByMatrixClientAccount(string matrixClientAccount);
         ListStringResponseModel GetUIDByMatrixCodesArray(string[] codesArray);
+        BoolResponse GetClientCodesIsPresentInFileCodesIni(string[] codesArray);
     }
 }

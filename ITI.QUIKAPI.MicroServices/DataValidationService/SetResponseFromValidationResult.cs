@@ -14,7 +14,7 @@ namespace DataValidationService
             {
                 ValidationMessages.Add(failure.ErrorCode + " " + failure.ErrorMessage);
             }
-            response.Messages = ValidationMessages;
+            response.Messages.AddRange(ValidationMessages);// = ValidationMessages;
 
             return response;
         }

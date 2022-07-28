@@ -1,5 +1,6 @@
 ﻿using DataAbstraction.Models;
 using DataAbstraction.Models.DataBaseModels;
+using DataAbstraction.Models.Responses;
 using DataValidationService.SingleEntityValidation;
 using FluentValidation.Results;
 
@@ -88,6 +89,27 @@ namespace DataValidationService
             }
 
             return responseList;
+        }
+
+        public static BoolResponse ValidateMatrixSpotClientCodesArray(IEnumerable<string> code)
+        {
+            var response = new BoolResponse();
+            var responseList = new ListStringResponseModel();
+
+            foreach (string str in code)
+            {
+                ClientCodeSpotMatrixMsMoFxRsCdValidator validator = new ClientCodeSpotMatrixMsMoFxRsCdValidator();
+                ValidationResult validationResult = validator.Validate(str);
+                if (!validationResult.IsValid)
+                {
+                    responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
+                }
+            }
+
+            response.IsSuccess = responseList.IsSuccess;
+            response.Messages = responseList.Messages;
+
+            return response;
         }
 
         public static ListStringResponseModel ValidateNewMNPClientModel(NewMNPClientModel model)

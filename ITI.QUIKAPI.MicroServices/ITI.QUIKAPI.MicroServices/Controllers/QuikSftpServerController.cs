@@ -1,5 +1,6 @@
 ﻿using DataAbstraction.Interfaces;
 using DataAbstraction.Models;
+using DataAbstraction.Models.Responses;
 using DataValidationService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -234,6 +235,24 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet BackUpFileSpbfutlibIni Call");
 
             var result = _serviceSFTP.BackUpFileSpbfutlibIni();
+
+            return Ok(result);
+        }
+
+        [HttpGet("ClientCodes/IsPresentIn/FileCodesIni")]
+        public IActionResult GetClientCodesIsPresentInFileCodesIni([FromQuery] string[] codesArray)
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet ClientCodes/IsPresentIn/FileCodesIni {codesArray[0]} Call ");
+
+            //проверим корректность входных данных
+            BoolResponse result = ValidateModel.ValidateMatrixSpotClientCodesArray(codesArray);
+            if (!result.IsSuccess)
+            {
+                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet ClientCodes/IsPresentIn/FileCodesIni Error: {result.Messages[0]}");
+                return Ok(result);
+            }
+
+            result = _serviceSFTP.GetClientCodesIsPresentInFileCodesIni(codesArray);
 
             return Ok(result);
         }

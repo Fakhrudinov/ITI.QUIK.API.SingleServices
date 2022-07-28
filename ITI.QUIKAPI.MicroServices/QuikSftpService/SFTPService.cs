@@ -8,6 +8,7 @@ using CommonServices;
 using DataAbstraction.Models;
 using System.Xml;
 using System.Text;
+using DataAbstraction.Models.Responses;
 
 namespace QuikSftpService
 {
@@ -951,6 +952,113 @@ namespace QuikSftpService
 
             //отправим файл на SFTP
             return UploadFileToSFTP(newFilePath, _codesIniPathSFTP, true);
+        }
+        public BoolResponse GetClientCodesIsPresentInFileCodesIni(string[] codesArray)
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService GetClientCodesIsPresentInFileCodesIni Called");
+
+            BoolResponse response = new BoolResponse();
+
+            //скачаем файл codes.ini
+            string localFilePath = Path.Combine(Directory.GetCurrentDirectory(), _filesFolder);
+            FilesManagementService.CheckCreateDirectory(localFilePath);
+
+            string fileName = "codes" + FilesManagementService.GetCurrentDateTimeString() + ".ini";
+            localFilePath = Path.Combine(localFilePath, fileName);
+
+            var downloadResult = DownloadFileFromSFTP(localFilePath, _codesIniPathSFTP);
+
+            if (downloadResult.Messages.Contains("Error"))
+            {
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} {downloadResult.Messages[0]}");
+
+                response.IsSuccess = false;
+                return response;
+            }
+            if (!File.Exists(downloadResult.Messages[0]))
+            {
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService AddMAtrixCodesToFileCodesIni Error - Downloaded file not found: " + downloadResult.Messages[0]);
+
+                response.IsSuccess = false;
+                response.Messages.Add("Error - Downloaded file not found: " + downloadResult.Messages[0]);
+                return response;
+            }
+
+            //все строки из файла в список
+            List<string> stringsFromFile = GetAllStringsFromFile(downloadResult.Messages[0]);
+
+            int indexEQTV = FindIndexinArrayByText(stringsFromFile, "[EQTV]");
+            int indexSPBEX = FindIndexinArrayByText(stringsFromFile, "[SPBEX]");
+            bool isFoundedTotal = true;
+
+            // по одному проверяем портфели - есть или нет
+            foreach (string matrixPortfolio in codesArray)
+            {
+                if (matrixPortfolio.Contains("-RS-"))
+                {
+                    string searchInFile = GenerateRSClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikSpotPortfolio(matrixPortfolio)).Replace("\r\n", "");
+
+                    bool isFoundedSingle = false;
+
+                    for (int i = indexSPBEX; i < indexEQTV; i++)
+                    {
+                        if (stringsFromFile[i].Equals(searchInFile))
+                        {
+                            isFoundedSingle = true;
+                            response.Messages.Add($"{matrixPortfolio} - ok, found: {searchInFile}");
+                            break;
+                        }
+                    }
+
+                    if (!isFoundedSingle)
+                    {
+                        isFoundedTotal = false;
+                        response.Messages.Add($"{matrixPortfolio} - not found");
+                        _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService GetClientCodesIsPresentInFileCodesIni {matrixPortfolio} - not found");
+                    }
+                }
+                else
+                {
+                    string searchInFile = "";
+                    bool isFoundedSingle = false;
+
+                    if (matrixPortfolio.Contains("-CD-"))
+                    {
+                        searchInFile = GenerateCDClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikCdPortfolio(matrixPortfolio)).Replace("\r\n", "");
+                    }
+                    else
+                    {
+                        searchInFile = GenerateClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikSpotPortfolio(matrixPortfolio)).Replace("\r\n", "");
+                    }
+
+                    for (int i = indexEQTV; i < stringsFromFile.Count; i++)
+                    {
+                        if (stringsFromFile[i].Equals(searchInFile))
+                        {
+                            isFoundedSingle = true;
+                            response.Messages.Add($"{matrixPortfolio} - ok, found: {searchInFile}");
+                            break;
+                        }
+                    }
+
+                    if (!isFoundedSingle)
+                    {
+                        isFoundedTotal = false;
+                        response.Messages.Add($"{matrixPortfolio} - not found");
+                        _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService GetClientCodesIsPresentInFileCodesIni {matrixPortfolio} - not found");
+                    }
+                }
+            }
+
+            if (isFoundedTotal)
+            {
+                response.IsTrue = true;
+                response.Messages.Add("All portfolios founded");
+            }
+
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService GetClientCodesIsPresentInFileCodesIni is all portfolio finded result - {isFoundedTotal}");
+
+            return response;
         }
 
         public ListStringResponseModel RequestFileCurrClnts()
