@@ -860,29 +860,6 @@ namespace QuikSftpService
 
             ListStringResponseModel response = new ListStringResponseModel();
 
-            //// разделим коды по спискам
-            //List<string> codesMoMsFxCd = new List<string>();
-            //List<string> codesRs = new List<string>();
-
-            //foreach (MatrixClientPortfolioModel code in model.MatrixClientPortfolios)
-            //{
-            //    if (code.MatrixClientPortfolio.Contains("-RS-"))
-            //    {
-            //        string codeForCodesIni = GenerateRSClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientPortfolio));
-            //        codesRs.Add(codeForCodesIni);
-            //    }
-            //    else if (code.MatrixClientPortfolio.Contains("-CD-"))
-            //    {
-            //        string codeForCodesIni = GenerateCDClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikCdPortfolio(code.MatrixClientPortfolio));
-            //        codesMoMsFxCd.Add(codeForCodesIni);
-            //    }
-            //    else
-            //    {
-            //        string codeForCodesIni = GenerateClientCodeStringForCodesIni(PortfoliosConvertingService.GetQuikSpotPortfolio(code.MatrixClientPortfolio));
-            //        codesMoMsFxCd.Add(codeForCodesIni);
-            //    }
-            //}
-
             //скачаем файл codes.ini
             string localFilePath = Path.Combine(Directory.GetCurrentDirectory(), _filesFolder);
             FilesManagementService.CheckCreateDirectory(localFilePath);
