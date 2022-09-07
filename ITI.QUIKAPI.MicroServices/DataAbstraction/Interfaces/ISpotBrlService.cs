@@ -13,5 +13,8 @@ namespace DataAbstraction.Interfaces
         ListStringResponseModel MoveQuikClientCodeBetweenTemplates(bool itIsPoKomissii, MoveQuikCodeModel moveModel);
         ListStringResponseModel MoveMatrixClientCodeBetweenTemplates(bool itIsPoKomissii, MoveMatrixCodeModel moveModel);
         ListStringResponseModel ReplaceAllCodesInTemplate(bool itIsPoKomissii, TemplateAndMatrixCodesModel model);
+        ListStringResponseModel ReplaceKvalInvestorsList(CodesArrayModel model);
+        ListStringResponseModel ReplaceNonKvalInvestorsWithTestsArray(QCodeAndListOfComplexProductsTestsModel[] modelArray);
+        ListStringResponseModel ReplaceAllRestrictedSecuritiesInTemplatePoKomisii(RestrictedSecuritiesArraySetForBoardInTemplatesModel model);
     }
 }

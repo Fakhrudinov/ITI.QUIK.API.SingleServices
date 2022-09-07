@@ -57,6 +57,21 @@ namespace DataValidationService
             return response;
         }
 
+        public static ListStringResponseModel ValidateQCodeAndListOfComplexProductsTestsModel(QCodeAndListOfComplexProductsTestsModel[] model)
+        {
+            QCodeAndListOfComplexProductsTestsValidationService validator = new QCodeAndListOfComplexProductsTestsValidationService();
+            ListStringResponseModel responseList = new ListStringResponseModel();
+
+            ValidationResult validationResult = validator.Validate(model);
+
+            if (!validationResult.IsValid)
+            {
+                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
+            }
+
+            return responseList;
+        }
+
         public static ListStringResponseModel ValidateMixedClientCodesArray(IEnumerable<string> code)
         {
             var responseList = new ListStringResponseModel();

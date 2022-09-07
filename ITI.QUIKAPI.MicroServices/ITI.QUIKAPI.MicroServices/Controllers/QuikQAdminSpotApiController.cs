@@ -359,6 +359,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             if (!result.IsSuccess)
             {
                 _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost ReplaceAllCodesMatrixInTemplate/PoKomisii Error: {result.Messages[0]}");
+                result.Messages.Add("Error at template " + model.Template);
                 return Ok(result);
             }
 
@@ -384,6 +385,26 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
 
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost ReplaceAllClientPortfoliosInTemplate/PoPlechu result isOK={result.IsSuccess}");
             
+            return Ok(result);
+        }
+
+        [HttpPost("ReplaceAll/RestrictedSecurities/InTemplate/PoKomisii")]
+        public IActionResult ReplaceAllRestrictedSecuritiesInTemplatePoKomisii([FromBody] RestrictedSecuritiesArraySetForBoardInTemplatesModel model)
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost ReplaceAll/RestrictedSecurities/InTemplate/PoKomisii Call for " +
+                $"{model.TemplateName} {model.SecBoard}, sec lenght = {model.Securities.Length}");
+
+            //ListStringResponseModel result = ValidateModel.ValidateTemplateAndMatrixCodesModel(model);
+            //if (!result.IsSuccess)
+            //{
+            //    _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost ReplaceAllClientPortfoliosInTemplate/PoPlechu Error: {result.Messages[0]}");
+            //    return Ok(result);
+            //}
+
+            ListStringResponseModel result = _qService.ReplaceAllRestrictedSecuritiesInTemplatePoKomisii(model);
+
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost ReplaceAll/RestrictedSecurities/InTemplate/PoKomisii result isOK={result.IsSuccess}");
+
             return Ok(result);
         }
     }

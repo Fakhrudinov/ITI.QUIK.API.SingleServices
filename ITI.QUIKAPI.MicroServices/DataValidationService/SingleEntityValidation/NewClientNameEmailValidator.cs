@@ -20,7 +20,7 @@ namespace DataValidationService.SingleEntityValidation
                 .Length(7, 127)
                     .WithMessage("{PropertyName} '{PropertyValue}' must be minimum 7 and maximum 127 symbols lenght")
                     .WithErrorCode("CN102")
-                .Matches(@"^(?("")(""[^""]+?""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9]{2,17}))$")
+                .Matches(@"^[A-Z0-9a-z._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$")
                     .WithMessage("{PropertyName} '{PropertyValue}' regex not match Email")
                     .WithErrorCode("CN103");
         }
