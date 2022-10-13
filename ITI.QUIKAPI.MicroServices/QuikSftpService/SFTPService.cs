@@ -22,6 +22,7 @@ namespace QuikSftpService
         private const string _dealLibIniPathSFTP = ".\\dealer\\DealLib.ini";
         private const string _spbfutLibIniPathSFTP = ".\\dealer\\SpbfutLib.ini";
         private const string _allClientsPathSFTP = ".\\database\\qupdateuser\\Export\\CurrClnts.xml";
+        private const string _limlimPathSFTP = ".\\database\\lim.lim";
 
         private const string _uploadXmlFilesPathSFTP = ".\\database\\qupdateuser\\In";
         private const string _resultOkXmlFilesPathSFTP = ".\\database\\qupdateuser\\Out";
@@ -854,6 +855,17 @@ namespace QuikSftpService
             return DownloadFileFromSFTP(localFilePath, _allClientsPathSFTP);
         }
 
+        public ListStringResponseModel DownloadLimLim()
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService DownloadLimLim Called");
+
+            string localFilePath = Path.Combine(Directory.GetCurrentDirectory(), _filesFolder);
+            FilesManagementService.CheckCreateDirectory(localFilePath);
+            localFilePath = Path.Combine(localFilePath, "lim.lim");
+
+            return DownloadFileFromSFTP(localFilePath, _limlimPathSFTP);
+        }
+
         public ListStringResponseModel AddMAtrixCodesToFileCodesIni(CodesArrayModel model)
         {
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService AddMAtrixCodesToFileCodesIni Called");
@@ -1104,6 +1116,67 @@ namespace QuikSftpService
             }
             string pathSFTP = Path.Combine(_uploadXmlFilesPathSFTP, newTemplateFile);
             return UploadFileToSFTP(localFilePath, pathSFTP, true);
+        }
+
+        public ListStringResponseModel GetFileInfoByPath(string pathOrFileName)
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService GetFileInfoByPath Called for " + pathOrFileName);
+            ListStringResponseModel response = new ListStringResponseModel();
+
+            if (pathOrFileName.Equals("lim.lim"))
+            {
+                pathOrFileName = _limlimPathSFTP;
+            }
+
+            if (pathOrFileName.Equals("codes.ini"))
+            {
+                pathOrFileName = _codesIniPathSFTP;
+            }
+
+            if (pathOrFileName.Equals("DealLib.ini"))
+            {
+                pathOrFileName = _dealLibIniPathSFTP;
+            }
+
+            if (pathOrFileName.Equals("SpbfutLib.ini"))
+            {
+                pathOrFileName = _spbfutLibIniPathSFTP;
+            }
+
+            if (pathOrFileName.Equals("CurrClnts.xml"))
+            {
+                pathOrFileName = _allClientsPathSFTP;
+            }
+
+            using var client = new SftpClient(_logon.Host, _logon.Port, _logon.Login, _logon.Password);
+            try
+            {
+                client.Connect();
+
+                if (!client.Exists(pathOrFileName))
+                {
+                    response.IsSuccess = false;
+                    response.Messages.Add($"SFTP path {pathOrFileName} not found");
+                }
+                else
+                {
+                    response.Messages.Add($"GetLastWriteTime={client.GetLastWriteTime(pathOrFileName)}");
+                }
+
+            }
+            catch (Exception exception)
+            {
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP path {pathOrFileName} existance failed with Error: {exception.Message}");
+
+                response.IsSuccess = false;
+                response.Messages.Add($"SFTP path {pathOrFileName} existance failed with Error: {exception.Message}");
+            }
+            finally
+            {
+                client.Disconnect();
+            }
+
+            return response;
         }
 
         public ListStringResponseModel CheckConnections()

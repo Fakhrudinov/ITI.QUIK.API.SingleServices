@@ -24,7 +24,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet CheckConnections/ServerSFTP Call");
 
-            var result = _serviceSFTP.CheckConnections();
+            ListStringResponseModel result = _serviceSFTP.CheckConnections();
 
             return Ok(result);
         }
@@ -35,7 +35,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet GetStartMessage/forAll Call");
 
-            var result = _serviceSFTP.GetStartMessageforAll();
+            ListStringResponseModel result = _serviceSFTP.GetStartMessageforAll();
 
             return Ok(result);
         }
@@ -44,7 +44,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet GetStartMessage/forUID/{uid} Call");
 
-            var result = _serviceSFTP.GetStartMessageforUID(uid);
+            ListStringResponseModel result = _serviceSFTP.GetStartMessageforUID(uid);
 
             return Ok(result);
         }
@@ -55,7 +55,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteStartMessage/ForAll");
 
-            var result = _serviceSFTP.DeleteStartMessageForAll();
+            ListStringResponseModel result = _serviceSFTP.DeleteStartMessageForAll();
 
             return Ok(result);
         }
@@ -65,7 +65,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete DeleteStartMessage/ForUID/{uid}");
 
-            var result = _serviceSFTP.DeleteStartMessageForUID(uid);
+            ListStringResponseModel result = _serviceSFTP.DeleteStartMessageForUID(uid);
 
             return Ok(result);
         }
@@ -75,7 +75,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPost SetStartMessage Call, ToAll={model.ToAll} UID={model.UID}");
 
-            var result = _serviceSFTP.SetStartMessage(model);
+            ListStringResponseModel result = _serviceSFTP.SetStartMessage(model);
 
             return Ok(result);
         }
@@ -194,7 +194,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet RequestFile/CurrClnts Call");
 
-            var result = _serviceSFTP.RequestFileCurrClnts();
+            ListStringResponseModel result = _serviceSFTP.RequestFileCurrClnts();
 
             return Ok(result);
         }
@@ -204,7 +204,17 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet DownloadFile/CurrClnts Call");
 
-            var result = _serviceSFTP.DownloadCurrClnts();
+            ListStringResponseModel result = _serviceSFTP.DownloadCurrClnts();
+
+            return Ok(result);
+        }
+
+        [HttpGet("DownloadFile/LimLim")]
+        public IActionResult DownloadLimLim()
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet DownloadFile/LimLim Call");
+
+            ListStringResponseModel result = _serviceSFTP.DownloadLimLim();
 
             return Ok(result);
         }
@@ -214,7 +224,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet BackUpFileCodesIni Call");
 
-            var result = _serviceSFTP.BackUpFileCodesIni();
+            ListStringResponseModel result = _serviceSFTP.BackUpFileCodesIni();
 
             return Ok(result);
         }
@@ -224,7 +234,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet BackUpFileDealLibIni Call");
 
-            var result = _serviceSFTP.BackUpFileDealLibIni();
+            ListStringResponseModel result = _serviceSFTP.BackUpFileDealLibIni();
 
             return Ok(result);
         }
@@ -234,7 +244,17 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet BackUpFileSpbfutlibIni Call");
 
-            var result = _serviceSFTP.BackUpFileSpbfutlibIni();
+            ListStringResponseModel result = _serviceSFTP.BackUpFileSpbfutlibIni();
+
+            return Ok(result);
+        }
+
+        [HttpGet("Get/FileInfo/ByPath/{pathOrFileName}")]
+        public IActionResult GetFileInfoByPath(string pathOrFileName)
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet Get/FileInfo/ByPath/{pathOrFileName} Call");
+
+            ListStringResponseModel result = _serviceSFTP.GetFileInfoByPath(pathOrFileName);
 
             return Ok(result);
         }
@@ -280,7 +300,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpDelete BlockUserBy/UID/{uid} Call");
 
-            var result = _serviceSFTP.BlockUserByUID(uid);
+            ListStringResponseModel result = _serviceSFTP.BlockUserByUID(uid);
 
             return Ok(result);
         }
@@ -398,7 +418,7 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
         {
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet GetResultOfXMLFileUpload Call " + file);
 
-            var result = _serviceSFTP.GetResultOfXMLFileUpload(file);
+            ListStringResponseModel result = _serviceSFTP.GetResultOfXMLFileUpload(file);
 
             return Ok(result);
         }

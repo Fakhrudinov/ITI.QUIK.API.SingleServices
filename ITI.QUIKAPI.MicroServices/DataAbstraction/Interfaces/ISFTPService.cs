@@ -32,5 +32,7 @@ namespace DataAbstraction.Interfaces
         ListStringResponseModel GetUIDByMatrixClientAccount(string matrixClientAccount);
         ListStringResponseModel GetUIDByMatrixCodesArray(string[] codesArray);
         BoolResponse GetClientCodesIsPresentInFileCodesIni(string[] codesArray);
+        ListStringResponseModel DownloadLimLim();
+        ListStringResponseModel GetFileInfoByPath(string pathOrFileName);
     }
 }

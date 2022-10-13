@@ -394,13 +394,6 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost ReplaceAll/RestrictedSecurities/InTemplate/PoKomisii Call for " +
                 $"{model.TemplateName} {model.SecBoard}, sec lenght = {model.Securities.Length}");
 
-            //ListStringResponseModel result = ValidateModel.ValidateTemplateAndMatrixCodesModel(model);
-            //if (!result.IsSuccess)
-            //{
-            //    _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost ReplaceAllClientPortfoliosInTemplate/PoPlechu Error: {result.Messages[0]}");
-            //    return Ok(result);
-            //}
-
             ListStringResponseModel result = _qService.ReplaceAllRestrictedSecuritiesInTemplatePoKomisii(model);
 
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Httppost ReplaceAll/RestrictedSecurities/InTemplate/PoKomisii result isOK={result.IsSuccess}");
