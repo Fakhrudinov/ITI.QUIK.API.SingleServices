@@ -34,5 +34,6 @@ namespace DataAbstraction.Interfaces
         BoolResponse GetClientCodesIsPresentInFileCodesIni(string[] codesArray);
         ListStringResponseModel DownloadLimLim();
         ListStringResponseModel GetFileInfoByPath(string pathOrFileName);
+        ListStringResponseModel AddNewMatrixPortfolioToExistingClientByUID(MatrixPortfolioAndUidModel model);
     }
 }

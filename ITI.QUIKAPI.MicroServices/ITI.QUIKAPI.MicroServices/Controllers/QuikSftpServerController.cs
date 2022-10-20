@@ -422,5 +422,24 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
 
             return Ok(result);
         }
+
+        [HttpPut("AddNew/MatrixPortfolio/ToExistClient/ByUID")]
+        public IActionResult AddNewMatrixPortfolioToExistingClientByUID([FromBody] MatrixPortfolioAndUidModel model)
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut AddNew/MatrixPortfolio/ToExistingClient/ByUID Call, " +
+                $"UID={model.UID} Portfolio={model.MatrixPortfolio.MatrixClientPortfolio}");
+
+            //проверим корректность входных данных
+            ListStringResponseModel result = ValidateModel.ValidateMatrixPortfolioAndUidModel(model);
+            if (!result.IsSuccess)
+            {
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut AddNew/MatrixPortfolio/ToExistingClient/ByUID Failed with " + result.Messages[0]);
+                return Ok(result);
+            }
+
+            result = _serviceSFTP.AddNewMatrixPortfolioToExistingClientByUID(model);
+
+            return Ok(result);
+        }
     }
 }

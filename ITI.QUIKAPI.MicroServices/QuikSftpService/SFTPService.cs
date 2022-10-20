@@ -1582,5 +1582,78 @@ namespace QuikSftpService
 
             return incomingString;
         }
+
+        public ListStringResponseModel AddNewMatrixPortfolioToExistingClientByUID(MatrixPortfolioAndUidModel model)
+        {
+            ListStringResponseModel response = new ListStringResponseModel();
+
+            //сначала проверить что файл шаблона есть
+            string filePathTempl = Path.Combine(Directory.GetCurrentDirectory(), "TemplatesXML", "AddClientPortfolioByUID.xml");
+            if (!File.Exists(filePathTempl))
+            {
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService AddNewMatrixPortfolioToExistingClientByUID Error - Template file not found: " + filePathTempl);
+                response.IsSuccess = false;
+                response.Messages.Add("Error - Template file not found: " + filePathTempl);
+                return response;
+            }
+
+            // Подгрузить в List строки из шаблона
+            List<string> stringsFromFile = GetAllStringsFromFile(filePathTempl);
+
+            //переводим портфель матрицы в код quik
+            string quikCode = "";
+            if (model.MatrixPortfolio.MatrixClientPortfolio.Contains("MS") || 
+                model.MatrixPortfolio.MatrixClientPortfolio.Contains("MO") || 
+                model.MatrixPortfolio.MatrixClientPortfolio.Contains("FX"))
+            {
+                quikCode = PortfoliosConvertingService.GetQuikSpotPortfolio(model.MatrixPortfolio.MatrixClientPortfolio);
+            }
+            if (model.MatrixPortfolio.MatrixClientPortfolio.Contains("CD"))
+            {
+                quikCode = PortfoliosConvertingService.GetQuikCdPortfolio(model.MatrixPortfolio.MatrixClientPortfolio);
+            }
+
+            //подставить данные в шаблон
+            for (int i = 0; i < stringsFromFile.Count; i++)
+            {
+                if (stringsFromFile[i].Contains("**UID**"))
+                {
+                    stringsFromFile[i] = stringsFromFile[i].Replace("**UID**", model.UID.ToString());
+                }
+
+                if (stringsFromFile[i].Contains("**CodesINSTR**"))
+                {
+                    stringsFromFile[i] = stringsFromFile[i].Replace("**CodesINSTR**", quikCode);
+                }
+
+                if (stringsFromFile[i].Contains("**CodesMS**") && 
+                    (   
+                        model.MatrixPortfolio.MatrixClientPortfolio.Contains("-MS-") ||  
+                        model.MatrixPortfolio.MatrixClientPortfolio.Contains("-MO-"))
+                    )
+                {
+                    stringsFromFile[i] = stringsFromFile[i].Replace("**CodesMS**", quikCode);
+                }
+                if (stringsFromFile[i].Contains("**CodesCD**") && model.MatrixPortfolio.MatrixClientPortfolio.Contains("-CD-"))
+                {
+                    stringsFromFile[i] = stringsFromFile[i].Replace("**CodesCD**", quikCode);
+                }
+                if (stringsFromFile[i].Contains("**CodesFX**") && model.MatrixPortfolio.MatrixClientPortfolio.Contains("-FX-"))
+                {
+                    stringsFromFile[i] = stringsFromFile[i].Replace("**CodesFX**", quikCode);
+                }
+            }
+
+            //Убрать все оставшиеся незаполненными новыми кодами клиента строки
+            for (int i = stringsFromFile.Count-1; i >= 0; i--)
+            {
+                if (stringsFromFile[i].Contains("**"))
+                {
+                    stringsFromFile.RemoveAt(i);
+                }
+            }
+
+            return SaveNewFileAndUploadToSFTP(response, "AddClientPortfolioByUID.xml", model.UID + "_" + model.MatrixPortfolio.MatrixClientPortfolio, stringsFromFile);
+        }
     }
 }

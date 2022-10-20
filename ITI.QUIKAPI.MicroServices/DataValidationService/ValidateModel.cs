@@ -395,5 +395,20 @@ namespace DataValidationService
 
             return responseList;
         }
+
+        public static ListStringResponseModel ValidateMatrixPortfolioAndUidModel(MatrixPortfolioAndUidModel model)
+        {
+            MatrixPortfolioAndUidModelValidationService validator = new MatrixPortfolioAndUidModelValidationService();
+            ListStringResponseModel responseList = new ListStringResponseModel();
+
+            ValidationResult validationResult = validator.Validate(model);
+
+            if (!validationResult.IsValid)
+            {
+                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
+            }
+
+            return responseList;
+        }
     }
 }
