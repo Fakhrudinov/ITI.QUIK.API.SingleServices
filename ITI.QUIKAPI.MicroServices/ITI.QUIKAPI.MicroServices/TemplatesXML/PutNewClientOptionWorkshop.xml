@@ -29,7 +29,7 @@
 		  <OrgCode>2</OrgCode>
 		  <OrgName>**OrgName**</OrgName>
 		</Organization>
-		<Classes Rights="BCGTboptvx" FirmID="SPBFUT" ClientCodes="**CodesRF**">FUTEVN, OPTEVN, OPTEXP, OPTW, OPTWEVN, RTSIDX, SPBFUT, SPBOPT, USDRUB</Classes>  
+		<Classes Rights="BCGTboptvx" FirmID="SPBFUT" ClientCodes="**CodesRF**">FUTEVN, OPTEVN, OPTEXP, OPTW, OPTWEVN, RTSIDX, SPBFUT, SPBOPT, USDRUB ,CROSSRATE</Classes>  
 		<TFAuthUse>0</TFAuthUse>
 		<UserKey Type="plain">
 			<RSAKey Blocked="0" Bits="128" Time="**Time**" KeyID="**KeyID**">**RSAKey**</RSAKey>
