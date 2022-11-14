@@ -441,5 +441,24 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
 
             return Ok(result);
         }
+
+        [HttpPut("AddNew/MatrixFortsCode/ToExistClient/ByUID")]
+        public IActionResult AddNewMatrixFortsCodeToExistingClientByUID([FromBody] FortsCodeAndUidModel model)
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut AddNew/MatrixFortsCode/ToExistingClient/ByUID Call, " +
+                $"UID={model.UID} FortsCode={model.MatrixFortsCode}");
+
+            //проверим корректность входных данных
+            ListStringResponseModel result = ValidateModel.ValidateFortsCodeAndUidModel(model);
+            if (!result.IsSuccess)
+            {
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpPut AddNew/MatrixFortsCode/ToExistingClient/ByUID Failed with " + result.Messages[0]);
+                return Ok(result);
+            }
+
+            result = _serviceSFTP.AddNewMatrixFortsCodeToExistingClientByUID(model);
+
+            return Ok(result);
+        }
     }
 }

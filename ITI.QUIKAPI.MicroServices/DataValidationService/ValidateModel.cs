@@ -410,5 +410,20 @@ namespace DataValidationService
 
             return responseList;
         }
+
+        public static ListStringResponseModel ValidateFortsCodeAndUidModel(FortsCodeAndUidModel model)
+        {
+            FortsCodeAndUidModelValidationService validator = new FortsCodeAndUidModelValidationService();
+            ListStringResponseModel responseList = new ListStringResponseModel();
+
+            ValidationResult validationResult = validator.Validate(model);
+
+            if (!validationResult.IsValid)
+            {
+                responseList = SetResponseFromValidationResult.SetResponse(validationResult, responseList);
+            }
+
+            return responseList;
+        }
     }
 }

@@ -4,8 +4,8 @@
 		<UID>**UID**</UID>
 		<Classes UpdateMode="add" ClientCodes="**CodesINSTR**">INSTR, INSTR_FX, INSTR_RF, INSTR_SYSTEM</Classes>
 		<Classes UpdateMode="add" ClientCodes="**CodesMS**">EQOB, INDX, TQBR, TQDE, TQIF, TQOB, TQOD, TQTF, TQCB, TQPI, TQRD, TQIR</Classes>
-		<Classes UpdateMode="add" ClientCodes="**CodesCD**">CETS, CETS_MTL</Classes>
-		<Classes UpdateMode="add" ClientCodes="**CodesFX**">CETS, CETS_MTL, INDXC,CETS_CLIENT, CETS_INFO</Classes>
+		<Classes UpdateMode="add" ClientCodes="**CodesCD**">CETS, CETS_MTL, CETS_SU</Classes>
+		<Classes UpdateMode="add" ClientCodes="**CodesFX**">CETS, CETS_MTL, CETS_SU, INDXC,CETS_CLIENT, CETS_INFO, CROSSRATE</Classes>
 		<Classes UpdateMode="add" ClientCodes="**CodesRF**">FUTEVN, RTSIDX, SPBFUT, USDRUB, SPBOPT, OPTEXP, OPTW, OPTEVN, OPTWEVN</Classes>
 	</Command>
 </UserData>

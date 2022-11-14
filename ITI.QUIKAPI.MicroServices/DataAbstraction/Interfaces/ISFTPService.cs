@@ -35,5 +35,6 @@ namespace DataAbstraction.Interfaces
         ListStringResponseModel DownloadLimLim();
         ListStringResponseModel GetFileInfoByPath(string pathOrFileName);
         ListStringResponseModel AddNewMatrixPortfolioToExistingClientByUID(MatrixPortfolioAndUidModel model);
+        ListStringResponseModel AddNewMatrixFortsCodeToExistingClientByUID(FortsCodeAndUidModel model);
     }
 }

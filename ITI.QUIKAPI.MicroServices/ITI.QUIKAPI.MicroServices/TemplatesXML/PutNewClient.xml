@@ -31,8 +31,8 @@
 		</Organization>
 		<Classes Rights="23CEotv" FirmID="MC0138200000" ClientCodes="**CodesINSTR**">INSTR, INSTR_FX, INSTR_RF, INSTR_SYSTEM</Classes>
 		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="**CodesMS**">EQOB, INDX, TQBR, TQDE, TQIF, TQOB, TQOD, TQTF, TQCB, TQPI, TQRD, TQIR</Classes>
-		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="**CodesFX****CodesCD**">CETS, CETS_MTL</Classes>
-		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="**CodesFX**">INDXC,CETS_CLIENT, CETS_INFO ,CROSSRATE</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="**CodesFX****CodesCD**">CETS, CETS_MTL, CETS_SU</Classes>
+		<Classes Rights="BCGTbcoptvx" FirmID="MC0138200000" ClientCodes="**CodesFX**">INDXC, CETS_CLIENT, CETS_INFO, CROSSRATE</Classes>
 		<Classes Rights="BCGTbcoptvx" FirmID="**FIRM**" ClientCodes="**CodesRF**">FUTEVN, RTSIDX, SPBFUT, USDRUB</Classes><!-- NB! Firm MO if EDP, SPBFUT if NonEDP -->
 		<Classes Rights="BCGTbcoptvx" FirmID="SPBFUT" ClientCodes="**CodesRF**">SPBOPT, OPTEXP, OPTW, OPTEVN, OPTWEVN</Classes><!-- Only if nonEDP **DeleteEDP**-->    
 		<Classes Rights="BCbcoptvx" FirmID="MC0138200000" ClientCodes="**CodesRS**">SPBXM</Classes><!-- Only if EDP + SPBEX **DeleteNonEDP**--> 

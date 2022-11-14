@@ -1645,6 +1645,60 @@ namespace QuikSftpService
             }
 
             //Убрать все оставшиеся незаполненными новыми кодами клиента строки
+            RemoveUnfilledStringsFromListOfTemlateFileContent(stringsFromFile);
+
+            return SaveNewFileAndUploadToSFTP(response, "AddClientPortfolioByUID.xml", model.UID + "_" + model.MatrixPortfolio.MatrixClientPortfolio, stringsFromFile);
+        }
+
+        public ListStringResponseModel AddNewMatrixFortsCodeToExistingClientByUID(FortsCodeAndUidModel model)
+        {
+            ListStringResponseModel response = new ListStringResponseModel();
+
+            //сначала проверить что файл шаблона есть
+            string filePathTempl = Path.Combine(Directory.GetCurrentDirectory(), "TemplatesXML", "AddClientPortfolioByUID.xml");
+            if (!File.Exists(filePathTempl))
+            {
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService AddNewMatrixFortsCodeToExistingClientByUID Error - Template file not found: " + filePathTempl);
+                response.IsSuccess = false;
+                response.Messages.Add("Error - Template file not found: " + filePathTempl);
+                return response;
+            }
+
+            // Подгрузить в List строки из шаблона
+            List<string> stringsFromFile = GetAllStringsFromFile(filePathTempl);
+
+            //переводим портфель матрицы в код quik
+            string quikCode = PortfoliosConvertingService.GetQuikFortsCode(model.MatrixFortsCode);
+
+            //подставить данные в шаблон
+            for (int i = 0; i < stringsFromFile.Count; i++)
+            {
+                if (stringsFromFile[i].Contains("**UID**"))
+                {
+                    stringsFromFile[i] = stringsFromFile[i].Replace("**UID**", model.UID.ToString());
+                }
+
+                if (stringsFromFile[i].Contains("**CodesINSTR**"))
+                {
+                    stringsFromFile[i] = stringsFromFile[i].Replace("**CodesINSTR**", quikCode);
+                }
+
+                if (stringsFromFile[i].Contains("**CodesRF**"))
+                {
+                    stringsFromFile[i] = stringsFromFile[i].Replace("**CodesRF**", quikCode);
+                }
+            }
+
+            //Убрать все оставшиеся незаполненными новыми кодами клиента строки
+            RemoveUnfilledStringsFromListOfTemlateFileContent(stringsFromFile);
+
+
+            return SaveNewFileAndUploadToSFTP(response, "AddClientPortfolioByUID.xml", model.UID + "_" + model.MatrixFortsCode, stringsFromFile);
+        }
+
+        private void RemoveUnfilledStringsFromListOfTemlateFileContent(List<string> stringsFromFile)
+        {
+            //Убрать все оставшиеся незаполненными новыми кодами клиента строки
             for (int i = stringsFromFile.Count-1; i >= 0; i--)
             {
                 if (stringsFromFile[i].Contains("**"))
@@ -1652,8 +1706,6 @@ namespace QuikSftpService
                     stringsFromFile.RemoveAt(i);
                 }
             }
-
-            return SaveNewFileAndUploadToSFTP(response, "AddClientPortfolioByUID.xml", model.UID + "_" + model.MatrixPortfolio.MatrixClientPortfolio, stringsFromFile);
         }
     }
 }
