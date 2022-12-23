@@ -24,6 +24,7 @@ builder.Services.Configure<QadminLogon>(
 
 //add QUIK SFTP Server services
 builder.Services.AddTransient<ISFTPService, SFTPService>();
+builder.Services.AddTransient<ISFTPRepository, SFTPRepository>();
 builder.Services.Configure<SftpConnectionConfiguration>(
     builder.Configuration.GetSection("SftpConfig"));
 

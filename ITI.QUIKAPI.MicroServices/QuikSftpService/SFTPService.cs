@@ -1,12 +1,12 @@
 ﻿using CommonServices;
 using DataAbstraction.Interfaces;
 using DataAbstraction.Models;
-using DataAbstraction.Models.Connections;
+//using DataAbstraction.Models.Connections;
 using DataAbstraction.Models.Responses;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Renci.SshNet;
-using Renci.SshNet.Sftp;
+//using Microsoft.Extensions.Options;
+//using Renci.SshNet;
+//using Renci.SshNet.Sftp;
 using System.Text;
 using System.Xml;
 
@@ -15,7 +15,8 @@ namespace QuikSftpService
     public class SFTPService : ISFTPService
     {
         private ILogger<SFTPService> _logger;
-        private SftpConnectionConfiguration _logon;
+        private ISFTPRepository _repository;
+        //private SftpConnectionConfiguration _logon;
         private const string _filesFolder = "Temp";
         
         private const string _codesIniPathSFTP = ".\\dealer\\codes.ini";
@@ -31,10 +32,12 @@ namespace QuikSftpService
         private const string _messageToAllPathSFTP = ".\\areas\\msg_all";
         private const string _messageToSinglePathSFTP = ".\\areas\\msg_priv";
 
-        public SFTPService(IOptions<SftpConnectionConfiguration> logon, ILogger<SFTPService> logger)
+        public SFTPService(//IOptions<SftpConnectionConfiguration> logon, 
+            ILogger<SFTPService> logger, ISFTPRepository repository)
         {
-            _logon = logon.Value;
+            //_logon = logon.Value;
             _logger = logger;
+            _repository=repository;
         }
 
         public ListStringResponseModel DeleteStartMessageForUID(int uid)
@@ -68,55 +71,96 @@ namespace QuikSftpService
                 remoteDirPath = _messageToAllPathSFTP;
             }
 
-            //получаем
-            using var client = new SftpClient(_logon.Host, _logon.Port, _logon.Login, _logon.Password);
-            try
+            if (!forAll)
             {
-                client.Connect();
-
-                if (!forAll)
+                //проверить наличие
+                BoolResponse isPathExist = _repository.CheckIsPathExist(remoteDirPath);
+                if (!isPathExist.IsTrue)//проверка нужна только для конкретного клиента.
                 {
-                    if (!client.Exists(remoteDirPath))
-                    {
-                        _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP GetStartMessage/forUID/{uid} Failed: Message not found by path {remoteDirPath}");
+                    _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP GetStartMessage/forUID/{uid} Failed: Message not found by path {remoteDirPath}");
 
-                        response.IsSuccess = false;
-                        response.Messages.Add($"SFTP GetStartMessage/forUID/{uid} Failed: Message not found by path {remoteDirPath}");
-                        return response;
-                    }
-                }
-
-                List<SftpFile> fileList = client.ListDirectory(remoteDirPath).ToList();
-                foreach (SftpFile file in fileList)
-                {
-                    if (!file.IsDirectory)
-                    {
-                        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                        response.Messages.Add(client.ReadAllText(file.FullName, Encoding.GetEncoding("windows-1251")));
-                    }
-                }
-
-                if (response.Messages is null)
-                {
                     response.IsSuccess = false;
-                    response.Messages.Add($"SFTP GetStartMessage /forAll/{forAll} {uid} Failed: Message not found");
+                    response.Messages.Add($"SFTP GetStartMessage/forUID/{uid} Failed: Message not found by path {remoteDirPath}");
                     return response;
                 }
             }
-            catch (Exception exception)
-            {
-                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP GetStartMessage/forAll/{forAll} {uid} Failed with Error: {exception.Message}");
 
-                response.IsSuccess = false;
-                response.Messages.Add($"SFTP GetStartMessage/forAll/{forAll} {uid} Failed with Error: {exception.Message}");
-                return response;
-            }
-            finally
+            ListStringResponseModel fileList = _repository.GetAllFilesAndFolderNamesFromPath(remoteDirPath, false);
+
+            foreach (string file in fileList.Messages)
             {
-                client.Disconnect();
+                ListStringResponseModel fileText = _repository.GetFileTextToStringListFromPath(file);
+
+                if (fileText.IsSuccess)
+                {
+                    response.Messages.AddRange(fileText.Messages);
+                }
+                else
+                {
+                    if (response.Messages.Count > 0 && !response.Messages[0].StartsWith("Folder: "))
+                    {
+                        response.Messages.AddRange(fileText.Messages);
+                    }
+                }
+            }
+
+            if (response.Messages.Count == 0)
+            {
+                response.IsSuccess = false;
+                response.Messages.Add($"SFTP GetStartMessage Failed: Message not found by path {remoteDirPath}");
             }
 
             return response;
+
+            ////получаем
+            //using var client = new SftpClient(_logon.Host, _logon.Port, _logon.Login, _logon.Password);
+            //try
+            //{
+            //    client.Connect();
+
+            //    if (!forAll)
+            //    {
+            //        if (!client.Exists(remoteDirPath))
+            //        {
+            //            _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP GetStartMessage/forUID/{uid} Failed: Message not found by path {remoteDirPath}");
+
+            //            response.IsSuccess = false;
+            //            response.Messages.Add($"SFTP GetStartMessage/forUID/{uid} Failed: Message not found by path {remoteDirPath}");
+            //            return response;
+            //        }
+            //    }
+
+            //    List<SftpFile> fileList = client.ListDirectory(remoteDirPath).ToList();
+            //    foreach (SftpFile file in fileList)
+            //    {
+            //        if (!file.IsDirectory)
+            //        {
+            //            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            //            response.Messages.Add(client.ReadAllText(file.FullName, Encoding.GetEncoding("windows-1251")));
+            //        }
+            //    }
+
+            //    if (response.Messages is null)
+            //    {
+            //        response.IsSuccess = false;
+            //        response.Messages.Add($"SFTP GetStartMessage /forAll/{forAll} {uid} Failed: Message not found");
+            //        return response;
+            //    }
+            //}
+            //catch (Exception exception)
+            //{
+            //    _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP GetStartMessage/forAll/{forAll} {uid} Failed with Error: {exception.Message}");
+
+            //    response.IsSuccess = false;
+            //    response.Messages.Add($"SFTP GetStartMessage/forAll/{forAll} {uid} Failed with Error: {exception.Message}");
+            //    return response;
+            //}
+            //finally
+            //{
+            //    client.Disconnect();
+            //}
+
+            //return response;
         }
 
         public ListStringResponseModel DeleteStartMessageForAll()
@@ -136,54 +180,95 @@ namespace QuikSftpService
             {
                 remoteDirPath = _messageToAllPathSFTP;
             }
- 
-            //удаляем 
-            using var client = new SftpClient(_logon.Host, _logon.Port, _logon.Login, _logon.Password);
-            try
+
+            //проверить наличие
+            BoolResponse isPathExist = _repository.CheckIsPathExist(remoteDirPath);
+            if (!isPathExist.IsTrue)
             {
-                client.Connect();
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService DeleteStartMessage Failed: Nothing to delete by path {remoteDirPath}");
 
-                List<SftpFile> fileList = client.ListDirectory(remoteDirPath).ToList();
-                foreach (SftpFile file in fileList)
+                response.IsSuccess = false;
+                response.Messages.Add($"SFTPService DeleteStartMessage Failed: Nothing to delete by path {remoteDirPath}");
+                return response;
+            }
+
+            //удалить
+            var filesList = _repository.GetAllFilesAndFolderNamesFromPath(remoteDirPath, false);
+            // удалить рекурсивно всё что внутри
+            if (filesList.IsSuccess && filesList.Messages.Count > 2)// 2 это '.' и '..'
+            {
+                //foreach (var file in filesList.Messages)
+                for (int i = 2; i < filesList.Messages.Count; i++)
                 {
-                    if (!file.IsDirectory)
+                    response = _repository.DeleteFileOrFolderByPath(filesList.Messages[i]);
+                    if (!response.IsSuccess)
                     {
-                        client.DeleteFile(file.FullName);
-                    }
-                }
-
-                if (!forAll)
-                {
-                    if (client.Exists(remoteDirPath))
-                    {
-                        client.DeleteDirectory(remoteDirPath);
-                    }
-                    else
-                    {
-                        _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP DeleteStartMessage/{forAll} {uid} Failed: Dir not found by path {remoteDirPath}");
-
-                        response.IsSuccess = false;
-                        response.Messages.Add($"SFTP DeleteStartMessage/forAll/{forAll} {uid} Failed: Dir not found by path {remoteDirPath}");
                         return response;
                     }
                 }
-
             }
-            catch (Exception exception)
+            else
             {
-                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP DeleteStartMessage/forAll/{forAll} {uid} Failed with Error: {exception.Message}");
-
-                response.IsSuccess = false;
-                response.Messages.Add($"SFTP DeleteStartMessage/forAll/{forAll} {uid} Failed with Error: {exception.Message}");
-                return response;
+                response.IsSuccess=false;
+                response.Messages.AddRange(filesList.Messages);
             }
-            finally
+
+            // если для конкретного клиента - удалить папку с номером UID.
+            if (!forAll)
             {
-                client.Disconnect();
+                response = _repository.DeleteFileOrFolderByPath(remoteDirPath);
             }
-
-            response.Messages.Add($"SFTP DeleteStartMessage success");
+            
             return response;
+
+
+            ////удаляем 
+            //using var client = new SftpClient(_logon.Host, _logon.Port, _logon.Login, _logon.Password);
+            //try
+            //{
+            //    client.Connect();
+
+            //    List<SftpFile> fileList = client.ListDirectory(remoteDirPath).ToList();
+            //    foreach (SftpFile file in fileList)
+            //    {
+            //        if (!file.IsDirectory)
+            //        {
+            //            client.DeleteFile(file.FullName);
+            //        }
+            //    }
+
+            //    if (!forAll)
+            //    {
+            //        if (client.Exists(remoteDirPath))
+            //        {
+            //            client.DeleteDirectory(remoteDirPath);
+            //        }
+            //        else
+            //        {
+            //            _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP DeleteStartMessage/{forAll} {uid} Failed: Dir not found by path {remoteDirPath}");
+
+            //            response.IsSuccess = false;
+            //            response.Messages.Add($"SFTP DeleteStartMessage/forAll/{forAll} {uid} Failed: Dir not found by path {remoteDirPath}");
+            //            return response;
+            //        }
+            //    }
+
+            //}
+            //catch (Exception exception)
+            //{
+            //    _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP DeleteStartMessage/forAll/{forAll} {uid} Failed with Error: {exception.Message}");
+
+            //    response.IsSuccess = false;
+            //    response.Messages.Add($"SFTP DeleteStartMessage/forAll/{forAll} {uid} Failed with Error: {exception.Message}");
+            //    return response;
+            //}
+            //finally
+            //{
+            //    client.Disconnect();
+            //}
+
+            //response.Messages.Add($"SFTP DeleteStartMessage success");
+            //return response;
         }
 
         public ListStringResponseModel SetStartMessage(StartMessageModel model)
@@ -199,36 +284,57 @@ namespace QuikSftpService
             }
             string remoteFilePath = Path.Combine(remoteDirPath, "message.txt");
 
-            //отправляем файл
-            using var client = new SftpClient(_logon.Host, _logon.Port, _logon.Login, _logon.Password);
-            try
+            //проверить наличие папки
+            BoolResponse isPathExist = _repository.CheckIsPathExist(remoteDirPath);
+            if (!isPathExist.IsTrue)
             {
-                client.Connect();
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService SetStartMessage Try to create folder {remoteDirPath}");
 
-                if (!client.Exists(remoteDirPath))
+                ListStringResponseModel createFolder = _repository.CreateFolderByPath(remoteDirPath);
+
+                if (!createFolder.IsSuccess)
                 {
-                    client.CreateDirectory(remoteDirPath);
+                    response.IsSuccess = false;
+                    response.Messages.AddRange(createFolder.Messages);
+                    return response;
                 }
-
-                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                client.WriteAllText(remoteFilePath, model.Message, Encoding.GetEncoding("windows-1251"));
-                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Finished WriteAllText to file [{remoteFilePath}]");
-            }
-            catch (Exception exception)
-            {
-                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP WriteAllText to file Failed with Error: " + exception.Message);
-
-                response.IsSuccess = false;
-                response.Messages.Add("SFTP WriteAllText to file Failed with Error: " + exception.Message);
-                return response;
-            }
-            finally
-            {
-                client.Disconnect();
             }
 
-            response.Messages.Add($"SFTP WriteAllText to file {remoteFilePath} success");
+            //отправляем файл
+            response = _repository.CreateFileFromStringByPath(model.Message, remoteFilePath);
             return response;
+
+
+            ////отправляем файл
+            //using var client = new SftpClient(_logon.Host, _logon.Port, _logon.Login, _logon.Password);
+            //try
+            //{
+            //    client.Connect();
+
+            //    if (!client.Exists(remoteDirPath))
+            //    {
+            //        client.CreateDirectory(remoteDirPath);
+            //    }
+
+            //    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            //    client.WriteAllText(remoteFilePath, model.Message, Encoding.GetEncoding("windows-1251"));
+            //    _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Finished WriteAllText to file [{remoteFilePath}]");
+            //}
+            //catch (Exception exception)
+            //{
+            //    _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP WriteAllText to file Failed with Error: " + exception.Message);
+
+            //    response.IsSuccess = false;
+            //    response.Messages.Add("SFTP WriteAllText to file Failed with Error: " + exception.Message);
+            //    return response;
+            //}
+            //finally
+            //{
+            //    client.Disconnect();
+            //}
+
+            //response.Messages.Add($"SFTP WriteAllText to file {remoteFilePath} success");
+            //return response;
         }
 
         public ListStringResponseModel GetUIDByMatrixClientAccount(string matrixClientAccount)
@@ -507,7 +613,7 @@ namespace QuikSftpService
 
             //отправить нв сервер SFTP
             string pathSFTP = Path.Combine(_uploadXmlFilesPathSFTP, fileName);
-            return UploadFileToSFTP(newFilePath, pathSFTP, true);
+            return _repository.UploadFileToSFTP(newFilePath, pathSFTP, true);
         }
 
         public ListStringResponseModel BlockUserByUID(int uid)
@@ -766,6 +872,19 @@ namespace QuikSftpService
                 }
             }
 
+            // to prevent SFTP Error description: [length parameter UserInfo.Comment should be no more than 255]
+            if (result.Comment.Length > 235) // 235 = 255 - (" (Клиент = ЕДП EDP)").Lenght
+            {
+                if (model.MatrixClientPortfolios is not null)
+                {
+                    result.Comment = model.MatrixClientPortfolios[0].MatrixClientPortfolio.Split("-").First();
+                }
+                else if (model.CodesPairRF is not null)
+                {
+                    result.Comment = model.CodesPairRF[0].MatrixClientCode.Split("-").First();
+                }
+            }
+
             if (model.isEDP)
             {
                 result.Comment = result.Comment + " (Клиент = ЕДП EDP)";
@@ -820,7 +939,7 @@ namespace QuikSftpService
 
             string localFilePath = GetSetLocalDownloadPath("codes");
 
-            return DownloadFileFromSFTP(localFilePath, _codesIniPathSFTP);
+            return _repository.DownloadFileFromSFTP(localFilePath, _codesIniPathSFTP);
         }
 
         public ListStringResponseModel BackUpFileDealLibIni()
@@ -830,7 +949,7 @@ namespace QuikSftpService
 
             string localFilePath = GetSetLocalDownloadPath("DealLib");
 
-            return DownloadFileFromSFTP(localFilePath, _dealLibIniPathSFTP);
+            return _repository.DownloadFileFromSFTP(localFilePath, _dealLibIniPathSFTP);
         }
 
         public ListStringResponseModel BackUpFileSpbfutlibIni()
@@ -841,7 +960,7 @@ namespace QuikSftpService
 
             string localFilePath = GetSetLocalDownloadPath("SpbfutLib");
 
-            return DownloadFileFromSFTP(localFilePath, _spbfutLibIniPathSFTP);
+            return _repository.DownloadFileFromSFTP(localFilePath, _spbfutLibIniPathSFTP);
         }
 
         public ListStringResponseModel DownloadCurrClnts()
@@ -852,7 +971,7 @@ namespace QuikSftpService
             FilesManagementService.CheckCreateDirectory(localFilePath);
             localFilePath = Path.Combine(localFilePath, "CurrClnts.xml");
 
-            return DownloadFileFromSFTP(localFilePath, _allClientsPathSFTP);
+            return _repository.DownloadFileFromSFTP(localFilePath, _allClientsPathSFTP);
         }
 
         public ListStringResponseModel DownloadLimLim()
@@ -863,7 +982,7 @@ namespace QuikSftpService
             FilesManagementService.CheckCreateDirectory(localFilePath);
             localFilePath = Path.Combine(localFilePath, "lim.lim");
 
-            return DownloadFileFromSFTP(localFilePath, _limlimPathSFTP);
+            return _repository.DownloadFileFromSFTP(localFilePath, _limlimPathSFTP);
         }
 
         public ListStringResponseModel AddMAtrixCodesToFileCodesIni(CodesArrayModel model)
@@ -879,7 +998,7 @@ namespace QuikSftpService
             string fileName = "codes" + FilesManagementService.GetCurrentDateTimeString() + ".ini";
             localFilePath = Path.Combine(localFilePath, fileName);
 
-            var downloadResult = DownloadFileFromSFTP(localFilePath, _codesIniPathSFTP);
+            var downloadResult = _repository.DownloadFileFromSFTP(localFilePath, _codesIniPathSFTP);
 
             if (downloadResult.Messages.Contains("Error"))
             {
@@ -974,7 +1093,7 @@ namespace QuikSftpService
             }
 
             //отправим файл на SFTP
-            return UploadFileToSFTP(newFilePath, _codesIniPathSFTP, true);
+            return _repository.UploadFileToSFTP(newFilePath, _codesIniPathSFTP, true);
         }
         public BoolResponse GetClientCodesIsPresentInFileCodesIni(string[] codesArray)
         {
@@ -989,9 +1108,9 @@ namespace QuikSftpService
             string fileName = "codes" + FilesManagementService.GetCurrentDateTimeString() + ".ini";
             localFilePath = Path.Combine(localFilePath, fileName);
 
-            var downloadResult = DownloadFileFromSFTP(localFilePath, _codesIniPathSFTP);
+            ListStringResponseModel downloadResult = _repository.DownloadFileFromSFTP(localFilePath, _codesIniPathSFTP);
 
-            if (downloadResult.Messages.Contains("Error"))
+            if (!downloadResult.IsSuccess)
             {
                 _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} {downloadResult.Messages[0]}");
 
@@ -1115,7 +1234,7 @@ namespace QuikSftpService
                 return response;
             }
             string pathSFTP = Path.Combine(_uploadXmlFilesPathSFTP, newTemplateFile);
-            return UploadFileToSFTP(localFilePath, pathSFTP, true);
+            return _repository.UploadFileToSFTP(localFilePath, pathSFTP, true);
         }
 
         public ListStringResponseModel GetFileInfoByPath(string pathOrFileName)
@@ -1148,33 +1267,47 @@ namespace QuikSftpService
                 pathOrFileName = _allClientsPathSFTP;
             }
 
-            using var client = new SftpClient(_logon.Host, _logon.Port, _logon.Login, _logon.Password);
-            try
+            //проверить наличие папки
+            BoolResponse isPathExist = _repository.CheckIsPathExist(pathOrFileName);
+            if (!isPathExist.IsTrue)
             {
-                client.Connect();
-
-                if (!client.Exists(pathOrFileName))
-                {
-                    response.IsSuccess = false;
-                    response.Messages.Add($"SFTP path {pathOrFileName} not found");
-                }
-                else
-                {
-                    response.Messages.Add($"GetLastWriteTime={client.GetLastWriteTime(pathOrFileName)}");
-                }
-
-            }
-            catch (Exception exception)
-            {
-                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP path {pathOrFileName} existance failed with Error: {exception.Message}");
+                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService GetFileInfoByPath {pathOrFileName} Failed - no file finded");
 
                 response.IsSuccess = false;
-                response.Messages.Add($"SFTP path {pathOrFileName} existance failed with Error: {exception.Message}");
+                response.Messages.Add($"SFTP path {pathOrFileName} not found");
+
+                return response;
             }
-            finally
-            {
-                client.Disconnect();
-            }
+
+            response = _repository.GetFileLastWriteTime(pathOrFileName);
+
+            //using var client = new SftpClient(_logon.Host, _logon.Port, _logon.Login, _logon.Password);
+            //try
+            //{
+            //    client.Connect();
+
+            //    if (!client.Exists(pathOrFileName))
+            //    {
+            //        response.IsSuccess = false;
+            //        response.Messages.Add($"SFTP path {pathOrFileName} not found");
+            //    }
+            //    else
+            //    {
+            //        response.Messages.Add($"GetLastWriteTime={client.GetLastWriteTime(pathOrFileName)}");
+            //    }
+
+            //}
+            //catch (Exception exception)
+            //{
+            //    _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP path {pathOrFileName} existance failed with Error: {exception.Message}");
+
+            //    response.IsSuccess = false;
+            //    response.Messages.Add($"SFTP path {pathOrFileName} existance failed with Error: {exception.Message}");
+            //}
+            //finally
+            //{
+            //    client.Disconnect();
+            //}
 
             return response;
         }
@@ -1183,24 +1316,27 @@ namespace QuikSftpService
         {
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService CheckConnections Called");
 
-            ListStringResponseModel response = new ListStringResponseModel();
-
-            List<string> filesAtSFTP = GetFilesArrayFromPathSFTP(".");
-            if (filesAtSFTP.Count >= 2)
-            {
-                foreach (string file in filesAtSFTP)
-                {
-                    response.Messages.Add(file);
-                }
-            }
-            else
-            {
-                response.IsSuccess = false;
-                response.Messages.Add(filesAtSFTP[0]);
-                return response;
-            }           
-
+            ListStringResponseModel response = _repository.GetAllFilesAndFolderNamesFromPath(".", true);
             return response;
+
+            //ListStringResponseModel response = new ListStringResponseModel();
+
+            //List<string> filesAtSFTP = GetFilesArrayFromPathSFTP(".");
+            //if (filesAtSFTP.Count >= 2)
+            //{
+            //    foreach (string file in filesAtSFTP)
+            //    {
+            //        response.Messages.Add(file);
+            //    }
+            //}
+            //else
+            //{
+            //    response.IsSuccess = false;
+            //    response.Messages.Add(filesAtSFTP[0]);
+            //    return response;
+            //}           
+
+            //return response;
         }
 
         public ListStringResponseModel GetResultOfXMLFileUpload(string file)
@@ -1219,75 +1355,141 @@ namespace QuikSftpService
             }
 
             //из папки In - не выполнялось
-            List<string> filesAtSFTP = GetFilesArrayFromPathSFTP(_uploadXmlFilesPathSFTP);
-            if (filesAtSFTP.Count >= 2) // 2 это '.' и '..'
+            BoolResponse findFile = TryFindFileByPath(file, _uploadXmlFilesPathSFTP, $"Файл {file} еще не обработан. Повторите запрос позже. ", false);
+            if (!findFile.IsSuccess || findFile.IsTrue)//если ошибка или если найдено
             {
-                if (filesAtSFTP.Count > 2)//пробуем найти
-                {
-                    for(int i = 2; i < filesAtSFTP.Count; i++)
-                    {
-                        if (filesAtSFTP[i].Equals(file))
-                        {
-                            response.Messages.Add($"Файл {file} еще не обработан. Повторите запрос позже.");
-                            return response;
-                        }
-                    }
-                }
+                response.IsSuccess = findFile.IsSuccess;
+                response.Messages = findFile.Messages;
+
+                return response;
             }
-            else
-            {
-                return GetFilesArrayFromPathSFTPError(filesAtSFTP[0]);
-            }
+
+            //из папки In - не выполнялось  
+            //List<string> filesAtSFTP = GetFilesArrayFromPathSFTP(_uploadXmlFilesPathSFTP);
+            //if (filesAtSFTP.Count >= 2) // 2 это '.' и '..'
+            //{
+            //    if (filesAtSFTP.Count > 2)//пробуем найти
+            //    {
+            //        for(int i = 2; i < filesAtSFTP.Count; i++)
+            //        {
+            //            if (filesAtSFTP[i].Equals(file))
+            //            {
+            //                response.Messages.Add($"Файл {file} еще не обработан. Повторите запрос позже.");
+            //                return response;
+            //            }
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    return GetFilesArrayFromPathSFTPError(filesAtSFTP[0]);
+            //}
 
             //из папки Out - исполнено
-            filesAtSFTP = GetFilesArrayFromPathSFTP(_resultOkXmlFilesPathSFTP);
-            if (filesAtSFTP.Count >= 2) // 2 это '.' и '..'
+            findFile = TryFindFileByPath(file, _resultOkXmlFilesPathSFTP, $"Файл {file} обработан и исполнен. ", true);
+            if (!findFile.IsSuccess || findFile.IsTrue)//если ошибка или если найдено
             {
-                if (filesAtSFTP.Count > 2)//пробуем найти
-                {
-                    for (int i = 2; i < filesAtSFTP.Count; i++)
-                    {
-                        if (filesAtSFTP[i].Equals(file))
-                        {
-                            string textFromXML = GetResultTextFromXmlSFTP(_resultOkXmlFilesPathSFTP, file);
+                response.IsSuccess = findFile.IsSuccess;
+                response.Messages = findFile.Messages;
 
-                            response.Messages.Add($"Файл {file} обработан и исполнен. {textFromXML}");
-                            return response;
-                        }
-                    }
-                }
+                return response;
             }
-            else
-            {
-                return GetFilesArrayFromPathSFTPError(filesAtSFTP[0]);
-            }
+
+            ////из папки Out - исполнено
+            //filesAtSFTP = GetFilesArrayFromPathSFTP(_resultOkXmlFilesPathSFTP);
+            //if (filesAtSFTP.Count >= 2) // 2 это '.' и '..'
+            //{
+            //    if (filesAtSFTP.Count > 2)//пробуем найти
+            //    {
+            //        for (int i = 2; i < filesAtSFTP.Count; i++)
+            //        {
+            //            if (filesAtSFTP[i].Equals(file))
+            //            {
+            //                string textFromXML = GetResultTextFromXmlSFTP(_resultOkXmlFilesPathSFTP, file);
+
+            //                response.Messages.Add($"Файл {file} обработан и исполнен. {textFromXML}");
+            //                return response;
+            //            }
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    return GetFilesArrayFromPathSFTPError(filesAtSFTP[0]);
+            //}
+
 
             //из папки Error - ошибка при выполнении
-            filesAtSFTP = GetFilesArrayFromPathSFTP(_resultErrorXmlFilesPathSFTP);
-            if (filesAtSFTP.Count >= 2) // 2 это '.' и '..'
+            findFile = TryFindFileByPath(file, _resultErrorXmlFilesPathSFTP, $"Внимание! Файл {file} ", true);
+            if (!findFile.IsSuccess || findFile.IsTrue)//если ошибка или если найдено
             {
-                if (filesAtSFTP.Count > 2)//пробуем найти
-                {
-                    for (int i = 2; i < filesAtSFTP.Count; i++)
-                    {
-                        if (filesAtSFTP[i].Equals(file))
-                        {
-                            string textFromXML = GetResultTextFromXmlSFTP(_resultErrorXmlFilesPathSFTP, file);
+                response.IsSuccess = findFile.IsSuccess;
+                response.Messages = findFile.Messages;
 
-                            response.Messages.Add($"Внимание! Файл {file} {textFromXML}");
-                            return response;
-                        }
-                    }
-                }
+                return response;
             }
-            else
-            {
-                return GetFilesArrayFromPathSFTPError(filesAtSFTP[0]);
-            }
+
+            ////из папки Error - ошибка при выполнении
+            //filesAtSFTP = GetFilesArrayFromPathSFTP(_resultErrorXmlFilesPathSFTP);
+            //if (filesAtSFTP.Count >= 2) // 2 это '.' и '..'
+            //{
+            //    if (filesAtSFTP.Count > 2)//пробуем найти
+            //    {
+            //        for (int i = 2; i < filesAtSFTP.Count; i++)
+            //        {
+            //            if (filesAtSFTP[i].Equals(file))
+            //            {
+            //                string textFromXML = GetResultTextFromXmlSFTP(_resultErrorXmlFilesPathSFTP, file);
+
+            //                response.Messages.Add($"Внимание! Файл {file} {textFromXML}");
+            //                return response;
+            //            }
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    return GetFilesArrayFromPathSFTPError(filesAtSFTP[0]);
+            //}
 
             // нигде не найдено
             response.IsSuccess = false;
             response.Messages.Add($"Файл {file} нигде не найден.");
+            return response;
+        }
+
+        private BoolResponse TryFindFileByPath(string fileToFind, string pathToSearch, string returnText, bool addTextFromXmlSftp)
+        {
+            BoolResponse response = new BoolResponse();
+
+            ListStringResponseModel filesList = _repository.GetAllFilesAndFolderNamesFromPath(pathToSearch, true);
+            if (filesList.IsSuccess && filesList.Messages.Count >= 2) // 2 это папки '.' и '..'
+            {
+                for (int i = 2; i < filesList.Messages.Count; i++)
+                {
+                    if (filesList.Messages[i].Equals(fileToFind))
+                    {
+                        response.IsSuccess = true;
+                        response.IsTrue = true;
+
+                        string textFromXML = "";
+                        if (addTextFromXmlSftp)
+                        {
+                            textFromXML = GetResultTextFromXmlSFTP(pathToSearch, fileToFind);
+                        }                        
+
+                        response.Messages.Add(returnText + textFromXML);
+                        return response;
+                    }
+                }
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.Messages.AddRange(filesList.Messages);
+                return response;
+            }
+
             return response;
         }
 
@@ -1302,9 +1504,9 @@ namespace QuikSftpService
             localFilePath = Path.Combine(localFilePath, fileName);
 
             //скачиваем 
-            var downloadedFilePath = DownloadFileFromSFTP(localFilePath, pathSFTP);
+            ListStringResponseModel downloadedFilePath = _repository.DownloadFileFromSFTP(localFilePath, pathSFTP);
 
-            if (downloadedFilePath.Messages.Contains("Error"))
+            if (!downloadedFilePath.IsSuccess)
             {
                 return downloadedFilePath.Messages[0];
             }
@@ -1348,43 +1550,43 @@ namespace QuikSftpService
             return result;
         }
 
-        private ListStringResponseModel GetFilesArrayFromPathSFTPError(string errorText)
-        {
-            ListStringResponseModel response = new ListStringResponseModel();
-            response.IsSuccess = false;
-            response.Messages.Add(errorText);
-            return response;
-        }
+        //private ListStringResponseModel GetFilesArrayFromPathSFTPError(string errorText)
+        //{
+        //    ListStringResponseModel response = new ListStringResponseModel();
+        //    response.IsSuccess = false;
+        //    response.Messages.Add(errorText);
+        //    return response;
+        //}
 
-        private List<string> GetFilesArrayFromPathSFTP(string uploadXmlFilesPathSFTP)
-        {
-            List<SftpFile> fileList;
-            List<string> result = new List<string>();
+        //private List<string> GetFilesArrayFromPathSFTP(string uploadXmlFilesPathSFTP)
+        //{
+        //    List<SftpFile> fileList;
+        //    List<string> result = new List<string>();
 
-            using var client = new SftpClient(_logon.Host, _logon.Port, _logon.Login, _logon.Password);
-            try
-            {
-                client.Connect();
-                fileList = client.ListDirectory(uploadXmlFilesPathSFTP).ToList();
-            }
-            catch (Exception exception)
-            {
-                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP Read catalog {uploadXmlFilesPathSFTP} Failed with Error: {exception.Message}");
+        //    using var client = new SftpClient(_logon.Host, _logon.Port, _logon.Login, _logon.Password);
+        //    try
+        //    {
+        //        client.Connect();
+        //        fileList = client.ListDirectory(uploadXmlFilesPathSFTP).ToList();
+        //    }
+        //    catch (Exception exception)
+        //    {
+        //        _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP Read catalog {uploadXmlFilesPathSFTP} Failed with Error: {exception.Message}");
 
-                result.Add($"SFTP Read catalog {uploadXmlFilesPathSFTP} Failed with Error: {exception.Message}");
-                return result;
-            }
-            finally
-            {
-                client.Disconnect();
-            }
+        //        result.Add($"SFTP Read catalog {uploadXmlFilesPathSFTP} Failed with Error: {exception.Message}");
+        //        return result;
+        //    }
+        //    finally
+        //    {
+        //        client.Disconnect();
+        //    }
 
-            foreach (SftpFile file in fileList)
-            {
-                result.Add(file.Name);
-            }
-            return result;
-        }
+        //    foreach (SftpFile file in fileList)
+        //    {
+        //        result.Add(file.Name);
+        //    }
+        //    return result;
+        //}
 
         private string CombineNewFileName(string fileName, string suffix)
         {
@@ -1433,69 +1635,69 @@ namespace QuikSftpService
             return strings;
         }
 
-        private ListStringResponseModel UploadFileToSFTP(string fileToUploadPath, string sftpPath, bool isOverWrite)
-        {
-            ListStringResponseModel response = new ListStringResponseModel();
+        //private ListStringResponseModel UploadFileToSFTP(string fileToUploadPath, string sftpPath, bool isOverWrite)
+        //{
+        //    ListStringResponseModel response = new ListStringResponseModel();
 
-            using var client = new SftpClient(_logon.Host, _logon.Port, _logon.Login, _logon.Password);
-            try
-            {
-                client.Connect();
+        //    using var client = new SftpClient(_logon.Host, _logon.Port, _logon.Login, _logon.Password);
+        //    try
+        //    {
+        //        client.Connect();
 
-                using (var uplfileStream = File.OpenRead(fileToUploadPath))
-                {
-                    client.UploadFile(uplfileStream, sftpPath, isOverWrite);
-                }
+        //        using (var uplfileStream = File.OpenRead(fileToUploadPath))
+        //        {
+        //            client.UploadFile(uplfileStream, sftpPath, isOverWrite);
+        //        }
 
-                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService succesfully uploaded file={fileToUploadPath}");
-            }
-            catch (Exception exception)
-            {
-                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP Upload Failed with Error: " + exception.Message);
+        //        _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService succesfully uploaded file={fileToUploadPath}");
+        //    }
+        //    catch (Exception exception)
+        //    {
+        //        _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP Upload Failed with Error: " + exception.Message);
 
-                response.IsSuccess = false;
-                response.Messages.Add("SFTPService Upload Failed with Error: " + exception.Message);
-                return response;
-            }
-            finally
-            {
-                client.Disconnect();
-            }
+        //        response.IsSuccess = false;
+        //        response.Messages.Add("SFTPService Upload Failed with Error: " + exception.Message);
+        //        return response;
+        //    }
+        //    finally
+        //    {
+        //        client.Disconnect();
+        //    }
 
-            response.Messages.Add(fileToUploadPath);
-            return response;
-        }
-        private ListStringResponseModel DownloadFileFromSFTP(string localFilePath, string remoteFilePath)
-        {
-            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService DownloadFileFromSFTP Called from {remoteFilePath} to {localFilePath}");
+        //    response.Messages.Add(fileToUploadPath);
+        //    return response;
+        //}
+        //private ListStringResponseModel DownloadFileFromSFTP(string localFilePath, string remoteFilePath)
+        //{
+        //    _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTPService DownloadFileFromSFTP Called from {remoteFilePath} to {localFilePath}");
 
-            ListStringResponseModel response = new ListStringResponseModel();
+        //    ListStringResponseModel response = new ListStringResponseModel();
 
-            using var client = new SftpClient(_logon.Host, _logon.Port, _logon.Login, _logon.Password);
-            try
-            {
-                client.Connect();
+        //    using var client = new SftpClient(_logon.Host, _logon.Port, _logon.Login, _logon.Password);
+        //    try
+        //    {
+        //        client.Connect();
 
-                using var newFile = File.Create(localFilePath);
-                client.DownloadFile(remoteFilePath, newFile);
-                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Finished downloading file [{remoteFilePath}]");
-            }
-            catch (Exception exception)
-            {
-                _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP BackUpFileCodesIni Download File Failed with Error: " + exception.Message);
+        //        using var newFile = File.Create(localFilePath);
+        //        client.DownloadFile(remoteFilePath, newFile);
+        //        _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} Finished downloading file [{remoteFilePath}]");
+        //    }
+        //    catch (Exception exception)
+        //    {
+        //        _logger.LogWarning($"{DateTime.Now.ToString("HH:mm:ss:fffff")} SFTP BackUpFileCodesIni Download File Failed with Error: " + exception.Message);
 
-                response.IsSuccess = false;
-                response.Messages.Add("SFTP Download File Failed with Error: " + exception.Message);
-                return response;
-            }
-            finally
-            {
-                client.Disconnect();
-            }
+        //        response.IsSuccess = false;
+        //        response.Messages.Add("SFTP Download File Failed with Error: " + exception.Message);
+        //        return response;
+        //    }
+        //    finally
+        //    {
+        //        client.Disconnect();
+        //    }
 
-            response.Messages.Add(localFilePath);
-            return response;
-        }
+        //    response.Messages.Add(localFilePath);
+        //    return response;
+        //}
 
         private int FindIndexinArrayByText(List<string> list, string searchTerm)
         {
