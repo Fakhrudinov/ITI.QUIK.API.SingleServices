@@ -19,6 +19,7 @@ builder.Services.AddTransient<IEdpBrlService, EDPService>();
 builder.Services.AddTransient<ISpotBrlService, SpotService>();
 builder.Services.AddTransient<IFortsBrlService, FortsService>();
 builder.Services.AddTransient<IQuikApiConnectionService, QuikApiConnectionService>();
+builder.Services.AddTransient<IDiscountsService, DiscountsService>();
 builder.Services.Configure<QadminLogon>(
     builder.Configuration.GetSection("QadminLogon"));
 
