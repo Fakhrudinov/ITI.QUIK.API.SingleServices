@@ -3,6 +3,8 @@ using DataAbstraction.Models;
 using DataAbstraction.Models.Responses;
 using Microsoft.Extensions.Logging;
 using QDealerAPI;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace QuikAPIBrlService
 {
@@ -135,6 +137,122 @@ namespace QuikAPIBrlService
             }            
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} DiscountsService PostDiscount " +
                 $" {template} {model.Security} result is: {resultEditBrl}");
+
+            // close connection
+            return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM, response);
+        }
+
+        public SecuritysListResponse GetListOfDiscountSecuritiesFromGlobal()
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} DiscountsService GetListOfDiscountSecuritiesFromGlobal Called");
+
+            SecuritysListResponse result = GetListOfDiscountSecurities();
+            return result;
+        }
+
+        public SecuritysListResponse GetListOfDiscountSecuritiesFromMarginTemplate(string template)
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} DiscountsService GetListOfDiscountSecuritiesFromMarginTemplate " +
+                $"{template} Called");
+
+            SecuritysListResponse result = GetListOfDiscountSecurities(template);
+            return result;
+        }
+
+        private SecuritysListResponse GetListOfDiscountSecurities(string template = "")
+        {
+            SecuritysListResponse result = new SecuritysListResponse();
+
+            // открываем соединение
+            ListStringResponseModel response = new ListStringResponseModel();
+            ListStringResponseModel openResult = _connection.OpenQuikQadminApiToRead(_spotFIRM, response);
+            if (!openResult.IsSuccess)
+            {
+                result.IsSuccess = false;
+                result.Messages.AddRange(openResult.Messages);
+
+                return result;
+            }
+
+            // запрашиваем данные
+            IntPtr lsInstrumentsPtr = IntPtr.Zero;
+            int getResult = -1;
+
+            if (template == "") // from global
+            {
+                getResult = NativeMethods.QDAPI_GetInstrumentListFromGlobalSecurityDiscounts(_spotFIRM, ref lsInstrumentsPtr);
+            }
+            else // from template
+            {
+                getResult = NativeMethods.QDAPI_GetInstrumentListFromMarginTemplateSecurityDiscounts(_spotFIRM, template, 0, ref lsInstrumentsPtr);
+            }
+
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} DiscountsService GetListOfDiscountSecurities " +
+                $" {template} result is: {getResult}");
+
+            if (getResult == 0)//если успешно
+            {
+                QDAPI_ArrayStrings lsInstruments = Marshal.PtrToStructure<QDAPI_ArrayStrings>(lsInstrumentsPtr);
+                IntPtr[] instrumentsArray = new IntPtr[lsInstruments.count];
+                Marshal.Copy(lsInstruments.elems, instrumentsArray, 0, (int)lsInstruments.count);
+
+                for (uint i = 0; i < lsInstruments.count; i++)
+                {
+                    if (Marshal.PtrToStringAnsi(instrumentsArray[i]) != null)
+                    {
+                        result.Securitys.Add(Marshal.PtrToStringAnsi(instrumentsArray[i]));
+                    }
+                }
+            }
+            NativeMethods.QDAPI_FreeMemory(ref lsInstrumentsPtr);            
+
+            // закрываем соединение
+            ListStringResponseModel closeResult = _connection.CloseQuikAPI(getResult, _spotFIRM, response);
+            result.IsSuccess = closeResult.IsSuccess;
+            result.Messages.AddRange(closeResult.Messages);
+            return result;
+        }
+
+        public ListStringResponseModel DeleteSingleDiscountFromGlobal(string security)
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} DiscountsService DeleteSingleDiscountFromGlobal Called " +
+                $"for {security}");
+
+            ListStringResponseModel response = DeleteSingleDiscount(security);
+            return response;
+        }
+
+        public ListStringResponseModel DeleteSingleDiscountFromMarginTemplate(string template, string security)
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} DiscountsService DeleteSingleDiscountFromMarginTemplate Called " +
+                $"for {template} {security}");
+
+            ListStringResponseModel response = DeleteSingleDiscount(security, template);
+            return response;
+        }
+
+        private ListStringResponseModel DeleteSingleDiscount(string security, string template = "")
+        {
+            ListStringResponseModel response = new ListStringResponseModel();
+
+            ListStringResponseModel openResult = _connection.OpenQuikQadminApiToWrite(_spotFIRM, response);
+            if (!openResult.IsSuccess)
+            {
+                return response;
+            }
+
+            // set
+            int resultEditBrl = -1;
+            if (template != "") // delete from template
+            {
+                resultEditBrl = NativeMethods.QDAPI_RemoveSecurityDiscountsFromMarginTemplate(_spotFIRM, template, 0, security);
+            }
+            else // delete from global
+            {
+                resultEditBrl = NativeMethods.QDAPI_RemoveSecurityDiscountsFromGlobal(_spotFIRM, security);
+            }
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} DiscountsService DeleteSingleDiscount " +
+                $" {template} {security} result is: {resultEditBrl}");
 
             // close connection
             return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM, response);
