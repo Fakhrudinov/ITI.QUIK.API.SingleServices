@@ -118,12 +118,12 @@ namespace QuikAPIBrlService
 
             // set
             QDAPI_Discounts discounts = new QDAPI_Discounts();
-            discounts.KLong = model.KLong;
-            discounts.KShort = model.KShort;
-            discounts.DLong = model.DLong;
-            discounts.DShort = model.DShort;
-            discounts.DLong_min = model.DLong_min;
-            discounts.DShort_min = model.DShort_min;
+            discounts.KLong = model.Discount.KLong;
+            discounts.KShort = model.Discount.KShort;
+            discounts.DLong = model.Discount.DLong;
+            discounts.DShort = model.Discount.DShort;
+            discounts.DLong_min = model.Discount.DLong_min;
+            discounts.DShort_min = model.Discount.DShort_min;
 
             int resultEditBrl = -1;
 
