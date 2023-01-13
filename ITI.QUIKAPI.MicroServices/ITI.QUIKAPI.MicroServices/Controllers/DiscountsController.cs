@@ -2,8 +2,8 @@
 using DataAbstraction.Models;
 using DataAbstraction.Models.Responses;
 using DataValidationService;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace ITI.QUIKAPI.MicroServices.Controllers
 {
@@ -27,6 +27,43 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
             SecuritysListResponse result = _qService.GetListOfDiscountSecuritiesFromGlobal();
 
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet Get/ListOfDiscountSecurities/FromGlobal " +
+                $"result isOK={result.IsSuccess}");
+
+            return Ok(result);
+        }
+
+        [HttpGet("Get/ListOfDiscountValues/FromGlobal")]
+        public IActionResult GetListOfDiscountValuesFromGlobal([FromQuery] IEnumerable<string> s)
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet Get/ListOfDiscountValues/FromGlobal Call ");
+            DiscountValuesListResponse result = new DiscountValuesListResponse();
+            List<string> securitysList = s.ToList();
+
+            //проверим корректность входных данных
+            if (securitysList.Count == 0)
+            {
+                result.IsSuccess = false;
+                result.Messages.Add("Securitys list must contain at least 1 security");
+                return Ok(result);
+            }
+
+            for (int i = securitysList.Count - 1; i >= 0; i--)
+            {
+                ListStringResponseModel validateResult = ValidateModel.ValidateSecurity(securitysList[i]);
+                if (!validateResult.IsSuccess)
+                {
+                    _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet Get/ListOfDiscountValues/FromGlobal for {securitysList[i]} " +
+                        $"validate Error: {validateResult.Messages[0]}");
+
+                    result.Messages.AddRange(validateResult.Messages);
+
+                    securitysList.RemoveAt(i);
+                }
+            }
+
+            result = _qService.GetListOfDiscountValuesFromGlobal(result, securitysList);
+
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet Get/ListOfDiscountValues/FromGlobal " +
                 $"result isOK={result.IsSuccess}");
 
             return Ok(result);
@@ -128,6 +165,57 @@ namespace ITI.QUIKAPI.MicroServices.Controllers
 
             result = _qService.GetListOfDiscountSecuritiesFromMarginTemplate(template);
             _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet Get/ListOfDiscountSecurities/FromMarginTemplate/{template} " +
+                $"result isOK={result.IsSuccess}");
+
+            return Ok(result);
+        }
+
+        [HttpGet("Get/ListOfDiscountValues/FromMarginTemplate/{template}")]
+        public IActionResult GetListOfDiscountValuesFromMarginTemplate(string template, [FromQuery] IEnumerable<string> s)
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet Get/ListOfDiscountValues/FromMarginTemplate/{template} Call ");
+            DiscountValuesListResponse result = new DiscountValuesListResponse();
+            List<string> securitysList = s.ToList();
+
+            //проверим корректность входных данных
+            ListStringResponseModel validateResult = ValidateModel.ValidateTemplateName(template);
+            if (!validateResult.IsSuccess)
+            {
+                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet Get/ListOfDiscountValues/FromMarginTemplate/{template} " +
+                    $"Error: {validateResult.Messages[0]}");
+
+                result.IsSuccess = false;
+                result.Messages.AddRange(validateResult.Messages);
+
+                return Ok(result);
+            }
+
+            if (securitysList.Count == 0)
+            {
+                result.IsSuccess = false;
+                result.Messages.Add("Securitys list must contain at least 1 security");
+                return Ok(result);
+            }
+
+            for (int i = securitysList.Count - 1; i >= 0; i--)
+            {
+                validateResult = ValidateModel.ValidateSecurity(securitysList[i]);
+                if (!validateResult.IsSuccess)
+                {
+                    _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet Get/ListOfDiscountValues/FromMarginTemplate/{template} for {securitysList[i]} " +
+                        $"validate Error: {validateResult.Messages[0]}");
+
+                    result.Messages.AddRange(validateResult.Messages);
+
+                    securitysList.RemoveAt(i);
+                }
+            }
+            if (securitysList.Count > 0)//может всё уже поудалилось
+            {
+                result = _qService.GetListOfDiscountValuesFromMarginTemplate(template, result, securitysList);
+            }
+
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} HttpGet Get/ListOfDiscountValues/FromMarginTemplate/{template} " +
                 $"result isOK={result.IsSuccess}");
 
             return Ok(result);

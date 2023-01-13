@@ -9,6 +9,8 @@ namespace DataAbstraction.Interfaces
         ListStringResponseModel DeleteSingleDiscountFromMarginTemplate(string template, string security);
         SecuritysListResponse GetListOfDiscountSecuritiesFromGlobal();
         SecuritysListResponse GetListOfDiscountSecuritiesFromMarginTemplate(string template);
+        DiscountValuesListResponse GetListOfDiscountValuesFromGlobal(DiscountValuesListResponse result, List<string> securitys);
+        DiscountValuesListResponse GetListOfDiscountValuesFromMarginTemplate(string template, DiscountValuesListResponse result, List<string> securitys);
         DiscountSingleResponse GetSingleDiscountFromGlobal(string security);
         DiscountSingleResponse GetSingleDiscountFromMarginTemplate(string template, string security);
         ListStringResponseModel PostSingleDiscountToGlobal(DiscountAndSecurityModel model);

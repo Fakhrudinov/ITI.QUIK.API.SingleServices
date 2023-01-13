@@ -257,5 +257,89 @@ namespace QuikAPIBrlService
             // close connection
             return _connection.CloseQuikAPI(resultEditBrl, _spotFIRM, response);
         }
+
+        public DiscountValuesListResponse GetListOfDiscountValuesFromGlobal(DiscountValuesListResponse result, List<string> securitys)
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} DiscountsService GetListOfDiscountValuesFromGlobal Called");
+
+            result = GetListOfDiscountValues(result, securitys, "");
+            return result;
+        }
+        public DiscountValuesListResponse GetListOfDiscountValuesFromMarginTemplate(string template, DiscountValuesListResponse result, List<string> securitys)
+        {
+            _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} DiscountsService GetListOfDiscountValuesFromMarginTemplate {template} Called");
+
+            result = GetListOfDiscountValues(result, securitys, template);
+            return result;
+        }
+
+        private DiscountValuesListResponse GetListOfDiscountValues(DiscountValuesListResponse result, IEnumerable<string> securitys, string template)
+        {
+            // открываем соединение
+            ListStringResponseModel response = new ListStringResponseModel();
+            ListStringResponseModel openResult = _connection.OpenQuikQadminApiToRead(_spotFIRM, response);
+            if (!openResult.IsSuccess)
+            {
+                result.IsSuccess = false;
+                result.Messages.AddRange(openResult.Messages);
+
+                return result;
+            }
+
+            // запрашиваем данные
+            int getResult = -1;
+            foreach (string security in securitys) 
+            {
+                QDAPI_Discounts discounts = new QDAPI_Discounts();
+
+                if (template != "") // запрос из шаблона
+                {
+                    getResult = NativeMethods.QDAPI_GetSecurityDiscountsFromMarginTemplate(_spotFIRM, template, 0, security, ref discounts);
+                }
+                else // запрос из global
+                {
+                    getResult = NativeMethods.QDAPI_GetSecurityDiscountsFromGlobal(_spotFIRM, security, ref discounts);
+                }
+                _logger.LogInformation($"{DateTime.Now.ToString("HH:mm:ss:fffff")} DiscountsService GetDiscountValues " +
+                    $"for {security} {template} result is {getResult}");
+
+                if (getResult == 0) // 0=success
+                {
+                    DiscountAndSecurityModel newDiscount = new DiscountAndSecurityModel();
+                    DiscountModel discountValues = new DiscountModel();
+                    newDiscount.Security = security;
+                    discountValues.KShort = discounts.KShort;
+                    discountValues.KLong = discounts.KLong;
+                    discountValues.DShort = discounts.DShort;
+                    discountValues.DLong = discounts.DLong;
+                    discountValues.DShort_min = discounts.DShort_min;
+                    discountValues.DLong_min= discounts.DLong_min;
+
+                    newDiscount.Discount = discountValues;
+                    result.Discounts.Add(newDiscount);
+                }
+                else
+                {
+                    if (getResult == 1015) // нет тьакого шаблона, прерываем выполнение
+                    {
+                        break;
+                    }
+
+                    result.Messages.Add($"For {security} discount values result is {getResult}");
+                }
+            }
+
+            // если не нашли какую то бумагу - ну и фиг с ней. В остальных случаях успешность убирается.
+            if (getResult == 1004)
+            {
+                getResult = 0;
+            }
+
+            // закрываем соединение
+            ListStringResponseModel closeResult = _connection.CloseQuikAPI(getResult, _spotFIRM, response);
+            result.IsSuccess = closeResult.IsSuccess;
+            result.Messages.AddRange(closeResult.Messages);
+            return result;
+        }
     }
 }
